@@ -21,3 +21,8 @@ def locations():
 @app.route('/missions')
 def missions():
 	return render_template("missions.html")
+
+@app.route('/techreport')
+def techreport():
+	return render_template("techreport.html")
+	

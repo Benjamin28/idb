@@ -1,18 +1,21 @@
 {% extends "base.html" %}
+{% block styles %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
+{% endblock %}
 {% block content %}
 
 <div class="container">
     <h2>Launches</h2>          
-    <table class="table">
+    <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Name</th>
-          <th>tbddate</th>
-          <th>tbdtime</th>
-          <th>Status</th>
-          <th>Location</th>
+          <th>Window Start</th>
+          <th>Window End</th>
+          <th>Video URL</th>
+          <th>Launchpad</th>
           <th>Rocket</th>
-          <th>Missions</th>
         </tr>
       </thead>
       <tbody>
