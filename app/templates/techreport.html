@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <h2>Technical Report</h2>          
+Vincent (Backend):
+<p>The backend was created using Flask. Flask made the setup incredibly easy. The project was set up by first creating a directory named our project. Inside that directory, we used virtualenv to create a virtual environment to so that all Python dependencies didn’t have to be downloaded on everyone’s local machine to work. After installing Flask and flask_sqlalchemy, we were ready to get the project started. We created a directory named ‘app’ that contained 2 more directories, ‘static’ and ‘templates’. The directory ’app’ contains all the files that our website needed to display, use, and run. ‘app’ directory was converted into a python module by defining __init__.py. This is where all of the Flask setup was done such as defining configs for the app as well as defining the database using SQLAlchemy.<br>Following all the Flask setup, we began creating views for our 4 models. This was done in views.py. Flask made it incredibly easy to link url paths to specific html files. We defined 5 methods and used render_template to present the correct html file given the url path that was defined using a Python decorator.<br>Next we set up our models in models.py. We defined our 4 models/tables and listed the various properties/columns that those models have.Talk about setting up the relationships here!!!<br>Following the setup of the models, we established and created database.db and used sqlite3 to import the models into the database.<br>After all of the application setup, we proceeded to create our HTML pages. Base.html came first and we used bootstrap to create a nav bar. All files would extend from base.html and also include the nav bar in all the other pages. We then created index.html. We also used a bootstrap theme to create the carousel. The HTML files for our four models were generated the same way. Extending base.html got us the nav bar, then we built the tables for the models and instances in the respective HTML files.</p>
+
+
+</div>
+
+
+{% endblock %}
+
