@@ -10,7 +10,7 @@ body {
 .active,
 .container {
 	height:100%;
-	width: 100%;
+
 }
 .container {
 	padding: 0;
@@ -24,4 +24,8 @@ body {
 }
 .navbar-header {
 	padding-left: 20px;
+}
+
+.navbar {
+	margin: 0;
 }
