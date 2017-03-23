@@ -1,3 +1,28 @@
+commit 1d69b649d738ea7539017cb13ecc3b330b4d295e
+Merge: 95be601 6dfb518
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Thu Mar 23 17:31:44 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 95be601e4b7baeab076c568d4958801d3cd116a1
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Thu Mar 23 17:31:29 2017 -0500
+
+    Fixed syntax error line 54 - lack of comma
+
+commit 6dfb518ffc3af51584ba6d0855fcb3afc5edd2f6
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Thu Mar 23 17:25:43 2017 -0500
+
+    added a make versions that does nothing
+
+commit 38c9a82e8324fc1513fed534225dde551192e517
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Thu Mar 23 17:22:28 2017 -0500
+
+    makefile and log
+
 commit 8a0bf4263041415a6af16cf92c36f0eff790b09a
 Merge: e04be98 2a61b45
 Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
