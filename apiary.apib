@@ -1,80 +1,131 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://launchti.me/
 
-# itslaunchtime
+# launchtime
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+API allowing users to query information concerning rockets, rocket launches, 
+missions, and locations of rocket launches
 
-## Questions Collection [/questions]
+## Agency Information [/agency/{agency_id}]
 
-### List All Questions [GET]
++ Parameter
+    + agency_id (number) - ID of the agency whose information you want
+
+### View an Agency's Details [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
+                "id": "1234",
+                "name": "National Aeronautics and Space Administration",
+                "abbrev": "NASA",
+                "agencyType": "Government",
+                "countryCode": 1, 
+                "wikiUrl": "https://en.wikipedia.org/wiki/NASA"
             }
         ]
 
-### Create a New Question [POST]
+## Mission Information [/mission/{mission_id}]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
++ Parameter
+    + mission_id (number) - ID of the mission whose information you want
 
-+ Request (application/json)
+### View a Mission's Details [GET]
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
++ Response 200 (application/json)
 
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
-    + Body
-
+        [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "id": "5",
+                "name": "Nuclear Spectroscopic Telescope Array",
+                "abbrev": "NuSTAR",
+                "description": "Designed to image high-energy X-ray radiation, the Nuclear Spectroscopic Telescope Array (NuSTAR) is tasked with surveying regions surrounding the center of own Milky Way Galaxy and performing deep observations of the extragalactic sky, studying black holes and supernovas.",
+                "agencies": [
+                                {
+                                    "id": 44,
+                                    "name": "National Aeronautics and Space Administration",
+                                    "abbrev": "NASA",
+                                    "countryCode": "USA",
+                                    "agencyType": "Government",
+                                    "countryCode": 1,
+                                    "wikiURL": "http://en.wikipedia.org/wiki/National_Aeronautics_and_Space_Administration"
+                                }
+                            ],
+                "launchName": "Nuclear Spectroscopic Telescope Array (NuSTAR)",
+                "rocket": "Pegasus XL"
             }
+        ]
+
+## Launch Information [/launch/{launch_id}]
+
++ Parameter
+    + launch_id (number) - ID of the launch whose information you want
+
+### View a Launch's Details [GET]
+
++ Response 200 (application/json)
+
+        [ 
+            {
+                "id": 628,
+                "name": "Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)",
+                "windowstart": "June 13, 2012 16:00:37 UTC",
+                "windowend": "June 13, 2012 16:00:37 UTC",
+                "net": "June 13, 2012 16:00:37 UTC"
+                "vidURLs": [
+                    "https://www.youtube.com/watch?v=btR6uHFcv2s"
+                ],
+                "location": {
+                    "pads": [
+                      {
+                        "id": 162,
+                        "name": "Kwajalein Atoll",
+                        "infoURL": null,
+                        "wikiURL": "https://en.wikipedia.org/wiki/Kwajalein_Atoll",
+                        "mapURL": "https://www.google.com/maps/place/8%C2%B043'00.0%22N+167%C2%B044'00.0%22E/@8.716667,167.733333,12z/data=!4m5!3m4!1s0x0:0x0!8m2!3d8.716667!4d167.733333?hl=en",
+                        "latitude": 8.716667,
+                        "longitude": 167.733333,
+                        "agencies": [
+                          {
+                            "id": 179,
+                            "name": "Orbital ATK",
+                            "abbrev": "OA",
+                            "countryCode": "USA",
+                            "type": 3,
+                            "infoURL": "https://www.orbitalatk.com/",
+                            "wikiURL": "https://en.wikipedia.org/wiki/Orbital_ATK",
+                            "infoURLs": [
+                              "https://www.orbitalatk.com/"
+                            ]
+                          },
+                          {
+                            "id": 100,
+                            "name": "Orbital Sciences Corporation",
+                            "abbrev": "OSC",
+                            "countryCode": "USA",
+                            "type": 3,
+                            "infoURL": "http://www.orbital.com/",
+                            "wikiURL": "http://en.wikipedia.org/wiki/Orbital_Sciences_Corporation",
+                            "infoURLs": [
+                              "http://www.orbital.com/"
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                "rocket": "Pegasus XL"
+                "agencies": [
+                    {
+                        "id": "1234",
+                        "name": "National Aeronautics and Space Administration",
+                        "abbrev": "NASA",
+                        "agencyType": "Government",
+                        "countryCode": 1, 
+                        "wikiUrl": "https://en.wikipedia.org/wiki/NASA"
+                    }
+                ]   
+            }
+        ]
+
+
