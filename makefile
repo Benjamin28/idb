@@ -29,7 +29,10 @@ check:
     echo "success";
 
 html:
-	# this shit doesn't work right now python3 -m pydoc -w app/models.py
+	# this doesn't work right now because python syntax is off python3 -m pydoc -w app/models.py
+
+versions:
+	# this does nothing right now
 
 log:
 	git log > IDB.log
@@ -40,5 +43,5 @@ restart:
 
 unittest:
 	python3 ./app/tests.py
-	
+
 test: html log check
