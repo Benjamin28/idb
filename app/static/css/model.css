@@ -6,3 +6,11 @@ body {
 	height: 100%;
 }
 
+.navbar-header {
+	padding-left: 20px;
+}
+
+.navbar {
+	margin: 0;
+	width: 100%;
+}
