@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
+{% endblock %}
+{% block content %}
+
+<div class="container">
+	
+</div>
+
+<h1>Shenzhou-10</h1>
+
+<div>
+	<h4>Description</h4>
+	<div>
+	This is the fifth crewed mission for China's Shenzhou program which lasted 15 days. Shenzhou-10 began its mission by bringing Nie Haisheng, Zhang Xiaoguang and Wang Yaping to the Tiangong-1 space station. During their 12-day stay at the station astronauts conducted space medicine and technological experiments, and Wang Yaping gave a lecture for over 60 million Chinese students. On 23 June undocked from the station and performed manual re-docking procedure, which was one of the objectives of the mission. On 25 June Shenzhou-10 undocked from the station and landed safely on the morning of the next day.
+	</div>
+	<h4><a href="{{url_for('launches_2')}}">Launch: Long March 2F | Shenzhou-10</a></h4>
+	<h4>Type:</h4>
+	<h4><a href="{{url_for('agency_2')}}">Agency: China Academy of Space Technology</a></h4>
+	<h4>Launch Date: June 11, 2013</h4>
+</div>
+
+{% endblock %}

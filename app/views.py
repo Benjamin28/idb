@@ -54,12 +54,29 @@ def launches_2():
 def launches_3():
 	return render_template("temp/launches_3.html");
 
-@app.route('/locations?id=3')
+@app.route('/locations?id=1')
 def location_1():
 	return render_template("temp/location_1.html");
-@app.route('/missions?id=3')
+
+@app.route('/locations?id=2')
+def location_2():
+	return render_template("temp/location_2.html");
+
+@app.route('/locations?id=3')
+def location_3():
+	return render_template("temp/location_3.html");
+
+@app.route('/missions?id=1')
 def mission_1():
 	return render_template("temp/mission_1.html");
+
+@app.route('/missions?id=2')
+def mission_2():
+	return render_template("temp/mission_2.html");
+
+@app.route('/missions?id=3')
+def mission_3():
+	return render_template("temp/mission_3.html");
 
 
 
