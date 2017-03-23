@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
+{% endblock %}
+{% block content %}
+
+<div class="container">
+	
+</div>
+
+<h1>Ariane 5 ECA | SGDC 1 &amp; Koreasat 7</h1>
+
+<div>
+	<h4>Start: March 24, 2017</h4>
+	<h4>Status: 1</h4>
+	<h4>Rocket: Ariane 5 ECA</h4>
+	<h4><a href="{{url_for('agency_1')}}">Agency: Arianespace</a></h4>
+	<h4>Location: Kourou, French Guiana</h4>
+	<h4>Mission: SGDC 1 &amp; Koreasat 7</h4>
+</div>
+
+
+
+{% endblock %}
