@@ -32,5 +32,8 @@ class Mission(db.Model):
 	agencyName = db.Column(db.String(120))
 	launchName = db.Column(db.String(120))
 
+class About(db.Model):
+	
+
 
 # define relationships later

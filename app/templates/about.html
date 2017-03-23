@@ -1,6 +1,9 @@
-
-{% extends "base.html" %}
+<!-- {% extends "base.html" %} -->
+{% block styles %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/landing.css') }}">
+{% endblock %}
 {% block content %}
+
 <h2> ABOUT </h2>
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->

@@ -22,7 +22,7 @@ def locations():
 def missions():
 	return render_template("missions.html")
 
-@app.route('/techreport')
-def techreport():
-	return render_template("techreport.html")
+@app.route('/about')
+def about():
+	return render_template("about.html")
 	
