@@ -75,6 +75,7 @@ class TestModels(unittest.TestCase):
 
 			launch1 = db.session.query(Launch).filter_by(name="Launch X").first()
 			self.assertEqual(launch1.rocket, "Big Rocket 7")
+			self.assertTrue(launch1.id == 2)
 
 			db.session.delete(ex1)
 			db.session.commit()
@@ -111,12 +112,6 @@ class TestModels(unittest.TestCase):
 			db.session.commit()
 
 
-	# use after __repr__ functions ahve been implemented
-	# def test_agency_repr(self):
-	# 	"""
-	# 		test agency string representation
-	# 	"""
-	# 	self.assertEqual(str(self.agency), "agency representation string")
-
 if __name__ == "__main__":
     unittest.main()
+    
