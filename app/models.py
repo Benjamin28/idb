@@ -51,7 +51,7 @@ class Mission(db.Model):
 
 # Relational Table for many to many relationship for agency and mission
 associationTable = db.Table('association',
-	db.Column('agency_id', db.Integer, db.ForeignKey('agency.id'))
+	db.Column('agency_id', db.Integer, db.ForeignKey('agency.id')),
 	db.Column('mission_id', db.Integer, db.ForeignKey('mission.id'))
 )
 
