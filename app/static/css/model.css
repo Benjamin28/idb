@@ -14,3 +14,15 @@ body {
 	margin: 0;
 	width: 100%;
 }
+
+.featurette-divider {
+	margin: 80px 0;
+}
+
+.item {
+	padding: 10px;
+}
+
+.thumbnail {
+	border-radius: 0px;
+}

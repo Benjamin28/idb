@@ -6,52 +6,87 @@
 {% block content %}
 
 <div class="container">
-    <h2>Agencies</h2>          
-    <table id="table" class="table table-striped table-bordered" cellspacing="0">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Abbreviation</th>
-          <th>Type</th>
-          <th>Country Code</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
+    <h2>Agencies</h2>  
+    <div class="col-sm-3">
+      <ul class="list-unstyled">
+        <li>
+          <p>Filter 1</p>
+          <form>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 1</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 2</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 3</label>
+            </div>
+          </form>
+        </li>
+        <li>
+          <p>Filter 2</p>
+          <form>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 1</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 2</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 3</label>
+            </div>
+          </form>
+        </li>
+        <li>
+          <p>Filter 3</p>
+          <form>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 1</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 2</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 3</label>
+            </div>
+          </form>
+        </li>
+    </div>
+    <div class="col-sm-9">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
+          <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Name</a></li>
+          <li><a href="#">Type</a></li>
+          <li><a href="#">Country Code</a></li>
+        </ul>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption">
             <a href="{{url_for('agency_1')}}">Mexican Space Agency</a>
-          </td>
-          <td>
-            <a href="http://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana">AEM</a>
-          </td>
-          <td>Government</td>
-          <td>MEX</td>
-
-        </tr>
-        <tr>
-          <td>
+          </div>
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption">
             <a href="{{url_for('agency_2')}}">China National Space Administration</a>
-          </td>
-          <td>
-              <a href="http://en.wikipedia.org/wiki/China_National_Space_Administration">CNSA</a>
-          </td>
-          <td>Government</td>
-          <td>CHN</td>
-
-        </tr>
-        <tr>
-          <td>
+          </div>
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption">
             <a href="{{url_for('agency_3')}}">National Aeronautics and Space Administration</a>
-          </td>
-          <td>
-              <a href="http://en.wikipedia.org/wiki/National_Aeronautics_and_Space_Administration">NASA</a>
-          </td>
-          <td>Government</td>
-          <td>USA</td>
-
-        </tr>
-      </tbody>
-    </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->

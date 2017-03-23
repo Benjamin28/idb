@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% block styles %}
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
@@ -5,46 +6,89 @@
 {% block content %}
 
 <div class="container">
-    <h2>Missions</h2>          
-    <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Launch</th>
-          <th>Type</th>
-          <th>Agency</th>
-          <th>Launch Date</th>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><a href="{{url_for('mission_1')}}">Nuclear Spectroscopic Telescope Array (NuSTAR)</a></td>
-          <td>Designed to image high-energy X-ray radiation, the Nuclear Spectroscopic Telescope Array (NuSTAR) is tasked with surveying regions surrounding the center of own Milky Way Galaxy and performing deep observations of the extragalactic sky, studying black holes and supernovas.</td>
-          <td><a href="{{url_for('launches_1')}}">Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)</a></td>
-          <td>Astrophysics</td>
-          <td><a href="{{url_for('agency_1')}}">National Aeronautics and Space Administration</a></td>
-          <td>June 13, 2012</td>
-        </tr>
-        <tr>
-          <td><a href="{{url_for('launches_2')}}">SpX CRS-1</a></td>
-          <td>This was the third flight for the uncrewed Dragon cargo spacecaft and the first SpaceX mission under their Commercial Resupply Services contract with NASA. Dragon delivered various cargo to the staion, and returned after being berthed to the station for 17 days. The spacecraft landed in the Pacific Ocean and was recovered by SpaceX.</td>
-          <td><a href="{{url_for('launches_1')}}">Falcon 9 v1.0 | SpX CRS-1</a></td>
-          <td>Resupply</td>
-          <td><a href="{{url_for('agency_1')}}">National Aeronautics and Space Administration</a></td>
-          <td>October 8, 2012</td>
-        </tr>
-        <tr>
-          <td><a href="{{url_for('launches_2')}}">Shenzhou-10</a></td>
-          <td>This is the fifth crewed mission for China's Shenzhou program which lasted 15 days. Shenzhou-10 began its mission by bringing Nie Haisheng, Zhang Xiaoguang and Wang Yaping to the Tiangong-1 space station. During their 12-day stay at the station astronauts conducted space medicine and technological experiments, and Wang Yaping gave a lecture for over 60 million Chinese students. On 23 June undocked from the station and performed manual re-docking procedure, which was one of the objectives of the mission. On 25 June Shenzhou-10 undocked from the station and landed safely on the morning of the next day.</td>
-          <td><a href="{{url_for('launches_1')}}">Long March 2F | Shenzhou-10</a></td>
-          <td></td>
-          <td><a href="{{url_for('agency_1')}}">China Academy of Space Technology</a></td>
-          <td>June 11, 2013</td>
-        </tr>
-      </tbody>
-    </table>
+    <h2>Missions</h2>  
+    <div class="col-sm-3">
+      <ul class="list-unstyled">
+        <li>
+          <p>Filter 1</p>
+          <form>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 1</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 2</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 3</label>
+            </div>
+          </form>
+        </li>
+        <li>
+          <p>Filter 2</p>
+          <form>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 1</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 2</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 3</label>
+            </div>
+          </form>
+        </li>
+        <li>
+          <p>Filter 3</p>
+          <form>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 1</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 2</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 3</label>
+            </div>
+          </form>
+        </li>
+    </div>
+    <div class="col-sm-9">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
+          <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Name</a></li>
+          <li><a href="#">Launch</a></li>
+          <li><a href="#">Type</a></li>
+          <li><a href="#">Agency</a></li>
+          <li><a href="#">Launch Date</a></li>
+        </ul>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption">
+            <a href="{{url_for('mission_1')}}">Nuclear Spectroscopic Telescope Array (NuSTAR)</a>
+          </div>
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption">
+           <td><a href="{{url_for('mission_3')}}">Shenzhou-10</a></td>
+          </div>
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption">
+            <a href="{{url_for('mission_2')}}">SpX CRS-1</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
