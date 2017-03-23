@@ -1,0 +1,222 @@
+commit 8a0bf4263041415a6af16cf92c36f0eff790b09a
+Merge: e04be98 2a61b45
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Thu Mar 23 17:05:23 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit e04be988ff2a59780f98819049e30fb5c283548d
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Thu Mar 23 17:04:56 2017 -0500
+
+    Fixed tests, removed commented lines.
+
+commit 2a61b45fcac35149856567ca01801348a6e06238
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Mar 23 16:01:12 2017 -0500
+
+    adding UML diagram
+
+commit edc28c5432e4b1ad18f56b3b7b65bbc4a279f888
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Mar 23 15:21:26 2017 -0500
+
+    adding .travis.yml
+
+commit 888951e7be356ddcea81979c1135ab434a19233e
+Author: Ubuntu <ubuntu@ip-172-31-24-170.us-west-2.compute.internal>
+Date:   Thu Mar 23 17:56:27 2017 +0000
+
+    updated .gitignore to ignore .pyc files
+
+commit 15eef722383c2327b07a7abbc6ff20ed56a57c5c
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Thu Mar 23 12:44:40 2017 -0500
+
+    Changed list view to grid view
+
+commit e034069c786b74b42fe3d38d45d1cf48ef8de16a
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Mar 22 23:43:29 2017 -0500
+
+    Added simple model unit tests.
+
+commit 78013377b2a333709420a23d8c3e37f184a0ee02
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Mar 22 23:17:08 2017 -0500
+
+    fixed missions, previous missing mission 2,3 and wrong links
+
+commit be63820834e84196e1eb2cff29de80e1dc0616e9
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Wed Mar 22 22:52:14 2017 -0500
+
+    Minor aesthetic fixes
+
+commit bf1272840b76c09d22c4e44192a0707581cd72dd
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Mar 22 22:36:51 2017 -0500
+
+    fixed typo in locations.html
+
+commit cd20671fbc366d9ec72aa1b379e1a4c8d517698a
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Mar 22 22:32:58 2017 -0500
+
+    updated locations with locations2/3.html
+
+commit 5a936389516c1b8eb18ed4ee1c3236f697ea0400
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Wed Mar 22 22:26:22 2017 -0500
+
+    Updated apiary.apib to contain basic api documentation
+
+commit 142660945d9fd99dcf9279e55fec27a6d673fbc7
+Merge: 30bda96 a956ced
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Wed Mar 22 22:07:13 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 30bda96e2396c7e444f20ea572056925648bd0c2
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Wed Mar 22 22:06:59 2017 -0500
+
+    Added about page
+
+commit a956cedfd6acbbf0b84a5953fdbfa454d0233da6
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Mar 22 22:06:50 2017 -0500
+
+    fixed typos in relationships
+
+commit d1154748aa6ef9b71e841a2d921b85805bbf06ec
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Mar 22 21:42:24 2017 -0500
+
+    updated models with relationships
+    possible import error, didn't experience any when I ran
+
+commit 34bc85ecc0f040a806f62b8c26ae1be88738e78a
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Wed Mar 22 21:37:51 2017 -0500
+
+    added more links
+
+commit a5ae2977e84b9e5c66e0ea5b9e188450617cac2d
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Wed Mar 22 21:33:27 2017 -0500
+
+    added links to dummy pages
+
+commit 1230b76b9203b8424d9ce3fe2e05d0354c780120
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Wed Mar 22 20:00:04 2017 -0500
+
+    added about tab
+
+commit ac2c5bccace54d4d37d17d3ebcd0492c65c7716f
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Wed Mar 22 14:16:26 2017 -0500
+
+    filled in data from api, hardcoded
+
+commit cce47114443648541f8252d724c5398e074509bd
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Wed Mar 22 11:33:48 2017 -0500
+
+    filled in launches html
+
+commit e1fdeca8d76eafd84e984807803c40f8c74dea88
+Merge: e79e200 7cc175e
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Tue Mar 21 23:49:12 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit e79e2007a5ec759682de3abeb4b1df3c5659c2a7
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Tue Mar 21 23:49:09 2017 -0500
+
+    filled in info on launches page
+
+commit 7cc175e38c11f5f2152f633ae606d70f15f023f1
+Merge: 6dd9f5e e277c0b
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Tue Mar 21 22:24:18 2017 -0500
+
+    Added sorting
+
+commit 6dd9f5eb8a1df5c6da37c5f57e3c3e3e2514b83b
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Tue Mar 21 22:17:57 2017 -0500
+
+    Added sorting
+
+commit e277c0be8100bb48a1ab7930fde764f51da1ad9a
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Tue Mar 21 21:42:30 2017 -0500
+
+    added tech report tab
+
+commit 5aa88355db6d5fe7b076dc26cc1a268d2ba94ec4
+Merge: ddcebef 9c7ab84
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Tue Mar 21 20:17:21 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit ddcebefcb01a0ccffa9f90b8cb5d3feb42534747
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Tue Mar 21 20:16:41 2017 -0500
+
+    Fixed model columns
+
+commit 9c7ab84ad2cc16f60b0327a154dcecb70412f031
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Tue Mar 21 18:42:43 2017 -0500
+
+    updated models with more table columns
+
+commit 49f3dcc5d4c0a82a82f8f188cca52fdce3ad26da
+Merge: 03609a8 9d7b508
+Author: Ubuntu <ubuntu@ip-172-31-24-170.us-west-2.compute.internal>
+Date:   Tue Mar 21 22:52:04 2017 +0000
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 03609a851f26109a11056871e14bbd79fe4f916a
+Author: Ubuntu <ubuntu@ip-172-31-24-170.us-west-2.compute.internal>
+Date:   Tue Mar 21 22:51:50 2017 +0000
+
+    added wsgi file for apache/flask
+
+commit 9d7b508b7f1bf6bc327fabaf50536cae1865f3fb
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Tue Mar 21 17:32:18 2017 -0500
+
+    Added html to model templates
+
+commit 24a71d641302fa9f466bc86a5f8ea79448699bbb
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Mon Mar 20 22:44:56 2017 -0500
+
+    added flask, html for model pages,  and database models
+
+commit f9907eb4ac5edd71ec6444b0b526e58c1c1353d8
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Mon Mar 20 16:48:06 2017 -0500
+
+    Rough splash page
+
+commit 78312052e10a0fdd593de3e35fe6e06af309ff36
+Author: Benjamin Baker <benjamin.baker@utexas.edu>
+Date:   Fri Mar 17 12:26:11 2017 -0500
+
+    Transferring API Description file from Apiary.io
+
+commit 154a2579e2e7b6dc94317857cf0e74d018a7dfcd
+Author: Benjamin Baker <benjamin.baker@utexas.edu>
+Date:   Tue Mar 7 15:09:08 2017 -0600
+
+    Initial commit
