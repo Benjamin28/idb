@@ -18,3 +18,11 @@ body {
 .featurette-divider {
 	margin: 80px 0;
 }
+
+.item {
+	padding: 10px;
+}
+
+.thumbnail {
+	border-radius: 0px;
+}
