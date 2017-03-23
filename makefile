@@ -29,7 +29,7 @@ check:
     echo "success";
 
 html:
-	# this doesn't work right now because python syntax is off python3 -m pydoc -w app/models.py
+	python3 -m pydoc -w app/models.py
 
 versions:
 	# this does nothing right now
