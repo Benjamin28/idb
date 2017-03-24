@@ -7,7 +7,7 @@
     <div class="row">
       <h1 class="featurette-heading text-center">itslaunchti.me</h1>
     </div>
-    <hr class="featurette-divider">
+    <hr>  
  <div class="container marketing">
 
       <!-- Three columns of text below the carousel -->
@@ -102,70 +102,101 @@
       <hr class="featurette-divider">
       <div class="row featurette">
         <div class="col-med-4">
-          <h2 class="featurette-heading">Technical Report</h2>
-          <p class="lead">Ben(description of the site, its purpose, its intended users):
-<p>A team of UT students created itslaunchti.me to provide a media-rich alternative  to launchlibrary.net with improved content navigation. Space enthusiasts worldwide read launchlibrary.net to get updates on upcoming space missions, but the website, in spite of having an extensive dataset, does not provide users with the ability to view upcoming launches sorted and filtered by specified criteria(E.g. Agency, Location, Mission Objective). Furthermore, the website, launchlibrary.net, does not display much of the wide array of media and data present in the Launch Library API. Itslaunchti.me uses the Launch Library dataset to build a more media rich experience with more options for navigation. 
+        <div class="techreport">
+          <h1>Technical Report</h1>
+          <hr>
+          <h3>Itslaunchti.me Mission Statement</h3>
+          <hr>
+<p>A team of UT students created itslaunchti.me to provide a media-rich alternative  to launchlibrary.net with improved content navigation. Space enthusiasts worldwide read launchlibrary.net to get updates on upcoming space missions, but the website, in spite of having an extensive dataset, does not provide users with the ability to view upcoming launches sorted and filtered by specified criteria(E.g. Agency, Location, Mission Objective). Furthermore, the website, launchlibrary.net, does not display much of the wide array of media and data present in the Launch Library API. Itslaunchti.me uses the Launch Library dataset to build a more media rich experience with more options for navigation.</p>
+<p>Itslaunchti.me is intended for space enthusiasts as well as people who are just beginning to study space programs. This site will provide space enthusiasts with a better experience when researching upcoming launches. For example, itslaunchti.me will display photographs of the spacecraft to be used, as well as links to related articles to learn more about specific space programs. When a live stream is scheduled to show the launch of a rocket, a link to the stream will be provided to the user. We think that this provides a more captivating experience. Additionally, itslaunchti.me can engage users with a wider array of interests. For example, someone with an interest in government agencies can satisfy their desire to learn about different government programs, while tangentially learning about the missions of different space missions as well as the different types of rockets in use. This will encourage users to spend longer periods of time on itslaunchti.me. The same thing applies to people with an interest in geography as well as those interested in specific agencies.</p>
 
-Itslaunchti.me is intended for space enthusiasts as well as people who are just beginning to study space programs. This site will provide space enthusiasts with a better experience when researching upcoming launches. For example, itslaunchti.me will display photographs of the spacecraft to be used, as well as links to related articles to learn more about specific space programs. When a live stream is scheduled to show the launch of a rocket, a link to the stream will be provided to the user. We think that this provides a more captivating experience. Additionally, itslaunchti.me can engage users with a wider array of interests. For example, someone with an interest in government agencies can satisfy their desire to learn about different government programs, while tangentially learning about the missions of different space missions as well as the different types of rockets in use. This will encourage users to spend longer periods of time on itslaunchti.me. The same thing applies to people with an interest in geography as well as those interested in specific agencies.</p>
+<hr>
+<h3>Backend Design</h3>
+<hr>
+<p>The backend was created using Flask. Flask made the setup incredibly easy. The project was set up by first creating a directory named our project. Inside that directory, we used virtualenv to create a virtual environment to so that all Python dependencies didn’t have to be downloaded on everyone’s local machine to work. After installing Flask and flask_sqlalchemy, we were ready to get the project started. We created a directory named ‘app’ that contained 2 more directories, ‘static’ and ‘templates’. The directory ’app’ contains all the files that our website needed to display, use, and run. ‘app’ directory was converted into a python module by defining __init__.py. This is where all of the Flask setup was done such as defining configs for the app as well as defining the database using SQLAlchemy. The ‘static’ directory contains all the static files that the web page needs such as CSS files, Javascript files, and images. The ‘templates’ directory contains all of the HTML files that Flask uses for the web pages.</p>
+<p>Following all the initial Flask setup, we began creating views for our 4 models. This was done in views.py inside of the app directory. Flask made it incredibly easy to link url paths to specific html files. We defined 5 methods and used render_template to present the correct html file given the url path that was defined using a Python decorator.</p>
+<p>Next, we set up our models in models.py. We defined our 4 models/tables and listed the various properties/columns that those models have.The relationships were set up using SQLAlchemy’s relationship() method. All many to many, one to many, and one to one relationships were defined this way. Agency has a one to many relationship to Launch. Agency has a many to many relationship to Mission. Launch has a one to one relationship with Mission. Launch has a many to one relationship with Location. The many to many relationship required an association table. Having knowledge about relational databases such as foreign keys definitely helped in creating this part.<br>
+Following the setup of the models, we established and created database.db and used sqlite3 to import the models into the database.</p>
+<p>After all of the application setup, we proceeded to create our HTML pages. Base.html came first and we used bootstrap to create a nav bar. All files would extend from base.html and also include the nav bar in all the other pages. We then created index.html. We also used a bootstrap theme to create the carousel. The HTML files for our four models were generated the same way. Extending base.html got us the nav bar, then we built the tables for the models and instances in the respective HTML files.</p>
 
+<hr>
+<h3>Frontend Design</h3>
+<hr>
+<b>User Interface</b>
+<p>We used Bootstrap as a framework to create the website. It uses a convenient grid system and bundles in CSS and Javascript components to easily create an aesthetically pleasing, responsive, and cross-browser compatible website. To set it up, we included CDN links found on Bootstrap’s website in our HTML file’s head and body:<br>
+<pre><code>&lt!-- Latest compiled and minified CSS -->
+&ltlink rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+&lt!-- Optional theme -->
+&ltlink rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-Vincent (Backend):
-<p>The backend was created using Flask. Flask made the setup incredibly easy. The project was set up by first creating a directory named our project. Inside that directory, we used virtualenv to create a virtual environment to so that all Python dependencies didn’t have to be downloaded on everyone’s local machine to work. After installing Flask and flask_sqlalchemy, we were ready to get the project started. We created a directory named ‘app’ that contained 2 more directories, ‘static’ and ‘templates’. The directory ’app’ contains all the files that our website needed to display, use, and run. ‘app’ directory was converted into a python module by defining __init__.py. This is where all of the Flask setup was done such as defining configs for the app as well as defining the database using SQLAlchemy. The ‘static’ directory contains all the static files that the web page needs such as CSS files, Javascript files, and images. The ‘templates’ directory contains all of the HTML files that Flask uses for the web pages.<br>
-Following all the initial Flask setup, we began creating views for our 4 models. This was done in views.py inside of the app directory. Flask made it incredibly easy to link url paths to specific html files. We defined 5 methods and used render_template to present the correct html file given the url path that was defined using a Python decorator.<br>
-Next we set up our models in models.py. We defined our 4 models/tables and listed the various properties/columns that those models have.The relationships were set up using SQLAlchemy’s relationship() method. All many to many, one to many, and one to one relationships were defined this way. Agency has a one to many relationship to Launch. Agency has a many to many relationship to Mission. Launch has a one to one relationship with Mission. Launch has a many to one relationship with Location. The many to many relationship required an association table. Having knowledge about relational databases such as foreign keys definitely helped in creating this part.<br>
-Following the setup of the models, we established and created database.db and used sqlite3 to import the models into the database.<br>After all of the application setup, we proceeded to create our HTML pages. Base.html came first and we used bootstrap to create a nav bar. All files would extend from base.html and also include the nav bar in all the other pages. We then created index.html. We also used a bootstrap theme to create the carousel. The HTML files for our four models were generated the same way. Extending base.html got us the nav bar, then we built the tables for the models and instances in the respective HTML files.</p>
+&lt!-- Latest compiled and minified JavaScript -->
+&ltscript src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">&lt/script></pre></code></p>
+<p>The splash page was created using a modified carousel template from Bootstrap’s website. We extended it to fill the entire screen, and saved images in app/static/images to embed in the carousel. The nav bar across the top is also created and stylized largely with Bootstrap, customizing it with our own tabs and links. Bootstrap provides many default css properties, but they can be overridden with our own css files, placed in app/static/css. For each model page, we created a template that could be used for each model. Bootstrap’s grid system allows us to divide the page into rows and columns. We placed a filtering system on the left hand side, composed of an unordered list of different categories of filters, inside of which is a list of the filter options. We also included a sorting dropdown menu that can sort through models based on their attributes. On the right, we placed a grid of items. Each item consists of a thumbnail with an image and a caption which links to the page for that instance. Since the website is not currently hooked with a database, elements in each model are linked to some static dummy pages which are stored inside temp folder. Those pages include the relevant information for that instance and contain links to other pages. Again, we created templates that could be filled in and re-used for each instance page. For the about page, again, Bootstrap’s grid system allows us to cleanly organize pictures and captions on the page.</p>
 
-Sam (GUI):
-We used Bootstrap as a framework to create the website. It uses a convenient grid system and bundles in CSS and Javascript components to easily create an aesthetically pleasing, responsive, and cross-browser compatible website. To set it up, we included CDN links found on Bootstrap’s website in our HTML file’s head. The splash page was created using a modified carousel template from Bootstrap’s website. We extended it to fill the entire screen, and saved images in app/static/images to embed in the carousel. The nav bar across the top is also created and stylized largely with Bootstrap, customizing it with our own tabs and links. Bootstrap provides many default css properties, but they can be overridden with our own css files, placed in app/static/css. For each model page, we created a template that could be used for each model. Bootstrap’s grid system allows us to divide the page into rows and columns. We placed a filtering system on the left hand side, composed of an unordered list of different categories of filters, inside of which is a list of the filter options. We also included a sorting dropdown menu that can sort through models based on their attributes. On the right, we placed a grid of items. Each item consists of a thumbnail with an image and a caption, which links to the page for that instance. Those pages include the relevant information for that instance and contain links to other pages. Again, we created templates that could be filled in and re-used for each instance page. For the about page, again, Bootstrap’s grid system allows us to cleanly organize pictures and captions on the page. 
-
-
-
-Ben(React framework note - append to section on front end):
+<b>Note on React</b>
 <p>Our project does not yet use React, but we will add it to the pages that need to display data from the database. The React code will fetch the names of instances and photographs of the instances from the backend and the backend code. The react body of code will then implant the data from the backend as html on the category and instance pages. The ability to sort and filter this data will come from code implemented in the frontend. Because this code is not yet implemented, we do not have sufficient details for this.</p>
-<p>Since the website is not currently hooked with database, elements in each model are linked to some static dummy pages which are stored inside temp folder.
-</p>
   
-Zach Hosting setup and APIary docs):
-<p> <b> PART ONE: SETTING UP THE AWS SERVER ON AWS </b></br>The first thing to do is to create an AWS account, note that you will have to give a credit card, but there a is free tier, so as long as you stick to that, you shouldn't be charged. Also realize that because whoever creates the account must put credit card info in, whoever creates the account may not want to give out the account login and password, it's may not be a big deal, but it's good to know. Next, under the services tab go to the Network options and select “VPC.” Use the VPC wizard to create your VPC. It will ask you a few questions about your VPC setup, and you should leave everything on the default settings except the following:</b>for the endpoints options choose public subnet option and select create VPC</b>
-Now, again go to the services tab and from under the compute options, select EC2. Under create instance, select launch instance. Select an Ubuntu server. <b>SELECT THE GENERAL PURPOSE FREE TIER SO YOU ARE NOT CHARGED</b>. Press next. For the auto-assign public IP, select the enable option (because you want people without a key to be able to see your website). Select review and launch. Find and select the edit security groups option and add a rule for HTTP with the default settings, it is very important that you chose HTTP and not HTTPS if you follow this guide for setting up. Press “Launch Instance”. Next you will be required to create a new key-pair name. This key pair name will allow you/your teammates to access the server through ssh, so it is <b>incredibly important</> that you do not lose it. Now click on view instance, and you should see your server either ready (green light), not ready (yellow light), or broken (red light). If it is yellow, that's ok. Just wait a second for it to finish setting up. If it's red, then you messed something up during the setup, so I would suggest killing the instance by going to actions, clicking instance state, clicking terminate, and then starting over. Now, to make sure that your instance is correctly up and running, we will try and ssh into it. To ssh in, you must ensure that you are in the same directory where you saved that key you just made. The command is:</b>ssh -i "yourkey.pem" public dns</br> where the public dns is listed under the description tag on the page showing your instance status. If it works, you should see</br>Welcome to Ubuntu 16.04.2 LTS (GNU/Linux 4.4.0-64-generic x86_64)</br> This means that you have successfully set up a server on amazon!</p>
+<hr>
+<h3>Hosting</h3>
+<hr>
+<b>Part One: Setting up the AWS server on AWS</b>
+<p>The first thing to do is to create an AWS account. Note that you will have to give a credit card, but there a is free tier. So as long as you stick to that, you shouldn't be charged. Also realize that because whoever creates the account must put credit card info in, whoever creates the account may not want to give out the account login and password, it's may not be a big deal, but it's good to know. Next, under the services tab go to the Network options and select “VPC.” Use the VPC wizard to create your VPC. It will ask you a few questions about your VPC setup, and you should leave everything on the default settings except the following: <u>for the endpoints options choose public subnet option and select create VPC.</u>
+Now, again go to the services tab and from under the compute options, select EC2. Under create instance, select launch instance. Select an Ubuntu server. <u>Select the general purpose free tier so you are not charged.</u> Press next. For the auto-assign public IP, select the enable option (because you want people without a key to be able to see your website). Select review and launch. Find and select the edit security groups option and add a rule for HTTP with the default settings, it is very important that you chose HTTP and not HTTPS if you follow this guide for setting up. Press “Launch Instance”. Next you will be required to create a new key-pair name. This key pair name will allow you/your teammates to access the server through ssh, so it is <u>incredibly important</u> that you do not lose it. Now click on view instance, and you should see your server either ready (green light), not ready (yellow light), or broken (red light). If it is yellow, that's ok. Just wait a second for it to finish setting up. If it's red, then you messed something up during the setup, so I would suggest killing the instance by going to actions, clicking instance state, clicking terminate, and then starting over. Now, to make sure that your instance is correctly up and running, we will try and ssh into it. To ssh in, you must ensure that you are in the same directory where you saved that key you just made. The command is:<br>
+<pre><code>ssh -i "yourkey.pem" public dns</code></pre><br>
+where the public dns is listed under the description tag on the page showing your instance status. If it works, you should see<br>
+<pre><code>Welcome to Ubuntu 16.04.2 LTS (GNU/Linux 4.4.0-64-generic x86_64)</code></pre><br> This means that you have successfully set up a server on amazon!</p>
 
-<p> <b> PART TWO: DEPLOYING YOUR APP TO YOUR AWS SERVER </b></br>
-First, you want to ssh into the server that you created and started in part one above. Second, you should note that essentially every command you give the server will need sudo access (all except for cd pretty much), so when I give terminal commands to enter below ,the sudo in front is implied. The following commands ensure apt-get is updated and then install apache2.</br>apt-get update</br>apt-get install apache2</br>Now, the next command installs an apache2 mod that is needed to run a file that starts flask from apache2.</br>apt-get install libapache2-mod-wsgi python-dev</br>The next command actually tells apache2 to use the mod</br>sudo a2enmod wsgi</br>Next you will cd into the /var/www/ directory and mkdir "your app name" and now go into your directory and git clone your app repo whose name should match "your app name" -- it doesn't have to for general set up to work, but if you are following this tutorial then it does. Provided your app directory structure is set up in the ways that are detailed in the above sections then there is only one more step in this directory path. Cd into your app and create a file named <your app name>.wsgi. Your .wsgi file should have the following lines</br>
-#!/usr/bin/python
+<b>Part Two: Deploying Your App to Your AWS Server</b>
+<p>First, you want to ssh into the server that you created and started in part one above. Second, you should note that essentially every command you give the server will need sudo access (all except for cd pretty much), so when I give terminal commands to enter below ,the sudo in front is implied. The following commands ensure apt-get is updated and then install apache2:<br>
+<pre><code>apt-get update<br>apt-get install apache2</code></pre><br>
+Now, the next command installs an apache2 mod that is needed to run a file that starts flask from apache2:<br>
+<pre><code>apt-get install libapache2-mod-wsgi python-dev2</code></pre><br>
+The next command actually tells apache2 to use the mod:<br>
+<pre><code>sudo a2enmod wsgi</code></pre><br>
+Next, you will cd into the /var/www/ directory and mkdir "your app name." Now go into your directory and git clone your app repo whose name should match "your app name" - it doesn't have to for general set up to work, but if you are following this tutorial then it does. Provided your app directory structure is set up in the ways that are detailed in the above sections, there is only one more step in this directory path. Cd into your app and create a file named &ltyour app name>.wsgi. Your .wsgi file should have the following lines:<br>
+<pre><code>#!/usr/bin/python
 import sys
 import logging
 logging.basicConfig(steram=sys.stderr)
 sys.path.insert(0,"/var/www/yourappname/yourappname/")
 from app import app as application
-application.secret_key = "your super secret key"</br>
-Now you will need to tell apache2 to actually direct incoming inquiries to your website by following these steps</br>First cd into the following directory /etc/apache2/sites-available/ and then create the following file <yourappname>.conf, in the file have the following:</br>
-<VirtualHost *:80>
+application.secret_key = "your super secret key"</code></pre><br>
+Now you will need to tell apache2 to actually direct incoming inquiries to your website by following these steps:<br>
+First, cd into the following directory:<br>
+<pre><code>/etc/apache2/sites-available/</code></pre><br>
+and then create the file &ltyourappname>.conf; in the file have the following:<br>
+<pre><code>&ltVirtualHost *:80>
         ServerName your elastic server ip on Amazon (we will go into this more later)
         ServerAdmin youradminemail
         WSGIScriptAlias / /var/www/yourappname/yourappname/yourappname.wsgi
-        <Directory /var/www/yourappname/yourappname/>
+        &ltDirectory /var/www/yourappname/yourappname/>
                 Order allow,deny
                 Allow from all
-        </Directory>
+        &lt/Directory>
         Alias /static /var/www/yourappname/idbyourappnameapp/static
-        <Directory /var/www/yourappname/yourappname/app/static/>
+        &ltDirectory /var/www/yourappname/yourappname/app/static/>
                 Order allow,deny
                 Allow from all
-        </Directory>
+        &lt/Directory>
         ErrorLog ${APACHE_LOG_DIR}/error.log
         LogLevel warn
         CustomLog ${APACHE_LOG_DIR}/access/log combined
-</VirtualHost>
-</br>
-Note that if you are unable to get this working, you can just make the servername your public ip address on AWS. The elastic IP address is just for if your public IP address changes. Next, cp the conf file you just made over 000-default.conf. Now you actually need to enable the virtual host whose configuration file you just wrote. Use the following command:</br>sudo a2ensite yourappname</br> Now you need to restart apache2 with the following command:</br>sudo service apache2 restart</br>
+&lt/VirtualHost></pre></code><br>
+Note that if you are unable to get this working, you can just make the servername your public ip address on AWS. The elastic IP address is just for if your public IP address changes. Next, cp the conf file you just made over 000-default.conf. Now you actually need to enable the virtual host whose configuration file you just wrote. Use the following command:<br>
+<pre><code>sudo a2ensite yourappname</code></pre><br>
+Now you need to restart apache2 with the following command:<br>
+<pre><code>sudo service apache2 restart</code></pre><br>
 Now, if you attempt to go to local/elastic dns server, it should show your website. Good job!</p>
-<b> PART THREE: CONNECTING YOUR IP ADDRESS TO YOUR NAMECHEAP ADDRESS </b></br>
-<p>Go back to your AWS account and go to the instance you have your app on. Click on “allocate address”. This will create the elastic IP you need. Click “associate address” and associate the elastic address with your instance. Now go to route 53 under AWS services and create a hosted zone. Two records will be shown, an SOA record and an NA record. Copy and save the values in the NA record. Create two more records of type "A – IPv4 address." For their names, put <yournamecheapwebsite.me> and <www.yournamecheapwebsite.me>. For their values, put the elastic IP website you created. Go to your namecheap account and click the “manage” button beside the domain name you want to associate your website with. Scroll down a little bit and you will see a nameservers section. In this section select “custom DNS” and put each of those NA values (there should be four) that you saved. Ensure that they do <b>NOT</b> end in a period. Now your done! It can take up to twenty-four hours for the name change to propagate but can take as little as fifteen minutes.</p>
+<b>Part Three: Connecting Your IP Address to Your Namecheap Address</b>
+<p>Go back to your AWS account and go to the instance you have your app on. Click on “allocate address”. This will create the elastic IP you need. Click “associate address” and associate the elastic address with your instance. Now go to route 53 under AWS services and create a hosted zone. Two records will be shown, an SOA record and an NA record. Copy and save the values in the NA record. Create two more records of type "A – IPv4 address." For their names, put &ltyournamecheapwebsite.me> and &ltwww.yournamecheapwebsite.me>. For their values, put the elastic IP website you created. Go to your namecheap account and click the “manage” button beside the domain name you want to associate your website with. Scroll down a little bit and you will see a nameservers section. In this section select “custom DNS” and put each of those NA values (there should be four) that you saved. Ensure that they do <u>NOT</u> end in a period. Now you're done! It can take up to twenty-four hours for the name change to propagate but can take as little as fifteen minutes.</p>
 
-<b> APIARY </b>
+<hr>
+<h3>Apiary</h3>
+<hr>
 <p>First, the owner of the github account on which the app resides must create an apiary account. The owner of the github account must create the apiary account because they are the only ones who have permission to link the apiary account to the github account. Now, fill in the Apiary example (polls) that they give you, but with information based on the API that you want to provide your users. You can mock test this API by using the console to the right, which allows you to fake a request to the API you specify with apiary. Apiary will return your mock data to you if the request had legitimate syntax; just be sure to change the "production" option under the request section to "mock server".</p>
-</p>
+
+          </div>
         </div>
       </div>
 

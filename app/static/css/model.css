@@ -26,3 +26,11 @@ body {
 .thumbnail {
 	border-radius: 0px;
 }
+
+.techreport {
+	font-size: 18px;
+	line-height: 1.5;
+}
+pre {
+	margin-bottom: 0;
+}
