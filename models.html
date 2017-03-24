@@ -67,21 +67,26 @@ Data descriptors defined here:<br>
 </dl>
 <dl><dt><strong>id</strong></dt>
 </dl>
+<dl><dt><strong>missions</strong></dt>
+</dl>
 <dl><dt><strong>name</strong></dt>
 </dl>
 <dl><dt><strong>wikiUrl</strong></dt>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x7f6f295bb1d0; Agency&gt;</dl>
+<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x7faab6a02630; Agency&gt;</dl>
 
 <dl><dt><strong>__table__</strong> = Table('agency', MetaData(bind=None), Column('id'...String(length=120), table=&lt;agency&gt;), schema=None)</dl>
 
 <hr>
+Methods inherited from flask_sqlalchemy.Model:<br>
+<dl><dt><strong>query</strong></dt>
+</dl>
+
+<hr>
 Data and other attributes inherited from flask_sqlalchemy.Model:<br>
 <dl><dt><strong>metadata</strong> = MetaData(bind=None)</dl>
-
-<dl><dt><strong>query</strong> = &lt;flask_sqlalchemy.BaseQuery object&gt;</dl>
 
 <dl><dt><strong>query_class</strong> = &lt;class 'flask_sqlalchemy.BaseQuery'&gt;<dd><tt>SQLAlchemy&nbsp;:class:`~sqlalchemy.orm.query.Query`&nbsp;subclass&nbsp;with&nbsp;convenience&nbsp;methods&nbsp;for&nbsp;querying&nbsp;in&nbsp;a&nbsp;web&nbsp;application.<br>
 &nbsp;<br>
@@ -149,15 +154,18 @@ Data descriptors defined here:<br>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x7f6f295bb8d0; Launch&gt;</dl>
+<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x7faab6a02d68; Launch&gt;</dl>
 
 <dl><dt><strong>__table__</strong> = Table('launch', MetaData(bind=None), Column('id'...Key('location.id'), table=&lt;launch&gt;), schema=None)</dl>
 
 <hr>
+Methods inherited from flask_sqlalchemy.Model:<br>
+<dl><dt><strong>query</strong></dt>
+</dl>
+
+<hr>
 Data and other attributes inherited from flask_sqlalchemy.Model:<br>
 <dl><dt><strong>metadata</strong> = MetaData(bind=None)</dl>
-
-<dl><dt><strong>query</strong> = &lt;flask_sqlalchemy.BaseQuery object&gt;</dl>
 
 <dl><dt><strong>query_class</strong> = &lt;class 'flask_sqlalchemy.BaseQuery'&gt;<dd><tt>SQLAlchemy&nbsp;:class:`~sqlalchemy.orm.query.Query`&nbsp;subclass&nbsp;with&nbsp;convenience&nbsp;methods&nbsp;for&nbsp;querying&nbsp;in&nbsp;a&nbsp;web&nbsp;application.<br>
 &nbsp;<br>
@@ -213,15 +221,18 @@ Data descriptors defined here:<br>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x7f6f295bbdd8; Location&gt;</dl>
+<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x7faab6a282b0; Location&gt;</dl>
 
 <dl><dt><strong>__table__</strong> = Table('location', MetaData(bind=None), Column('i...tring(length=10), table=&lt;location&gt;), schema=None)</dl>
 
 <hr>
+Methods inherited from flask_sqlalchemy.Model:<br>
+<dl><dt><strong>query</strong></dt>
+</dl>
+
+<hr>
 Data and other attributes inherited from flask_sqlalchemy.Model:<br>
 <dl><dt><strong>metadata</strong> = MetaData(bind=None)</dl>
-
-<dl><dt><strong>query</strong> = &lt;flask_sqlalchemy.BaseQuery object&gt;</dl>
 
 <dl><dt><strong>query_class</strong> = &lt;class 'flask_sqlalchemy.BaseQuery'&gt;<dd><tt>SQLAlchemy&nbsp;:class:`~sqlalchemy.orm.query.Query`&nbsp;subclass&nbsp;with&nbsp;convenience&nbsp;methods&nbsp;for&nbsp;querying&nbsp;in&nbsp;a&nbsp;web&nbsp;application.<br>
 &nbsp;<br>
@@ -281,15 +292,18 @@ Data descriptors defined here:<br>
 </dl>
 <hr>
 Data and other attributes defined here:<br>
-<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x7f6f2956a320; Mission&gt;</dl>
+<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x7faab6a287b8; Mission&gt;</dl>
 
 <dl><dt><strong>__table__</strong> = Table('mission', MetaData(bind=None), Column('id...tring(length=120), table=&lt;mission&gt;), schema=None)</dl>
 
 <hr>
+Methods inherited from flask_sqlalchemy.Model:<br>
+<dl><dt><strong>query</strong></dt>
+</dl>
+
+<hr>
 Data and other attributes inherited from flask_sqlalchemy.Model:<br>
 <dl><dt><strong>metadata</strong> = MetaData(bind=None)</dl>
-
-<dl><dt><strong>query</strong> = &lt;flask_sqlalchemy.BaseQuery object&gt;</dl>
 
 <dl><dt><strong>query_class</strong> = &lt;class 'flask_sqlalchemy.BaseQuery'&gt;<dd><tt>SQLAlchemy&nbsp;:class:`~sqlalchemy.orm.query.Query`&nbsp;subclass&nbsp;with&nbsp;convenience&nbsp;methods&nbsp;for&nbsp;querying&nbsp;in&nbsp;a&nbsp;web&nbsp;application.<br>
 &nbsp;<br>
@@ -313,5 +327,6 @@ Data descriptors inherited from <a href="flask_sqlalchemy.html#Model">flask_sqla
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>db</strong> = &lt;SQLAlchemy engine=sqlite:////var/www/idb/idb/app/../database.db&gt;</td></tr></table>
+<td width="100%"><strong>associationTable</strong> = Table('association', MetaData(bind=None), Column...'mission.id'), table=&lt;association&gt;), schema=None)<br>
+<strong>db</strong> = &lt;SQLAlchemy engine=sqlite:////var/www/idb/idb/app/../database.db&gt;</td></tr></table>
 </body></html>
