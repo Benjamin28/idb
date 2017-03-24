@@ -102,7 +102,7 @@
 
 
       <div class="row">
-      <hr class="featurette-divider">
+      <hr>
       <h2>Stats</h2>
           <ul class="list-unstyled">
              <li>Total no. of Commits: 39</li>
@@ -113,10 +113,8 @@
              <li><a href="https://github.com/Benjamin28/idb">GitHub Repo</a></li>
           </ul>
       </div><!-- /.row -->
-
-      <hr class="featurette-divider">
-      <div class="row featurette">
-      <hr class="featurette-divider">
+      <div class="row">
+      <hr>
       <h2>Data</h2>
             <ul class="list-unstyled">
                 <li>Data soures: <a href="https://launchlibrary.net/1.2/docs/api.html">Launch Library</a></li>
@@ -124,7 +122,7 @@
             </ul>
       </div><!-- /.row -->
 
-      <hr class="featurette-divider">
+      <hr>
       <div class="row featurette">
       <div class="Tools">
       <h2>Tools</h2>
@@ -140,7 +138,7 @@
       </div><!-- /.row -->
 
 
-      <hr class="featurette-divider">
+      <hr>
       <div class="row featurette">
         <div class="col-med-4">
         <div class="techreport">
@@ -158,7 +156,6 @@
 <p>Following all the initial Flask setup, we began creating views for our 4 models. This was done in views.py inside of the app directory. Flask made it incredibly easy to link url paths to specific html files. We defined 5 methods and used render_template to present the correct html file given the url path that was defined using a Python decorator.</p>
 <p>Next, we set up our models in models.py. We defined our 4 models/tables and listed the various properties/columns that those models have.The relationships were set up using SQLAlchemy’s relationship() method. All many to many, one to many, and one to one relationships were defined this way. Agency has a one to many relationship to Launch. Agency has a many to many relationship to Mission. Launch has a one to one relationship with Mission. Launch has a many to one relationship with Location. The many to many relationship required an association table. Having knowledge about relational databases such as foreign keys definitely helped in creating this part.<br>
 Following the setup of the models, we established and created database.db and used sqlite3 to import the models into the database.</p>
-<img src="../static/images/models.png">
 <p>After all of the application setup, we proceeded to create our HTML pages. Base.html came first and we used bootstrap to create a nav bar. All files would extend from base.html and also include the nav bar in all the other pages. We then created index.html. We also used a bootstrap theme to create the carousel. The HTML files for our four models were generated the same way. Extending base.html got us the nav bar, then we built the tables for the models and instances in the respective HTML files.</p>
 
 <hr>
