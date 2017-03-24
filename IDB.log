@@ -1,3 +1,111 @@
+commit a700e3c6bfb0aba452bceab7a4af808f75b11b91
+Author: Ubuntu <ubuntu@ip-172-31-24-170.us-west-2.compute.internal>
+Date:   Fri Mar 24 02:14:29 2017 +0000
+
+    more up to date models.html
+
+commit 104bbf98d48e05c14b122c1b6ace522fff5d4a02
+Merge: 8988895 66fc8a6
+Author: Ubuntu <ubuntu@ip-172-31-24-170.us-west-2.compute.internal>
+Date:   Fri Mar 24 02:14:07 2017 +0000
+
+    merge conflict
+
+commit 8988895f09c42e8cd2db8c7eb07367ddda3927ff
+Author: Ubuntu <ubuntu@ip-172-31-24-170.us-west-2.compute.internal>
+Date:   Fri Mar 24 02:12:00 2017 +0000
+
+    we have a models.html
+
+commit 66fc8a6e1744d34b767d22a4b81c9ee92bce084e
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Thu Mar 23 21:01:35 2017 -0500
+
+    Minor text fix
+
+commit d9a33d713e958d6d3350b8f6f69b2896960ffd32
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Thu Mar 23 20:53:01 2017 -0500
+
+    Added picture of models
+
+commit ad285cef7493739a390668defd17d0722a47684e
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Thu Mar 23 20:46:31 2017 -0500
+
+    Formatted technical report
+
+commit ee06726364e8d85ec7289df6dd02e5a3bffbf68e
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Thu Mar 23 19:31:48 2017 -0500
+
+    small fix
+
+commit e14a7de3d3abc0fa2b7abd4c409d659753ecbb7c
+Merge: a54e0b4 5e28677
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Thu Mar 23 19:30:08 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+    add stuff in about
+
+commit a54e0b46e8bee86ace1dd3b051a778b6fcf9e8b9
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Thu Mar 23 19:29:53 2017 -0500
+
+    add stuff in about
+
+commit 5e28677adddabe0eaceaa89d019f9ae7ead8b468
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Thu Mar 23 19:16:39 2017 -0500
+
+    Added pictures to launches
+
+commit 7066dbf868065c1d64dd7969a682acdc8b6fdda6
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Thu Mar 23 18:59:37 2017 -0500
+
+    Minor aesthetic changes and fixes for dummy pages
+
+commit d3fb708fe1ce41ee151083fbbb246549de7ff0b5
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Thu Mar 23 18:28:10 2017 -0500
+
+    added methods for models in UML and models.py
+
+commit d371831f14d9455951aba38a0b61d6dd13281b17
+Merge: 8ef1ada a586840
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Thu Mar 23 18:04:44 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+    update dummy launches files
+
+commit 8ef1ada7b731f3fb4a381f022ef459de7a53f16f
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Thu Mar 23 17:48:05 2017 -0500
+
+    fixed miner error for links in dummy launches files
+
+commit a5868401bb6eba46db9a4a61b35244d0c11d21a3
+Merge: cb4cd23 065b6d4
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Thu Mar 23 17:40:26 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit cb4cd23c50c48002a2da561bc5e2fda6014de93c
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Thu Mar 23 17:40:15 2017 -0500
+
+    Added model relationship unit tests.
+
+commit 065b6d41ef4eef0dd8ff6bc532cf8dbdf5426386
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Thu Mar 23 17:39:45 2017 -0500
+
+    Trying to see if python compiler error is fixed
+
 commit 1d69b649d738ea7539017cb13ecc3b330b4d295e
 Merge: 95be601 6dfb518
 Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
