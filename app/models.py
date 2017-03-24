@@ -14,8 +14,11 @@ class Agency(db.Model):
 	countryCode = db.Column(db.String(10))
 	wikiUrl = db.Column(db.String(120))
 	# Many to one for Launch (many launches for an agency)
-	launches = db.relationship('Launch', backref = 'agency', lazy = 'dynamic')
+#	launches = db.relationship('Launch', backref = 'agency', lazy = 'dynamic')
 	# Many to many for Missions (many agencies for many missions)
+#<<<<<<< HEAD
+#	missions = db.relationship('Mission', secondary = associationTable, back_populates='agencies')
+#=======
 	missions = db.relationship('Mission', secondary = associationTable, back_populates='agencies')
 	
 	# def __repr__(self):
@@ -24,6 +27,7 @@ class Agency(db.Model):
 	# def getJson(self):
 	# 	return json information about an instance
 
+#>>>>>>> 66fc8a6e1744d34b767d22a4b81c9ee92bce084e
 
 class Launch(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -38,7 +42,7 @@ class Launch(db.Model):
 	# One to many for launch (one location for a launch)
 	location = db.Column(db.Integer, db.ForeignKey('location.id'))
 	# One to one for Mission (one mission for a launch)
-	mission = db.relationship('Mission', back_populates = 'launch')
+#	mission = db.relationship('Mission', back_populates = 'launch')
 
 	# def __repr__(self):
 		# return "<Launch(name='%s')>" % (self.name)
@@ -51,7 +55,7 @@ class Location(db.Model):
 	name = db.Column(db.String(120), unique = True)
 	countryCode = db.Column(db.String(10))
 	# Many to one for Launch (many launches for a location)
-	launches = db.relationship('Launch', backref = 'location', lazy = 'dynamic')
+#	launches = db.relationship('Launch', backref = 'location', lazy = 'dynamic')
 
 	# def __repr__(self):
 		# return "<Location(name='%s')>" % (self.name)
@@ -69,9 +73,9 @@ class Mission(db.Model):
 	typeName = db.Column(db.String(120))
 	wikiUrl = db.Column(db.String(120))
 	# Many to many for Agencies (many agencies for many missions)
-	agencies = db.relationship('Agency', secondary = associationTable, back_populates = 'missions')
+#	agencies = db.relationship('Agency', secondary = associationTable, back_populates = 'missions')
 	# One to one for Launch (one launch for a mission)
-	launch = db.relationship('Launch', uselist = False, back_populates = 'mission')
+#	launch = db.relationship('Launch', uselist = False, back_populates = 'mission')
 
 	# def __repr__(self):
 		# return "<Mission(name='%s')>" % (self.name)
@@ -85,3 +89,12 @@ class Mission(db.Model):
 	# agencyName = db.Column(db.String(120))
 	# launchName = db.Column(db.String(120))
 
+#<<<<<<< HEAD
+# Relational Table for many to many relationship for agency and mission
+#associationTable = db.Table('association',
+#	db.Column('agency_id', db.Integer, db.ForeignKey('agency.id')),
+#	db.Column('mission_id', db.Integer, db.ForeignKey('mission.id'))
+#)
+
+#=======
+#>>>>>>> 66fc8a6e1744d34b767d22a4b81c9ee92bce084e

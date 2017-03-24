@@ -184,30 +184,31 @@ Following the setup of the models, we established and created database.db and us
 <hr>
 <b>Part One: Setting up the AWS server on AWS</b>
 <p>The first thing to do is to create an AWS account. Note that you will have to give a credit card, but there a is free tier. So as long as you stick to that, you shouldn't be charged. Also realize that because whoever creates the account must put credit card info in, whoever creates the account may not want to give out the account login and password, it's may not be a big deal, but it's good to know. Next, under the services tab go to the Network options and select “VPC.” Use the VPC wizard to create your VPC. It will ask you a few questions about your VPC setup, and you should leave everything on the default settings except the following: <u>for the endpoints options choose public subnet option and select create VPC.</u>
-Now, again go to the services tab and from under the compute options, select EC2. Under create instance, select launch instance. Select an Ubuntu server. <u>Select the general purpose free tier so you are not charged.</u> Press next. For the auto-assign public IP, select the enable option (because you want people without a key to be able to see your website). Select review and launch. Find and select the edit security groups option and add a rule for HTTP with the default settings, it is very important that you chose HTTP and not HTTPS if you follow this guide for setting up. Press “Launch Instance”. Next you will be required to create a new key-pair name. This key pair name will allow you/your teammates to access the server through ssh, so it is <u>incredibly important</u> that you do not lose it. Now click on view instance, and you should see your server either ready (green light), not ready (yellow light), or broken (red light). If it is yellow, that's ok. Just wait a second for it to finish setting up. If it's red, then you messed something up during the setup, so I would suggest killing the instance by going to actions, clicking instance state, clicking terminate, and then starting over. Now, to make sure that your instance is correctly up and running, we will try and ssh into it. To ssh in, you must ensure that you are in the same directory where you saved that key you just made. The command is:<br>
-<pre><code>ssh -i "yourkey.pem" public dns</code></pre><br>
-where the public dns is listed under the description tag on the page showing your instance status. If it works, you should see<br>
-<pre><code>Welcome to Ubuntu 16.04.2 LTS (GNU/Linux 4.4.0-64-generic x86_64)</code></pre><br> This means that you have successfully set up a server on amazon!</p>
+Now, again go to the services tab and from under the compute options, select EC2. Under create instance, select launch instance. Select an Ubuntu server. <u>Select the general purpose free tier so you are not charged.</u> Press next. For the auto-assign public IP, select the enable option (because you want people without a key to be able to see your website). Select review and launch. Find and select the edit security groups option and add a rule for HTTP with the default settings, it is very important that you chose HTTP and not HTTPS if you follow this guide for setting up. Press “Launch Instance”. Next you will be required to create a new key-pair name. This key pair name will allow you/your teammates to access the server through ssh, so it is <u>incredibly important</u> that you do not lose it. Now click on view instance, and you should see your server either ready (green light), not ready (yellow light), or broken (red light). If it is yellow, that's ok. Just wait a second for it to finish setting up. If it's red, then you messed something up during the setup, so I would suggest killing the instance by going to actions, clicking instance state, clicking terminate, and then starting over. Now, to make sure that your instance is correctly up and running, we will try and ssh into it. To ssh in, you must ensure that you are in the same directory where you saved that key you just made. The command is:
+<pre><code>ssh -i "yourkey.pem" public dns</code></pre>
+where the public dns is listed under the description tag on the page showing your instance status. If it works, you should see:
+<pre><code>Welcome to Ubuntu 16.04.2 LTS (GNU/Linux 4.4.0-64-generic x86_64)</code></pre>
+This means that you have successfully set up a server on amazon!</p>
 
 <b>Part Two: Deploying Your App to Your AWS Server</b>
-<p>First, you want to ssh into the server that you created and started in part one above. Second, you should note that essentially every command you give the server will need sudo access (all except for cd pretty much), so when I give terminal commands to enter below ,the sudo in front is implied. The following commands ensure apt-get is updated and then install apache2:<br>
-<pre><code>apt-get update<br>apt-get install apache2</code></pre><br>
-Now, the next command installs an apache2 mod that is needed to run a file that starts flask from apache2:<br>
-<pre><code>apt-get install libapache2-mod-wsgi python-dev2</code></pre><br>
-The next command actually tells apache2 to use the mod:<br>
-<pre><code>sudo a2enmod wsgi</code></pre><br>
-Next, you will cd into the /var/www/ directory and mkdir "your app name." Now go into your directory and git clone your app repo whose name should match "your app name" - it doesn't have to for general set up to work, but if you are following this tutorial then it does. Provided your app directory structure is set up in the ways that are detailed in the above sections, there is only one more step in this directory path. Cd into your app and create a file named &ltyour app name>.wsgi. Your .wsgi file should have the following lines:<br>
+<p>First, you want to ssh into the server that you created and started in part one above. Second, you should note that essentially every command you give the server will need sudo access (all except for cd pretty much), so when I give terminal commands to enter below ,the sudo in front is implied. The following commands ensure apt-get is updated and then install apache2:
+<pre><code>apt-get update<br>apt-get install apache2</code></pre>
+Now, the next command installs an apache2 mod that is needed to run a file that starts flask from apache2:
+<pre><code>apt-get install libapache2-mod-wsgi python-dev2</code></pre>
+The next command actually tells apache2 to use the mod:
+<pre><code>sudo a2enmod wsgi</code></pre>
+Next, you will cd into the /var/www/ directory and mkdir "your app name." Now go into your directory and git clone your app repo whose name should match "your app name" - it doesn't have to for general set up to work, but if you are following this tutorial then it does. Provided your app directory structure is set up in the ways that are detailed in the above sections, there is only one more step in this directory path. Cd into your app and create a file named &ltyour app name>.wsgi. Your .wsgi file should have the following lines:
 <pre><code>#!/usr/bin/python
 import sys
 import logging
 logging.basicConfig(steram=sys.stderr)
 sys.path.insert(0,"/var/www/yourappname/yourappname/")
 from app import app as application
-application.secret_key = "your super secret key"</code></pre><br>
+application.secret_key = "your super secret key"</code></pre>
 Now you will need to tell apache2 to actually direct incoming inquiries to your website by following these steps:<br>
-First, cd into the following directory:<br>
-<pre><code>/etc/apache2/sites-available/</code></pre><br>
-and then create the file &ltyourappname>.conf; in the file have the following:<br>
+First, cd into the following directory:
+<pre><code>/etc/apache2/sites-available/</code></pre>
+and then create the file &ltyourappname>.conf; in the file have the following:
 <pre><code>&ltVirtualHost *:80>
         ServerName your elastic server ip on Amazon (we will go into this more later)
         ServerAdmin youradminemail
@@ -224,11 +225,11 @@ and then create the file &ltyourappname>.conf; in the file have the following:<b
         ErrorLog ${APACHE_LOG_DIR}/error.log
         LogLevel warn
         CustomLog ${APACHE_LOG_DIR}/access/log combined
-&lt/VirtualHost></pre></code><br>
-Note that if you are unable to get this working, you can just make the servername your public ip address on AWS. The elastic IP address is just for if your public IP address changes. Next, cp the conf file you just made over 000-default.conf. Now you actually need to enable the virtual host whose configuration file you just wrote. Use the following command:<br>
-<pre><code>sudo a2ensite yourappname</code></pre><br>
-Now you need to restart apache2 with the following command:<br>
-<pre><code>sudo service apache2 restart</code></pre><br>
+&lt/VirtualHost></pre></code>
+Note that if you are unable to get this working, you can just make the servername your public ip address on AWS. The elastic IP address is just for if your public IP address changes. Next, cp the conf file you just made over 000-default.conf. Now you actually need to enable the virtual host whose configuration file you just wrote. Use the following command:
+<pre><code>sudo a2ensite yourappname</code></pre>
+Now you need to restart apache2 with the following command:
+<pre><code>sudo service apache2 restart</code></pre>
 Now, if you attempt to go to local/elastic dns server, it should show your website. Good job!</p>
 <b>Part Three: Connecting Your IP Address to Your Namecheap Address</b>
 <p>Go back to your AWS account and go to the instance you have your app on. Click on “allocate address”. This will create the elastic IP you need. Click “associate address” and associate the elastic address with your instance. Now go to route 53 under AWS services and create a hosted zone. Two records will be shown, an SOA record and an NA record. Copy and save the values in the NA record. Create two more records of type "A – IPv4 address." For their names, put &ltyournamecheapwebsite.me> and &ltwww.yournamecheapwebsite.me>. For their values, put the elastic IP website you created. Go to your namecheap account and click the “manage” button beside the domain name you want to associate your website with. Scroll down a little bit and you will see a nameservers section. In this section select “custom DNS” and put each of those NA values (there should be four) that you saved. Ensure that they do <u>NOT</u> end in a period. Now you're done! It can take up to twenty-four hours for the name change to propagate but can take as little as fifteen minutes.</p>
