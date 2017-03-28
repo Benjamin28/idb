@@ -1,8 +1,13 @@
 from app import db
 
-associationTable = db.Table('association',
+am_associationTable = db.Table('am_association',
 	db.Column('agency_id', db.Integer, db.ForeignKey('agency.id')),
 	db.Column('mission_id', db.Integer, db.ForeignKey('mission.id'))
+)
+
+al_associationTable = db.Table('al_association',
+	db.Column('agency_id', db.Integer, db.ForeignKey('agency.id')),
+	db.Column('launch_id', db.Integer, db.ForeignKey('launch.id'))
 )
 
 class Agency(db.Model):
@@ -13,11 +18,11 @@ class Agency(db.Model):
 	countryCode = db.Column(db.String(10))
 	wikiUrl = db.Column(db.String(120))
 
-	# Many launches to one agency
-	launches = db.relationship('Launch', backref = 'agency_owner', lazy = 'dynamic')
-	# Many missions to many agencies
-	missions = db.relationship('Mission', secondary = associationTable, 
-		backref = db.backref('agencies'), lazy = 'dynamic')
+	# launches attr appears to be here with the backref in the Launch model
+	# Can call Agency.launches to get the list of launches
+
+	# missions attr appears to be here with the backref in the Mission model
+	# Can call Agency.missions to get the list of missions
 
 class Launch(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -28,8 +33,11 @@ class Launch(db.Model):
 	launchPad = db.Column(db.String(120))
 	rocket = db.Column(db.String(120))
 
-	agency_id = db.Column(db.Integer, db.ForeignKey('agency.id')) # Use agency_owner = "ex_agency" to assign
+	#id used to identify the launches associated with the location
 	location_id = db.Column(db.Integer, db.ForeignKey('location.id')) # Use location_owner = "ex_location" to assign
+	# Many agencies to many launches
+	agencies = db.relationship('Agency', secondary = al_associationTable, 
+		backref = db.backref('launches'), lazy = 'dynamic')
 	# One mission for one launch
 	mission = db.relationship('Mission', uselist = False, back_populates = 'launch')
 
@@ -48,11 +56,14 @@ class Mission(db.Model):
 	typeName = db.Column(db.String(120))
 	wikiUrl = db.Column(db.String(120))
 
+	# Many agencies to many missions
+	agencies = db.relationship('Agency', secondary = am_associationTable, 
+		backref = db.backref('missions'), lazy = 'dynamic')
+
 	# One mission to one launch
 	launch = db.relationship('Launch', back_populates = 'mission')
 	
-	# agencies attr appears to be here with the backref in the Agency model
-	# Can call mission.agencies to get the list of agencies
+	
 
 
 # from app import db
