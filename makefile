@@ -5,7 +5,7 @@ FILES :=                              \
 	apiary.apib                       \
 	IDB.log                          \
 	app/models.py                     \
-	app/tests.py                      \
+	tests.py                          \
 	IDB1.pdf                          \
 	apiary.apib
 
@@ -42,6 +42,6 @@ restart:
 	service apache2 restart
 
 unittest:
-	python3 ./app/tests.py
+	python3 ./tests.py
 
 test: html log check
