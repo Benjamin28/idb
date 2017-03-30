@@ -3,9 +3,6 @@ from app.models import *
 import requests             # Used for http GET request
 import json 				# Used for loading JSON data
 
-# INSTRUCTIONS:
-	# Create agency, then location, then launch, then mission
-	# Do each part separately
 # TODO: Add nicer output for empty values, such as in Mission model
 # TODO: Gather more data from API, LOTS of missing values in the Mission.launch
 
