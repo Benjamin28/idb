@@ -13,34 +13,57 @@ class TestModels(unittest.TestCase):
 	"""
 
 	# def setUp(self):
-	# 	agency = Agency(name='Rocket Labs', abbrev='RL', agencyType='Government',
-	# 					countryCode='USA', wikiUrl='https://www.wikipedia.org')
-	# 	launch = Launch(name='Launch X', windowStart='March 24, 2017 20:31:00 UTC',
-	# 					windowEnd='March 24, 2017 23:20:00 UTC', videoUrl='https://www.youtube.com/watch?v=wCy401hkXuk',
-	# 					launchPad='Launch Complex 39', rocket='Big Rocket 7')
-	# 	location = Location(name='Houston, Texas', countryCode='USA')
-	# 	mission = Mission(name='Explore space', description='This is a description about this mission.',
-	# 					  typeName='Astrophysics', wikiUrl='https://www.wikipedia.org')
-	# 					  #agencyName='ExplorersUnited', launchName='Pegasus XL')
+		# agency = Agency(name='Rocket Labs', abbrev='RL', agencyType='Government',
+		# 				countryCode='USA', wikiUrl='https://www.wikipedia.org')
+		# launch = Launch(name='Launch X', windowStart='March 24, 2017 20:31:00 UTC',
+		# 				windowEnd='March 24, 2017 23:20:00 UTC', videoUrl='https://www.youtube.com/watch?v=wCy401hkXuk',
+		# 				launchPad='Launch Complex 39', rocket='Big Rocket 7')
+		# location = Location(name='Houston, Texas', countryCode='USA')
+		# mission = Mission(name='Explore space', description='This is a description about this mission.',
+		# 				  typeName='Astrophysics', wikiUrl='https://www.wikipedia.org')
+		# 				  #agencyName='ExplorersUnited', launchName='Pegasus XL')
 
-	# 	agency.id = 1
-	# 	launch.id = 2
-	# 	location.id = 3
-	# 	mission.id = 4
+		# agency.id = 1
+		# launch.id = 2
+		# location.id = 3
+		# mission.id = 4
 
-	# 	agency.missions.append(mission)
-	# 	agency.launches.append(launch)
-	# 	launch.agency = agency
-	# 	launch.location = location
-	# 	launch.mission = mission
-	# 	location.launches.append(launch)
-	# 	mission.agencies.append(agency)
-	# 	mission.launch = launch
+		# agency.missions.append(mission)
+		# agency.launches.append(launch)
+		# launch.agency = agency
+		# launch.location = location
+		# launch.mission = mission
+		# location.launches.append(launch)
+		# mission.agencies.append(agency)
+		# mission.launch = launch
 
-	# 	self.agency = agency
-	# 	self.launch = launch
-	# 	self.location = location
-	# 	self.mission = mission
+		# self.agency = agency
+		# self.launch = launch
+		# self.location = location
+		# self.mission = mission
+
+	def test_agency_model_1(self):
+		"""
+		Test launch link to mission
+		"""
+		with app.test_request_context():
+			ex1 = Agency(name='Rocket Labs', abbrev='RL', agencyType='Government',
+						countryCode='USA', wikiUrl='https://www.wikipedia.org')
+
+			# ex1 = self.agency
+			db.session.add(ex1)
+			db.session.commit()
+
+			agency1 = db.session.query(Agency).filter_by(name="Rocket Labs").first()
+			self.assertEqual(agency1.abbrev, "RL")
+			self.assertEqual(agency1.agencyType, "Government")
+
+			db.session.delete(ex1)
+			db.session.commit()
+
+	##################
+	# DB QUERY TESTS #
+	##################
 
 	def test_query_1(self):
 		"""
@@ -50,7 +73,7 @@ class TestModels(unittest.TestCase):
 			agency_none = db.session.query(Agency).filter_by(name="not here").first()
 			self.assertTrue(agency_none is None)
 
-	def test_agency_model_1(self):
+	def test_agency_model_query_1(self):
 		"""
 		Test querying the db by attribute using simple keywords - agency
 		"""
@@ -60,7 +83,7 @@ class TestModels(unittest.TestCase):
 			self.assertEqual(agency1.countryCode, "MEX")
 
 
-	# def test_agency_model_link_1(self):
+	# def test_agency_model_link_query_1(self):
 	# 	"""
 	# 	Test agency link to launches
 	# 	"""
@@ -78,7 +101,7 @@ class TestModels(unittest.TestCase):
 	# 		mission1 = agency1.missions;
 	# 		print(mission1)
 
-	def test_launch_model_1(self):
+	def test_launch_model_query_1(self):
 		"""
 		Test querying the db by attribute using simple keywords - launch
 		"""
@@ -88,7 +111,7 @@ class TestModels(unittest.TestCase):
 			self.assertEqual(launch1.rocket, "Long March 3B")
 
 
-	def test_launch_model_link_1(self):
+	def test_launch_model_link_query_1(self):
 		"""
 		Test launch link to agency
 		"""
@@ -97,7 +120,7 @@ class TestModels(unittest.TestCase):
 			agency1 = launch1.agencies[0]
 			self.assertEqual(agency1.countryCode, "CHN")
 
-	def test_launch_model_link_2(self):
+	def test_launch_model_link_query_2(self):
 		"""
 		Test launch link to mission
 		"""
@@ -123,7 +146,7 @@ class TestModels(unittest.TestCase):
 	# 		db.session.delete(ex1)
 	# 		db.session.commit()
 
-	def test_location_model_1(self):
+	def test_location_model_query_1(self):
 		"""
 		Test querying the db by attribute using simple keywords - location
 		"""
@@ -140,7 +163,7 @@ class TestModels(unittest.TestCase):
 	# 		launch1 = location1.launches
 	# 		print(launch1)
 
-	def test_mission_model_1(self):
+	def test_mission_model_query_1(self):
 		"""
 		Test querying the db by attribute using simple keywords - mission
 		"""
@@ -148,7 +171,7 @@ class TestModels(unittest.TestCase):
 			mission1 = db.session.query(Mission).first()
 			self.assertEqual(mission1.name, "Nuclear Spectroscopic Telescope Array (NuSTAR)")
 
-	def test_mission_model_link_1(self):
+	def test_mission_model_link_query_1(self):
 		"""
 		Test mission link to agencies
 		"""
@@ -162,7 +185,7 @@ class TestModels(unittest.TestCase):
 			self.assertEqual(agency1, []) #this should not be empty, check online api
 
 
-	def test_mission_model_link_2(self):
+	def test_mission_model_link_query_2(self):
 		"""
 		Test mission link to launch
 		"""
