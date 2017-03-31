@@ -12,16 +12,16 @@ class TestModels(unittest.TestCase):
 		Unit test class for testing the DB model classes
 	"""
 
-	# def setUp(self):
-		# agency = Agency(name='Rocket Labs', abbrev='RL', agencyType='Government',
-		# 				countryCode='USA', wikiUrl='https://www.wikipedia.org')
-		# launch = Launch(name='Launch X', windowStart='March 24, 2017 20:31:00 UTC',
-		# 				windowEnd='March 24, 2017 23:20:00 UTC', videoUrl='https://www.youtube.com/watch?v=wCy401hkXuk',
-		# 				launchPad='Launch Complex 39', rocket='Big Rocket 7')
-		# location = Location(name='Houston, Texas', countryCode='USA')
-		# mission = Mission(name='Explore space', description='This is a description about this mission.',
-		# 				  typeName='Astrophysics', wikiUrl='https://www.wikipedia.org')
-		# 				  #agencyName='ExplorersUnited', launchName='Pegasus XL')
+	def setUp(self):
+		agency = Agency(name='testAgency3', abbrev='testAbb', agencyType='testType',
+						countryCode='testCC', wikiUrl='https://www.wikipedia.org')
+		launch = Launch(name='testnameLaunch', windowStart='March 24, 2017 20:31:00 UTC',
+						windowEnd='March 24, 2017 23:20:00 UTC', videoUrl='https://www.youtube.com/watch?v=wCy401hkXuk',
+						launchPad='testLP', rocket='testRocket')
+		location = Location(name='testLoc', countryCode='testCC2')
+		mission = Mission(name='testMissionN', description='This is a description about this mission.',
+						  typeName='testType2', wikiUrl='https://www.wikipedia2.org')
+						  #agencyName='ExplorersUnited', launchName='Pegasus XL')
 
 		# agency.id = 1
 		# launch.id = 2
@@ -37,26 +37,73 @@ class TestModels(unittest.TestCase):
 		# mission.agencies.append(agency)
 		# mission.launch = launch
 
-		# self.agency = agency
-		# self.launch = launch
-		# self.location = location
-		# self.mission = mission
+		self.agency = agency
+		self.launch = launch
+		self.location = location
+		self.mission = mission
+
+	###############
+	# MODEL TESTS #
+	###############
 
 	def test_agency_model_1(self):
 		"""
-		Test launch link to mission
+		Test querying the database by attribute using simple keywords - agency
 		"""
 		with app.test_request_context():
-			ex1 = Agency(name='Rocket Labs', abbrev='RL', agencyType='Government',
-						countryCode='USA', wikiUrl='https://www.wikipedia.org')
-
-			# ex1 = self.agency
+			ex1 = self.agency
 			db.session.add(ex1)
 			db.session.commit()
 
-			agency1 = db.session.query(Agency).filter_by(name="Rocket Labs").first()
-			self.assertEqual(agency1.abbrev, "RL")
-			self.assertEqual(agency1.agencyType, "Government")
+			agency1 = db.session.query(Agency).filter_by(name="testAgency3").first()
+			self.assertEqual(agency1.abbrev, "testAbb")
+			self.assertEqual(agency1.agencyType, "testType")
+
+			db.session.delete(ex1)
+			db.session.commit()
+
+	def test_launch_model_1(self):
+		"""
+		Test querying the database by attribute using simple keywords - launch
+		"""
+		with app.test_request_context():
+			ex1 = self.launch
+			db.session.add(ex1)
+			db.session.commit()
+
+			launch1 = db.session.query(Launch).filter_by(name="testnameLaunch").first()
+			self.assertEqual(launch1.launchPad, "testLP")
+			self.assertEqual(launch1.rocket, "testRocket")
+
+			db.session.delete(ex1)
+			db.session.commit()
+
+	def test_location_model_1(self):
+		"""
+		Test querying the database by attribute using simple keywords - location
+		"""
+		with app.test_request_context():
+			ex1 = self.location
+			db.session.add(ex1)
+			db.session.commit()
+
+			location1 = db.session.query(Location).filter_by(name="testLoc").first()
+			self.assertEqual(location1.countryCode, "testCC2")
+
+			db.session.delete(ex1)
+			db.session.commit()
+
+	def test_mission_model_1(self):
+		"""
+		Test querying the database by attribute using simple keywords - mission
+		"""
+		with app.test_request_context():
+			ex1 = self.mission
+			db.session.add(ex1)
+			db.session.commit()
+
+			mission1 = db.session.query(Mission).filter_by(name="testMissionN").first()
+			self.assertEqual(mission1.wikiUrl, 'https://www.wikipedia2.org')
 
 			db.session.delete(ex1)
 			db.session.commit()
