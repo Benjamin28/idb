@@ -12,11 +12,11 @@ al_associationTable = db.Table('al_association',
 
 class Agency(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
-	name = db.Column(db.String(120), unique = True)
-	abbrev = db.Column(db.String(10))
-	agencyType = db.Column(db.String(120))
-	countryCode = db.Column(db.String(10))
-	wikiUrl = db.Column(db.String(120))
+	name = db.Column(db.String(), unique = True)
+	abbrev = db.Column(db.String())
+	agencyType = db.Column(db.String())
+	countryCode = db.Column(db.String())
+	wikiUrl = db.Column(db.String())
 
 	# launches attr appears to be here with the backref in the Launch model
 	# Can call Agency.launches to get the list of launches
@@ -26,12 +26,12 @@ class Agency(db.Model):
 
 class Launch(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
-	name = db.Column(db.String(120), unique = True)
-	windowStart = db.Column(db.String(120))
-	windowEnd = db.Column(db.String(120))
-	videoUrl = db.Column(db.String(120))
-	launchPad = db.Column(db.String(120))
-	rocket = db.Column(db.String(120))
+	name = db.Column(db.String(), unique = True)
+	windowStart = db.Column(db.String())
+	windowEnd = db.Column(db.String())
+	videoUrl = db.Column(db.String())
+	launchPad = db.Column(db.String())
+	rocket = db.Column(db.String())
 
 	#id used to identify the launches associated with the location
 	location_id = db.Column(db.Integer, db.ForeignKey('location.id')) # Use location_owner = "ex_location" to assign
@@ -43,18 +43,18 @@ class Launch(db.Model):
 
 class Location(db.Model):
 	id = db.Column(db.Integer, primary_key = True)	
-	name = db.Column(db.String(120), unique = True)
-	countryCode = db.Column(db.String(10))
+	name = db.Column(db.String(), unique = True)
+	countryCode = db.Column(db.String())
 
 	# Many launches to one location
 	launches = db.relationship('Launch', backref = 'location_owner', lazy = 'dynamic')
 
 class Mission(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
-	name = db.Column(db.String(120), unique = True)
-	description = db.Column(db.String(400))
-	typeName = db.Column(db.String(120))
-	wikiUrl = db.Column(db.String(120))
+	name = db.Column(db.String(), unique = True)
+	description = db.Column(db.String())
+	typeName = db.Column(db.String())
+	wikiUrl = db.Column(db.String())
 
 	# Many agencies to many missions
 	agencies = db.relationship('Agency', secondary = am_associationTable, 
