@@ -130,23 +130,23 @@ class TestModels(unittest.TestCase):
 			self.assertEqual(agency1.countryCode, "MEX")
 
 
-	# def test_agency_model_link_query_1(self):
-	# 	"""
-	# 	Test agency link to launches
-	# 	"""
-	# 	with app.test_request_context():
-	# 		agency1 = db.session.query(Agency).filter_by(name="Mexican Space Agency").first()
-	# 		launch1 = agency1.launches;
-	# 		print(launch1)
+	def test_agency_model_link_query_1(self):
+		"""
+		Test agency link to launches
+		"""
+		with app.test_request_context():
+			agency1 = db.session.query(Agency).filter_by(name="SpaceX").first()
+			launch1 = agency1.launches[0]
+			self.assertEqual(launch1.rocket, "Saturn V")
 
-	# def test_agency_model_link_2(self):
-	# 	"""
-	# 	Test agency link to missions
-	# 	"""
-	# 	with app.test_request_context():
-	# 		agency1 = db.session.query(Agency).filter_by(name="Mexican Space Agency").first()
-	# 		mission1 = agency1.missions;
-	# 		print(mission1)
+	def test_agency_model_link_2(self):
+		"""
+		Test agency link to missions
+		"""
+		with app.test_request_context():
+			agency1 = db.session.query(Agency).filter_by(name="Mexican Space Agency").first()
+			mission1 = agency1.missions[0];
+			self.assertEqual(mission1.name, "ISS 44")
 
 	def test_launch_model_query_1(self):
 		"""
@@ -174,24 +174,7 @@ class TestModels(unittest.TestCase):
 		with app.test_request_context():
 			launch1 = db.session.query(Launch).first()
 			mission1 = launch1.mission
-			self.assertTrue(mission1 is None)
-
-	# def test_launch_model_link_3(self):
-	# 	"""
-	# 	Test launch link to mission
-	# 	"""
-	# 	with app.test_request_context():
-	# 		ex1 = self.launch
-	# 		db.session.add(ex1)
-	# 		db.session.commit()
-
-	# 		launch1 = db.session.query(Launch).filter_by(name="Launch X").first()
-	# 		mission1 = launch1.mission
-	# 		self.assertEqual(mission1.name, "Explore space")
-	# 		#self.assertEqual(mission1.agencyName, "ExplorersUnited")
-
-	# 		db.session.delete(ex1)
-	# 		db.session.commit()
+			self.assertEqual(mission1.name, "Vostok 1")
 
 	def test_location_model_query_1(self):
 		"""
@@ -201,14 +184,14 @@ class TestModels(unittest.TestCase):
 			location1 = db.session.query(Location).first()
 			self.assertEqual(location1.name, "Jiuquan, People's Republic of China")
 
-	# def test_location_model_link_1(self):
-	# 	"""
-	# 	Test location link to launches
-	# 	"""
-	# 	with app.test_request_context():
-	# 		location1 = db.session.query(Location).first()
-	# 		launch1 = location1.launches
-	# 		print(launch1)
+	def test_location_model_link_1(self):
+		"""
+		Test location link to launches
+		"""
+		with app.test_request_context():
+			location1 = db.session.query(Location).first()
+			launch1 = location1.launches[0]
+			self.assertEqual(launch1.rocket, "Long March 2F")
 
 	def test_mission_model_query_1(self):
 		"""
@@ -224,12 +207,8 @@ class TestModels(unittest.TestCase):
 		"""
 		with app.test_request_context():
 			mission1 = db.session.query(Mission).first()
-			agency1 = mission1.agencies
-			self.assertEqual(agency1, [])
-
-			mission2 = db.session.query(Mission).filter_by(name="WGS-4 (USA-233)").first()
-			agency1 = mission2.agencies
-			self.assertEqual(agency1, []) #this should not be empty, check online api
+			agency1 = mission1.agencies[0]
+			self.assertEqual(agency1.name, "National Aeronautics and Space Administration")
 
 
 	def test_mission_model_link_query_2(self):
@@ -239,7 +218,7 @@ class TestModels(unittest.TestCase):
 		with app.test_request_context():
 			mission1 = db.session.query(Mission).filter_by(name="WGS-4 (USA-233)").first()
 			launch_id1 = mission1.launch_id
-			self.assertEqual(launch_id1, None) #should not be None, check online api
+			self.assertEqual(launch_id1, 484)
 
 
 if __name__ == "__main__":
