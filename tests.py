@@ -9,7 +9,7 @@ import sqlalchemy
 
 class TestModels(unittest.TestCase):
 	"""
-		Unit test class for testing the DB model classes
+		Unit test class for testing the DB model classes and db queries
 	"""
 
 	def setUp(self):
@@ -21,21 +21,6 @@ class TestModels(unittest.TestCase):
 		location = Location(name='testLoc', countryCode='testCC2')
 		mission = Mission(name='testMissionN', description='This is a description about this mission.',
 						  typeName='testType2', wikiUrl='https://www.wikipedia2.org')
-						  #agencyName='ExplorersUnited', launchName='Pegasus XL')
-
-		# agency.id = 1
-		# launch.id = 2
-		# location.id = 3
-		# mission.id = 4
-
-		# agency.missions.append(mission)
-		# agency.launches.append(launch)
-		# launch.agency = agency
-		# launch.location = location
-		# launch.mission = mission
-		# location.launches.append(launch)
-		# mission.agencies.append(agency)
-		# mission.launch = launch
 
 		self.agency = agency
 		self.launch = launch
@@ -48,7 +33,7 @@ class TestModels(unittest.TestCase):
 
 	def test_agency_model_1(self):
 		"""
-		Test querying the database by attribute using simple keywords - agency
+		Test Agency model
 		"""
 		with app.test_request_context():
 			ex1 = self.agency
@@ -64,7 +49,7 @@ class TestModels(unittest.TestCase):
 
 	def test_launch_model_1(self):
 		"""
-		Test querying the database by attribute using simple keywords - launch
+		Test Launch model
 		"""
 		with app.test_request_context():
 			ex1 = self.launch
@@ -80,7 +65,7 @@ class TestModels(unittest.TestCase):
 
 	def test_location_model_1(self):
 		"""
-		Test querying the database by attribute using simple keywords - location
+		Test Location model
 		"""
 		with app.test_request_context():
 			ex1 = self.location
@@ -95,7 +80,7 @@ class TestModels(unittest.TestCase):
 
 	def test_mission_model_1(self):
 		"""
-		Test querying the database by attribute using simple keywords - mission
+		Test Mission model
 		"""
 		with app.test_request_context():
 			ex1 = self.mission
@@ -108,9 +93,9 @@ class TestModels(unittest.TestCase):
 			db.session.delete(ex1)
 			db.session.commit()
 
-	##################
-	# DB QUERY TESTS #
-	##################
+	######################################
+	# DB QUERY TESTS, MODEL TESTS VIA DB #
+	######################################
 
 	def test_query_1(self):
 		"""
@@ -132,7 +117,7 @@ class TestModels(unittest.TestCase):
 
 	def test_agency_model_link_query_1(self):
 		"""
-		Test agency link to launches
+		Test agency link to launches via db
 		"""
 		with app.test_request_context():
 			agency1 = db.session.query(Agency).filter_by(name="SpaceX").first()
@@ -141,7 +126,7 @@ class TestModels(unittest.TestCase):
 
 	def test_agency_model_link_2(self):
 		"""
-		Test agency link to missions
+		Test agency link to missions via db
 		"""
 		with app.test_request_context():
 			agency1 = db.session.query(Agency).filter_by(name="Mexican Space Agency").first()
@@ -160,7 +145,7 @@ class TestModels(unittest.TestCase):
 
 	def test_launch_model_link_query_1(self):
 		"""
-		Test launch link to agency
+		Test launch link to agencies via db
 		"""
 		with app.test_request_context():
 			launch1 = db.session.query(Launch).filter_by(name="Long March 3B | Shijian-13").first()
@@ -186,7 +171,7 @@ class TestModels(unittest.TestCase):
 
 	def test_location_model_link_1(self):
 		"""
-		Test location link to launches
+		Test location link to launches via db
 		"""
 		with app.test_request_context():
 			location1 = db.session.query(Location).first()
@@ -203,7 +188,7 @@ class TestModels(unittest.TestCase):
 
 	def test_mission_model_link_query_1(self):
 		"""
-		Test mission link to agencies
+		Test mission link to agencies via db
 		"""
 		with app.test_request_context():
 			mission1 = db.session.query(Mission).first()
@@ -213,7 +198,7 @@ class TestModels(unittest.TestCase):
 
 	def test_mission_model_link_query_2(self):
 		"""
-		Test mission link to launch
+		Test mission link to launch_id via db
 		"""
 		with app.test_request_context():
 			mission1 = db.session.query(Mission).filter_by(name="WGS-4 (USA-233)").first()
