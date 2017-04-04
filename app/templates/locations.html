@@ -59,7 +59,23 @@
       <div class="item col-xs-6 col-sm-4" >
           <div class="thumbnail">
             <img src="http://placehold.it/200x200/000/fff">
-            <div class="caption" id="content">
+            <div class="caption" id="content1">
+              
+            </div>
+          </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" >
+          <div class="thumbnail">
+            <img src="http://placehold.it/200x200/000/fff">
+            <div class="caption" id="content2">
+              
+            </div>
+          </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" >
+          <div class="thumbnail">
+            <img src="http://placehold.it/200x200/000/fff">
+            <div class="caption" id="content3">
               
             </div>
           </div>
@@ -83,7 +99,7 @@ render: function() {
   var locations = this.props.items;
 
   return (
-    React.createElement("a", {href: "{{url_for('location_1')}}"}, locations[1].loc)
+    React.createElement("a", {href: "{{url_for('location_1')}}"}, locations.loc)
   )
 }
 
@@ -96,10 +112,19 @@ var locations = [
 ];
 
 ReactDOM.render(
-  React.createElement(Locations, {items:  locations }),
-  document.getElementById('content')
+  React.createElement(Locations, {items:  locations[0] }),
+  document.getElementById('content1')
 );
 
+ReactDOM.render(
+  React.createElement(Locations, {items:  locations[1] }),
+  document.getElementById('content2')
+);
+
+ReactDOM.render(
+  React.createElement(Locations, {items:  locations[2] }),
+  document.getElementById('content3')
+);
 </script>
 
 
