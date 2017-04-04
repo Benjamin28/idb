@@ -69,29 +69,73 @@
       <div class="item col-xs-6 col-sm-4">
         <div class="thumbnail">
           <img class="img-square" src="https://s3.amazonaws.com/launchlibrary/RocketImages/Ariane+5+ECA_1920.jpg" alt="Generic placeholder image" width="200" height="200">
-          <div class="caption">
-            <a href="{{url_for('launches_1')}}">Ariane 5 ECA | SGDC 1 &amp; Koreasat 7</a>
+          <div class="caption" id="content1">
+            
           </div>
         </div>
       </div>
       <div class="item col-xs-6 col-sm-4">
         <div class="thumbnail">
           <img class="img-square" src="https://s3.amazonaws.com/launchlibrary/RocketImages/Atlas+V+401_2560.jpg" alt="Generic placeholder image" width="200" height="200">
-          <div class="caption">
-            <a href="{{url_for('launches_2')}}">Atlas V 401 | Cygnus CRS OA-7 (S.S. John Glenn)</a>
+          <div class="caption" id="content2">
+            
           </div>
         </div>
       </div>
       <div class="item col-xs-6 col-sm-4">
         <div class="thumbnail">
           <img class="img-square" src="https://s3.amazonaws.com/launchlibrary/RocketImages/Falcon+9+Full+Thrust_1920.jpg" alt="Generic placeholder image" width="200" height="200">
-          <div class="caption">
-            <a href="{{url_for('launches_3')}}">Falcon 9 Full Thrust | SES-10</a>
+          <div class="caption" id="content3">
+            
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script> -->
+<script type="text/jsx">
+/** @jsx React.DOM */
+
+var Launches = React.createClass({displayName: "Launches",
+  
+render: function() {
+  
+  var launche = this.props.items;
+
+  return (
+    React.createElement("a", {href: "{{url_for('launches_1')}}"}, launche.la)
+  )
+}
+
+});
+
+var launches = [
+  {"la": "Ariane 5 ECA | SGDC 1 &amp; Koreasat 7"}, 
+  {"la": "Atlas V 401 | Cygnus CRS OA-7 (S.S. John Glenn)"}, 
+  {"la": "Falcon 9 Full Thrust | SES-10", "url":"launches_1"}
+];
+
+ReactDOM.render(
+  React.createElement(Launches, {items:  launches[0] }),
+  document.getElementById('content1')
+);
+
+ReactDOM.render(
+  React.createElement(Launches, {items:  launches[1] }),
+  document.getElementById('content2')
+);
+
+ReactDOM.render(
+  React.createElement(Launches, {items:  launches[2] }),
+  document.getElementById('content3')
+);
+
+</script>
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
 <!-- In base.html, I've written where the content will be put in for the html files that extend base.html. Look at index.html for an example-->

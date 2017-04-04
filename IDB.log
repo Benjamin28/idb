@@ -1,3 +1,201 @@
+commit 8ae244bbbf5dc0d40f8e5eb49d60343b93302e84
+Merge: 835b6c9 670c233
+Author: Benjamin Baker <benjamin.baker@utexas.edu>
+Date:   Tue Apr 4 15:16:50 2017 -0500
+
+    Merge pull request #36 from Benjamin28/reat-test
+    
+    Loading react tables with dummy array data
+
+commit 670c2338237ccf3119f87d11eef1bad3c052c1f1
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Tue Apr 4 00:34:30 2017 -0500
+
+    render react blocks with dummy data
+
+commit 6bec57d519c09d0fa6a4731ac5bfa0a92f228f3f
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Mon Apr 3 23:51:02 2017 -0500
+
+    added some packages for react
+
+commit 835b6c9a0f2a4c6060d296d045937b0d150dabf9
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Mon Apr 3 21:23:46 2017 -0500
+
+    added asserts in get.py
+    Fixes #24, Fixes #25, Fixes #26
+
+commit 5020f8adfa5b795125a0b0e5260346b7a0b7bd01
+Author: Benjamin Baker <benjamin.baker@utexas.edu>
+Date:   Mon Apr 3 12:15:54 2017 -0500
+
+    Update README.md
+
+commit e36b00caf8e9da1fb1cebe24d3e3932eefa1ba01
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Sat Apr 1 19:06:28 2017 -0500
+
+    Finished unit tests.
+
+commit 3803004f1f81eb4264883542ceada375e99808f4
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Sat Apr 1 18:41:32 2017 -0500
+
+    Finished db query unit tests.
+
+commit 0898626ec8d69cda29f379cccaaac4de1a635034
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Sat Apr 1 14:32:09 2017 -0500
+
+    Added check to solve duplicate error, added all data from API to db
+    Fixes #27, Fixes #28, Fixes #30
+
+commit d6a1a68d25972219b31a067dd1ceb2243b39ba50
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Sat Apr 1 14:30:55 2017 -0500
+
+    Remove string length restrictions
+    Fixes #1
+
+commit 729cd4dcc018337b6320b40aa725cb550005bf47
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Fri Mar 31 15:23:24 2017 -0500
+
+    Added simple model unit tests.
+
+commit 072b1c6ea1c257ace33e06bbf187a10cd425e773
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Fri Mar 31 14:43:13 2017 -0500
+
+    Added 1 agency model test.
+
+commit c7481521a1122a16ee6d795ec535c3cccaf7a4c0
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Fri Mar 31 11:44:42 2017 -0500
+
+    added node and react. need to refactor to support existing code
+
+commit dd214f2dee6fc1b3e4f45751cfe1ad44f945cf3c
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Fri Mar 31 10:36:30 2017 -0500
+
+    added webpack
+
+commit fa437ff5605169189859712afc3856a580967147
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Fri Mar 31 10:25:31 2017 -0500
+
+    integrated babel
+
+commit 4c8c77eef510cedaef195f2393d978a492e0c613
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Fri Mar 31 10:21:19 2017 -0500
+
+    added packages.json
+
+commit 9b6986d3db2340cda92a5aff7a198875689cf05e
+Author: Jacob Courtney <jacobc@cs.utexas.edu>
+Date:   Wed Mar 29 23:11:51 2017 -0500
+
+    Updated makefile since tests.py was moved
+
+commit 2275d021dd0b2d9ac6bb563d42c5c40907de0a2a
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Mar 29 23:03:31 2017 -0500
+
+    Updated unit tests, some still not working. Moved tests.py.
+
+commit 161d4fb5920017296025104bf0724adcbb585b9c
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Mar 29 20:20:47 2017 -0500
+
+    updated import dependencies for requests library
+
+commit 647ed4a418c9090b824992aa25051f5326cf73dc
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Mar 29 20:17:29 2017 -0500
+
+    updated database with preliminary values
+
+commit 6660d661c2e642067c44789881875ecd977084e2
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Mar 29 20:15:23 2017 -0500
+
+    made get.py prettier, need to update URLs
+    Fixes #23
+
+commit f2dcbf4c2cdb35f81687c93c7812983e8da6f70d
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Tue Mar 28 21:28:39 2017 -0500
+
+    added file (get.py) to perform GET requests and populate database
+    Need to fix TODO and resolve the respective issues
+
+commit e7ec00181a11b2e8b45abc916114cf3cf638e0fb
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Tue Mar 28 21:23:42 2017 -0500
+
+    Models should work, linked correctly
+
+commit 55ebc86d894652b91a3a8004259cdffe5562fb7f
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Tue Mar 28 00:15:24 2017 -0500
+
+    changed agency/launch to have many-many relationship
+    Updated inside UML and models.py
+
+commit 66bb2e299266003019bf7c983aa12de06d31ae87
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Mon Mar 27 12:31:14 2017 -0500
+
+    added table of contents
+
+commit d12c5741756fc7f396e06df86d881e77a31765cc
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Sun Mar 26 16:31:14 2017 -0500
+
+    updated relationships, hopefully fixed
+    Need to update database.db file
+
+commit a58007f9f9318d919158e47bf638c40060f87f9f
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Mar 23 21:38:09 2017 -0500
+
+    fixed a typo
+
+commit 711bb223be12e7416f1c8b6ec79f0d8924a5f6ae
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Thu Mar 23 21:36:01 2017 -0500
+
+    cleanup
+
+commit e2ce4195c67e034a983691cacb3b29fbe18365f3
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Mar 23 21:25:20 2017 -0500
+
+    fixed name of log
+
+commit a63d741eb2121b371b6de165588e3def8dbb82c0
+Merge: 29fd27b b1d31af
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Thu Mar 23 21:20:57 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+    add stats
+
+commit 29fd27b58bbcb6e44c1d42de85ac6423aa28659d
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Thu Mar 23 21:20:44 2017 -0500
+
+    added stats
+
+commit b1d31afbc839f3c083fcbc4105e167705376af5d
+Author: Ubuntu <ubuntu@ip-172-31-24-170.us-west-2.compute.internal>
+Date:   Fri Mar 24 02:18:33 2017 +0000
+
+    renaming models.html to IDB1.html
+
 commit a700e3c6bfb0aba452bceab7a4af808f75b11b91
 Author: Ubuntu <ubuntu@ip-172-31-24-170.us-west-2.compute.internal>
 Date:   Fri Mar 24 02:14:29 2017 +0000
