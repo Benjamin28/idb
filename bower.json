@@ -1,0 +1,19 @@
+{
+  "name": "idb",
+  "description": "My Project",
+  "main": "index.js",
+  "license": "ISC",
+  "homepage": "https://github.com/Benjamin28/idb",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "react": "^15.1.0"
+  }
+}

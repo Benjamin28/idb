@@ -1,6 +1,9 @@
 
 {% extends "base.html" %}
 {% block styles %}
+<script src="{{ url_for('static', filename='bower_components/react/react.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/react/react-dom.min.js') }}"></script>
+
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
 {% endblock %}
 {% block content %}
@@ -53,40 +56,77 @@
         </li>
     </div>
     <div class="col-sm-9">
-      <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
-          <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Name</a></li>
-          <li><a href="#">Country Code</a></li>
-        </ul>
-      </div>
-      <div class="item col-xs-6 col-sm-4">
-        <div class="thumbnail">
-          <img src="http://placehold.it/200x200/000/fff">
-          <div class="caption">
-            <a href="{{url_for('location_1')}}">Jiuquan, People's Republic of China</a>
+      <div class="item col-xs-6 col-sm-4" >
+          <div class="thumbnail">
+            <img src="http://placehold.it/200x200/000/fff">
+            <div class="caption" id="content1">
+              
+            </div>
           </div>
-        </div>
       </div>
-      <div class="item col-xs-6 col-sm-4">
-        <div class="thumbnail">
-          <img src="http://placehold.it/200x200/000/fff">
-          <div class="caption">
-            <a href="{{url_for('location_2')}}">Kennedy Space Center, FL, USA</a>
+      <div class="item col-xs-6 col-sm-4" >
+          <div class="thumbnail">
+            <img src="http://placehold.it/200x200/000/fff">
+            <div class="caption" id="content2">
+              
+            </div>
           </div>
-        </div>
       </div>
-      <div class="item col-xs-6 col-sm-4">
-        <div class="thumbnail">
-          <img src="http://placehold.it/200x200/000/fff">
-          <div class="caption">
-            <a href="{{url_for('location_3')}}">Svobodney Cosmodrome, Russian Federation</a>
+      <div class="item col-xs-6 col-sm-4" >
+          <div class="thumbnail">
+            <img src="http://placehold.it/200x200/000/fff">
+            <div class="caption" id="content3">
+              
+            </div>
           </div>
-        </div>
       </div>
     </div>
-  </div>
+</div> 
+
+
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script> -->
+<script type="text/jsx">
+/** @jsx React.DOM */
+
+var Locations = React.createClass({displayName: "Locations",
+  
+render: function() {
+  
+  var locations = this.props.items;
+
+  return (
+    React.createElement("a", {href: "{{url_for('location_1')}}"}, locations.loc)
+  )
+}
+
+});
+
+var locations = [
+  {"loc": "Jiuquan, People's Republic of China"}, 
+  {"loc": "Kennedy Space Center, FL, USA"}, 
+  {"loc": "Svobodney Cosmodrome, Russian Federation"}
+];
+
+ReactDOM.render(
+  React.createElement(Locations, {items:  locations[0] }),
+  document.getElementById('content1')
+);
+
+ReactDOM.render(
+  React.createElement(Locations, {items:  locations[1] }),
+  document.getElementById('content2')
+);
+
+ReactDOM.render(
+  React.createElement(Locations, {items:  locations[2] }),
+  document.getElementById('content3')
+);
+</script>
+
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
 <!-- In base.html, I've written where the content will be put in for the html files that extend base.html. Look at index.html for an example-->
