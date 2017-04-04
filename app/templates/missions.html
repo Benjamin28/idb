@@ -67,29 +67,71 @@
       <div class="item col-xs-6 col-sm-4">
         <div class="thumbnail">
           <img src="http://placehold.it/200x200/000/fff">
-          <div class="caption">
-            <a href="{{url_for('mission_1')}}">Nuclear Spectroscopic Telescope Array (NuSTAR)</a>
+          <div class="caption" id="content1">
+            
           </div>
         </div>
       </div>
       <div class="item col-xs-6 col-sm-4">
         <div class="thumbnail">
           <img src="http://placehold.it/200x200/000/fff">
-          <div class="caption">
-           <td><a href="{{url_for('mission_3')}}">Shenzhou-10</a></td>
+          <div class="caption" id="content2">
+           
           </div>
         </div>
       </div>
       <div class="item col-xs-6 col-sm-4">
         <div class="thumbnail">
           <img src="http://placehold.it/200x200/000/fff">
-          <div class="caption">
-            <a href="{{url_for('mission_2')}}">SpX CRS-1</a>
+          <div class="caption" id="content3">
+            
           </div>
         </div>
       </div>
     </div>
   </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script> -->
+<script type="text/jsx">
+/** @jsx React.DOM */
+
+var Missions = React.createClass({displayName: "Missions",
+  
+render: function() {
+  
+  var mission = this.props.items;
+
+  return (
+    React.createElement("a", {href: "{{url_for('mission_1')}}"}, mission.title)
+  )
+}
+
+});
+
+var missions = [
+  {"title": "Nuclear Spectroscopic Telescope Array (NuSTAR)"}, 
+  {"title": "Shenzhou-10"}, 
+  {"title": "SpX CRS-1"}
+];
+
+ReactDOM.render(
+  React.createElement(Missions, {items:  missions[0] }),
+  document.getElementById('content1')
+);
+
+ReactDOM.render(
+  React.createElement(Missions, {items:  missions[1] }),
+  document.getElementById('content2')
+);
+
+ReactDOM.render(
+  React.createElement(Missions, {items:  missions[2] }),
+  document.getElementById('content3')
+);
+
+</script>
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
 <!-- In base.html, I've written where the content will be put in for the html files that extend base.html. Look at index.html for an example-->
