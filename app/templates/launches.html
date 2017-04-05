@@ -66,30 +66,47 @@
           <li><a href="#">Mission</a></li>
         </ul>
       </div>
-      <div class="item col-xs-6 col-sm-4">
-        <div class="thumbnail">
-          <img class="img-square" src="https://s3.amazonaws.com/launchlibrary/RocketImages/Ariane+5+ECA_1920.jpg" alt="Generic placeholder image" width="200" height="200">
-          <div class="caption" id="content1">
-            
-          </div>
+      <div class="item col-xs-6 col-sm-4" id="col1">
+        <div class="thumbnail" id="thumb1">
         </div>
       </div>
-      <div class="item col-xs-6 col-sm-4">
-        <div class="thumbnail">
-          <img class="img-square" src="https://s3.amazonaws.com/launchlibrary/RocketImages/Atlas+V+401_2560.jpg" alt="Generic placeholder image" width="200" height="200">
-          <div class="caption" id="content2">
-            
-          </div>
+      <div class="item col-xs-6 col-sm-4" id="col2">
+        <div class="thumbnail" id="thumb2">
         </div>
       </div>
-      <div class="item col-xs-6 col-sm-4">
-        <div class="thumbnail">
-          <img class="img-square" src="https://s3.amazonaws.com/launchlibrary/RocketImages/Falcon+9+Full+Thrust_1920.jpg" alt="Generic placeholder image" width="200" height="200">
-          <div class="caption" id="content3">
-            
-          </div>
+      <div class="item col-xs-6 col-sm-4" id="col3">
+        <div class="thumbnail" id="thumb3">
         </div>
       </div>
+      <div class="item col-xs-6 col-sm-4" id="col4">
+        <div class="thumbnail" id="thumb4">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col5">
+        <div class="thumbnail" id="thumb5">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col6">
+        <div class="thumbnail" id="thumb6">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col7">
+        <div class="thumbnail" id="thumb7">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col8">
+        <div class="thumbnail" id="thumb8">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col9">
+        <div class="thumbnail" id="thumb9">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col10">
+        <div class="thumbnail" id="thumb10">
+        </div>
+      </div>
+
     </div>
     <div>
       <button type="button" class="btn pull-right" id="nextButton">Next</button>
@@ -98,46 +115,62 @@
   </div>
 
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
-<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/jsx">
 /** @jsx React.DOM */
 
-var Launches = React.createClass({displayName: "Launches",
+var App = React.createClass({
   
-render: function() {
-  
-  var launche = this.props.items;
+  getInitialState: function() {
+    return {
+      names: [],
+      images: []
+    }
+  },
 
-  return (
-    React.createElement("a", {href: "{{url_for('launches_1')}}"}, launche.la)
-  )
-}
+  componentDidMount: function() {
+    var _this = this;
+    this.serverRequest = 
+      axios
+        .get("https://launchlibrary.net/1.2/agency?limit=10.json")
+        .then(function(result) {    
+          const lch = result.data.agencies.map(function(obj){return obj.name});
+          const img = result.data.agencies.map(function(obj){return "http://placehold.it/200x200/000/fff"});
+          _this.setState({names: lch});
+          _this.setState({images: img})
+        })
+  },
 
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+  render: function() {
+    var index = this.props.items
+    return <div class="thumbnail">
+             <img src={this.state.images[index]} ></img>
+             <div class="caption">{this.state.names[index]}</div>
+           </div>
+
+  }
 });
+function drawTables(numTables){
 
-var launches = [
-  {"la": "Ariane 5 ECA | SGDC 1 &amp; Koreasat 7"}, 
-  {"la": "Atlas V 401 | Cygnus CRS OA-7 (S.S. John Glenn)"}, 
-  {"la": "Falcon 9 Full Thrust | SES-10", "url":"launches_1"}
-];
+  var i;
+  for(i=0; i<numTables; i++){
+    
+    ReactDOM.render(
+      React.createElement(App, {items: i}),
+      document.getElementById('col'+(i+1))
+    );
+    document.getElementById('col'+(i+1)).childNodes[0].className+= " thumbnail";
 
-ReactDOM.render(
-  React.createElement(Launches, {items:  launches[0] }),
-  document.getElementById('content1')
-);
-
-ReactDOM.render(
-  React.createElement(Launches, {items:  launches[1] }),
-  document.getElementById('content2')
-);
-
-ReactDOM.render(
-  React.createElement(Launches, {items:  launches[2] }),
-  document.getElementById('content3')
-);
+  }
+}
+drawTables(10);
 
 </script>
 
