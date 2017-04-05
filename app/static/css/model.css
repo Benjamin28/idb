@@ -55,7 +55,11 @@ body {
 	font-size: 18px;
 	line-height: 1.5;
 }
-
+.caption {
+	white-space:pre;
+	overflow:hidden;
+	text-overflow: ellipsis;
+}
 pre {
 	margin-bottom: 0;
 }
