@@ -12,9 +12,33 @@ body {
 
 .navbar {
 	margin: 0;
-	width: 100%;
+	background-image: none;
+	background: none;
+	border: none;
+	font-family: "Montserrat";
 }
 
+.navbar .container {
+	width: 95%;
+}
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-nav li a,
+.navbar-inverse .navbar-nav li a:hover{
+    color: black;
+    background-color: none;
+}
+.navbar-inverse .navbar-nav li a:focus {
+	color: black;
+	}
+.navbar-brand,
+.navbar-nav li a {
+    padding: 2em 1.5em;
+}
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav li a {
+    text-shadow: none;
+    color: black;
+}
 .featurette-divider {
 	margin: 80px 0;
 }
@@ -31,6 +55,7 @@ body {
 	font-size: 18px;
 	line-height: 1.5;
 }
+
 pre {
 	margin-bottom: 0;
 }

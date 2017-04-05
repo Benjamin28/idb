@@ -1,10 +1,8 @@
-body {
-  padding-top: 50px;
-}
 html,
 body {
 	height: 100%;
 }
+
 .carousel,
 .item,
 .active,
@@ -16,6 +14,7 @@ body {
 .container {
 	padding: 0;
 }
+
 .carousel-inner {
 	height:100%;
 }
@@ -29,4 +28,23 @@ body {
 
 .navbar {
 	margin: 0;
+	background-image: none;
+	background: none;
+	border: none;
+	font-family: "Montserrat";
 }
+.navbar .container {
+	width: 95%;
+	padding: 0px 15px;
+}
+.navbar-brand,
+.navbar-nav li a {
+    padding: 2em 1.5em;
+}
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav li a {
+    text-shadow: none;
+    color: white;
+}
+
+
