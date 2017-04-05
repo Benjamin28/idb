@@ -32,23 +32,23 @@ def about():
 @app.route('/about/testResults', methods=['GET'])
 def getTestResults():
 	#s = subprocess.check_output(['python3','./tests.py'])
-	path = os.getcwd()#os.path.dirname(__file__)
-	cmd = 'python3 ' + path + '/tests.py'
-	p = subprocess.Popen(cmd, shell=True, stderr=subprocess.PIPE)
+	path = os.path.dirname(os.path.realpath(__file__))
+	p = subprocess.check_output(['python3', os.path.join(path, '../tests.py')], stderr=subprocess.STDOUT)
 	## But do not wait till netstat finish, start displaying output immediately ##
-	i = 1
-	p.stderr.readline()
-	p.stderr.readline()
-	while True and i > 0:
-		out = p.stderr.read()
-		if out == '' and p.poll() != None:
-			break
-		if out != '':
-			print(out)
-		i-=1
-	print(out)
+	print(p)
+	l = [{"testResults" : p.decode('utf-8')}]#out.decode('utf-8')}]
+	# i = 1
+	# p.stdout.readline()
+	# p.stdout.readline()
+	# while True and i > 0:
+	# 	out = p.stdout.read()
+	# 	if out == '' and p.poll() != None:
+	# 		break
+	# 	if out != '':
+	# 		print(out)
+	# 	i-=1
+	# print(out)
 
-	l = [{"testResults" : out.decode('utf-8')}]#out.decode('utf-8')}]
 	return jsonify(l)
 
 
