@@ -30,14 +30,25 @@ def about():
 
 @app.route('/about/testResults', methods=['GET'])
 def getTestResults():
-	os.system("make unittestReturn")
-	f = open('testResults', 'r')
-	f.readline()
-	f.readline()
-	s = f.read()
-	# print(s)
-	l = [{"testResults" : s}]
-	os.system("make unittestClean")
+	#s = subprocess.check_output(['python3','./tests.py'])
+	#p = Popen('python3 ./tests.py', stdout=PIPE)
+	#process = subprocess.Popen(['python3', './tests.py'], stdout=subprocess.PIPE)
+	p = subprocess.Popen('python3 ./tests.py', shell=True, stderr=subprocess.PIPE)
+ 
+## But do not wait till netstat finish, start displaying output immediately ##
+	i = 1
+	p.stderr.readline()
+	p.stderr.readline()
+	while True and i > 0:
+		out = p.stderr.read()
+		if out == '' and p.poll() != None:
+			break
+		if out != '':
+			print(out)
+		i-=1
+	print(out)
+
+	l = [{"testResults" : out.decode('utf-8')}]
 	return jsonify(l)
 
 
