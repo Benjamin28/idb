@@ -44,4 +44,10 @@ restart:
 unittest:
 	python3 ./tests.py
 
+unittestReturn:
+	python3 ./tests.py &> testResults
+
+unittestClean:
+	rm testResults
+
 test: html log check

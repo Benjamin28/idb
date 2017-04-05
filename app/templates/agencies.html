@@ -87,6 +87,10 @@
         </div>
       </div>
     </div>
+    <div>
+      <button type="button" class="btn pull-right" id="nextButton">Next</button>
+      <button type="button" class="btn pull-right" id="prevButton">Previous</button>
+    </div>
   </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
@@ -143,6 +147,52 @@ ReactDOM.render(
   React.createElement(App, {items: 2}),
   document.getElementById('content3')
 );
+</script>
+
+<script>
+
+function getNextPage() {
+  var currentLink = window.location.href;
+  var newLink;
+  /*  first page does not have number signifier 
+    i.e. is just itslaunchtime.me/agencies not itslaunchtime.me/agencies/1 */
+  window.alert("Substr " + parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1)));
+  if(isNaN(parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1)))) {
+    newLink = currentLink + "/2";
+    window.alert("hell yeh");
+  }
+  else {
+    newLink = currentLink.substr(0, currentLink.lastIndexOf('/'));
+    var curPageNum = parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1));
+    ++curPageNum;
+    newLink += "/" + curPageNum;
+  }
+  window.location.href = newLink;
+}
+
+function getPrevPage() {
+  var currentLink = window.location.href;
+  var newLink;
+  /*  first page does not have prev */
+  window.alert("Substr " + parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1)));
+  if(isNaN(parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1)))) {
+    return;
+
+  }
+  else {
+    newLink = currentLink.substr(0, currentLink.lastIndexOf('/'));
+    var curPageNum = parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1));
+    --curPageNum;
+    newLink += "/" + curPageNum;
+  }
+  window.location.href = newLink;
+}
+
+var next = document.getElementById("nextButton");
+next.addEventListener("click", getNextPage);
+
+var next = document.getElementById("prevButton");
+next.addEventListener("click", getPrevPage);
 </script>
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
