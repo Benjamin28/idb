@@ -92,47 +92,61 @@
       <button type="button" class="btn pull-right" id="prevButton">Previous</button>
     </div>
   </div>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
-<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/jsx">
 /** @jsx React.DOM */
 
-var Agencies = React.createClass({displayName: "Agencies",
-  
-render: function() {
-  
-  var agency = this.props.items;
 
-  return (
-    React.createElement("a", {href: "{{url_for('agency_3')}}"}, agency.ag)
-  )
-}
 
+var App = React.createClass({
+
+  getInitialState: function() {
+    return {
+      names: []
+    }
+  },
+
+  componentDidMount: function() {
+    var _this = this;
+    this.serverRequest = 
+      axios
+        .get("https://launchlibrary.net/1.2/agency?limit=3.json")
+        .then(function(result) {    
+          const agc = result.data.agencies.map(function(obj){return obj.name});
+          _this.setState({names: agc});
+        })
+  },
+
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+
+  render: function() {
+    var index = this.props.items
+    return React.createElement("a", { href: "{{url_for('agency_3')}}" }, this.state.names[index])
+  }
 });
 
-var agencies = [
-  {"ag": "Mexican Space Agency"}, 
-  {"ag": "China National Space Administration"}, 
-  {"ag": "National Aeronautics and Space Administration"}
-];
+
 
 ReactDOM.render(
-  React.createElement(Agencies, {items:  agencies[0] }),
+  React.createElement(App, {items: 0}),
   document.getElementById('content1')
 );
 
 ReactDOM.render(
-  React.createElement(Agencies, {items:  agencies[1] }),
+  React.createElement(App, {items: 1}),
   document.getElementById('content2')
 );
 
 ReactDOM.render(
-  React.createElement(Agencies, {items:  agencies[2] }),
+  React.createElement(App, {items: 2}),
   document.getElementById('content3')
 );
-
 </script>
 
 <script>
