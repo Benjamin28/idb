@@ -3,6 +3,7 @@ from app.models import Agency, Launch, Location, Mission
 from flask import render_template, jsonify, request
 import json
 import os
+import subprocess
 
 @app.route('/')
 def index():
@@ -31,11 +32,10 @@ def about():
 @app.route('/about/testResults', methods=['GET'])
 def getTestResults():
 	#s = subprocess.check_output(['python3','./tests.py'])
-	#p = Popen('python3 ./tests.py', stdout=PIPE)
-	#process = subprocess.Popen(['python3', './tests.py'], stdout=subprocess.PIPE)
-	p = subprocess.Popen('python3 ./tests.py', shell=True, stderr=subprocess.PIPE)
- 
-## But do not wait till netstat finish, start displaying output immediately ##
+	path = os.getcwd()#os.path.dirname(__file__)
+	cmd = 'python3 ' + path + '/tests.py'
+	p = subprocess.Popen(cmd, shell=True, stderr=subprocess.PIPE)
+	## But do not wait till netstat finish, start displaying output immediately ##
 	i = 1
 	p.stderr.readline()
 	p.stderr.readline()
@@ -48,7 +48,7 @@ def getTestResults():
 		i-=1
 	print(out)
 
-	l = [{"testResults" : out.decode('utf-8')}]
+	l = [{"testResults" : out.decode('utf-8')}]#out.decode('utf-8')}]
 	return jsonify(l)
 
 
