@@ -31,6 +31,9 @@ class Agency(db.Model):
 		d["missions"] = {mission.id: mission.name for mission in self.missions}
 		return d
 
+	def attributes():
+		return ['id','name','abbrev','agencyType','countryCode','wikiUrl']
+
 class Launch(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	name = db.Column(db.String(), unique = True)
@@ -57,6 +60,9 @@ class Launch(db.Model):
 		d["mission"] = self.mission.name if self.mission is not None else "None"
 		return d
 
+	def attributes():
+		return ['id','name','windowStart','windowEnd','videoUrl','launchPad','rocket','location_id','mission.name']
+
 class Location(db.Model):
 	id = db.Column(db.Integer, primary_key = True)	
 	name = db.Column(db.String(), unique = True)
@@ -69,6 +75,9 @@ class Location(db.Model):
 		d = {"id" : self.id, "name" : self.name, "countryCode" : self.countryCode}
 		d["launches"] = {launch.id: launch.name for launch in self.launches}
 		return d
+
+	def attributes():
+		return ['id','name','countryCode']
 
 class Mission(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -90,3 +99,6 @@ class Mission(db.Model):
 		d["agencies"] = {agency.id: agency.name for agency in self.agencies}
 		d["launch_id"] = self.launch.id if self.launch is not None else "None"
 		return d
+
+	def attributes():
+		return ['id','name','description','typeName','wikiUrl','launch_id']
