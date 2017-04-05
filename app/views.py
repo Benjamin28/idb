@@ -29,71 +29,55 @@ def about():
 
 #API
 @app.route('/api/<model>')
-def api_model(model):
+@app.route('/api/<model>/<criteria>')
+@app.route('/api/<model>/<criteria>/<int:page>')
+@app.route('/api/<model>/<criteria>/<int:page>/<filter>')
+def api_model(model, criteria=None, page=None, filter=None):
+	print("---------------------------DEBUG----------------------------------")
+	print(str(model) + " " + str(criteria) + " " + str(page) + " " + str(request.query_string))
+	print("---------------------------DEBUG----------------------------------")
 	l = []
+
+	m = ""
 	if model == 'agency':
-		agency_list = Agency.query.all()
-		for agency in agency_list:
-			d = {"id" : agency.id, "name" : agency.name, "abbrev" : agency.abbrev, "agencyType" : agency.agencyType,
-							"countryCode" : agency.countryCode, "wikiUrl" : agency.wikiUrl}
-			#RELATIONSHIPS
-			launch_d = {launch.id: launch.name for launch in agency.launches}
-			mission_d = {mission.id: mission.name for mission in agency.missions}
-			d["launches"] = launch_d
-			d["missions"] = mission_d
-			l.append(d)
-		return jsonify(agencies = l)
-
+		m = Agency
 	elif model == 'launch':
-		launch_list = Launch.query.all()
-		for launch in launch_list:
-			d = {"id" : launch.id, "name" : launch.name, "windowStart" : launch.windowStart, "windowEnd" : launch.windowEnd,
-					"videoUrl" : launch.videoUrl, "launchPad" : launch.launchPad, "rocket" : launch.rocket, 
-					"location_id" : launch.location_id}
-			#RELATIONSHIPS
-			agency_d = {agency.id: agency.name for agency in launch.agencies}
-			d["agencies"] = agency_d
-			d["mission"] = launch.mission.name if launch.mission is not None else "None" 
-			l.append(d)
-		return jsonify(launches = l)
-
+		m = Launch
 	elif model == 'location':
-		location_list = Location.query.all()
-		for location in location_list:
-			d = {"id" : location.id, "name" : location.name, "countryCode" : location.countryCode}
-			#RELATIONSHIPS
-			launch_d = {launch.id: launch.name for launch in location.launches}
-			d["launches"] = launch_d
-			l.append(d)
-		return jsonify(locations = l)
-
+		m = Location
 	elif model == 'mission':
-		mission_list = Mission.query.all()
-		for mission in mission_list:
-			d = {"id" : mission.id, "name" : mission.name, "description" : mission.description, "typeName" : mission.typeName,
-						"wikiUrl" : mission.wikiUrl, "launch_id" : mission.launch_id}
-			#RELATIONSHIPS
-			agency_d = {agency.id: agency.name for agency in mission.agencies}
-			# launch_id = 
-			d["agencies"] = agency_d
-			l.append(d)
-			#TODO: GET AGENCIES AND LAUNCH ID
-		return jsonify(missions = l)
+		m = Mission
+
+	#TODO: citeria sort doesn't work if its related to another model
+	#		example: criteria 'mission' does not work for Launch
+	#		(for this reason these attributes are currently not in the Model attributes() lists)
+	criteria = criteria if criteria in m.attributes() else None
+
+	#TODO: pagination.. need to discuss this, paginate() method is different for query than other methods used here
+	#TODO: filter: can use .filter_by or .filter method, not sure how we want to do this
+	query_list = m.query.order_by(criteria).all()
+	for obj in query_list:
+		d = obj.dictionary()
+		l.append(d)
+	return jsonify(l)
+
 	return "<h1>Model not found</h1>"
 
-@app.route('/api/<model>/<criteria>')
-def api_model_criteria(model, criteria):
-	return model + " " + criteria
+#### might use some of these later for pagination?
+# @app.route('/api/<model>/<criteria>')
+# def api_model_criteria(model, criteria):
+# 	return model + " " + criteria
 
-@app.route('/api/<model>/<criteria>/<int:page>')
-def api_model_criteria_page(model, criteria, page):
-	return model + " " + criteria + " " + str(page)
+# @app.route('/api/<model>/<criteria>/<int:page>')
+# def api_model_criteria_page(model, criteria, page):
+# 	return model + " " + criteria + " " + str(page)
 
-@app.route('/api/<model>/<criteria>/<int:page>/<filter>')
-def api_model_criteria_page_filter(model, criteria, page, filter):
-	#url: /api/agency/name/1/filter?countryCode=USA
-	#Use request.query_string to get the parameter to filter with
-    return request.query_string
+# @app.route('/api/<model>/<criteria>/<int:page>/<filter>')
+# def api_model_criteria_page_filter(model, criteria, page, filter):
+# 	#url: /api/agency/name/1/filter?countryCode=USA
+# 	#Use request.query_string to get the parameter to filter with
+#     return request.query_string
+####
 
 # temperal route to dummy pages 
 # Should be removed later!!!!!
