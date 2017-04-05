@@ -2,6 +2,7 @@ from app import app, db
 from app.models import Agency, Launch, Location, Mission
 from flask import render_template, jsonify, request
 import json
+import os
 
 @app.route('/')
 def index():
@@ -26,6 +27,19 @@ def missions():
 @app.route('/about')
 def about():
 	return render_template("about.html")
+
+@app.route('/about/testResults', methods=['GET'])
+def getTestResults():
+	os.system("make unittestReturn")
+	f = open('testResults', 'r')
+	f.readline()
+	f.readline()
+	s = f.read()
+	# print(s)
+	l = [{"testResults" : s}]
+	os.system("make unittestClean")
+	return jsonify(l)
+
 
 #API
 @app.route('/api/<model>')
