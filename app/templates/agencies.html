@@ -86,6 +86,62 @@
           </div>
         </div>
       </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption" id="content4">
+            
+          </div>
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption" id="content5">
+            
+          </div>
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption" id="content6">
+            
+          </div>
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption" id="content7">
+            
+          </div>
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption" id="content8">
+            
+          </div>
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption" id="content9">
+            
+          </div>
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4">
+        <div class="thumbnail">
+          <img src="http://placehold.it/200x200/000/fff">
+          <div class="caption" id="content10">
+            
+          </div>
+        </div>
+      </div>
     </div>
     <div>
       <button type="button" class="btn pull-right" id="nextButton">Next</button>
@@ -105,7 +161,8 @@ var App = React.createClass({
 
   getInitialState: function() {
     return {
-      names: []
+      names: [],
+      id: []
     }
   },
 
@@ -113,10 +170,12 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest = 
       axios
-        .get("https://launchlibrary.net/1.2/agency?limit=3.json")
+        .get("https://launchlibrary.net/1.2/agency?limit=10.json")
         .then(function(result) {    
           const agc = result.data.agencies.map(function(obj){return obj.name});
+          const ids = result.data.agencies.map(function(obj){return obj.id})
           _this.setState({names: agc});
+          _this.setState({id: ids})
         })
   },
 
@@ -146,6 +205,41 @@ ReactDOM.render(
 ReactDOM.render(
   React.createElement(App, {items: 2}),
   document.getElementById('content3')
+);
+
+ReactDOM.render(
+  React.createElement(App, {items: 3}),
+  document.getElementById('content4')
+);
+
+ReactDOM.render(
+  React.createElement(App, {items: 4}),
+  document.getElementById('content5')
+);
+
+ReactDOM.render(
+  React.createElement(App, {items: 5}),
+  document.getElementById('content6')
+);
+
+ReactDOM.render(
+  React.createElement(App, {items: 6}),
+  document.getElementById('content7')
+);
+
+ReactDOM.render(
+  React.createElement(App, {items: 7}),
+  document.getElementById('content8')
+);
+
+ReactDOM.render(
+  React.createElement(App, {items: 8}),
+  document.getElementById('content9')
+);
+
+ReactDOM.render(
+  React.createElement(App, {items: 9}),
+  document.getElementById('content10')
 );
 </script>
 
