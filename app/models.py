@@ -24,6 +24,13 @@ class Agency(db.Model):
 	# missions attr appears to be here with the backref in the Mission model
 	# Can call Agency.missions to get the list of missions
 
+	def dictionary(self):
+		d = {"id" : self.id, "name" : self.name, "abbrev" : self.abbrev, "agencyType" : self.agencyType,
+							"countryCode" : self.countryCode, "wikiUrl" : self.wikiUrl}
+		d["launches"] = {launch.id: launch.name for launch in self.launches}
+		d["missions"] = {mission.id: mission.name for mission in self.missions}
+		return d
+
 class Launch(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	name = db.Column(db.String(), unique = True)
@@ -41,6 +48,15 @@ class Launch(db.Model):
 	# One mission for one launch
 	mission = db.relationship('Mission', uselist = False, backref = 'launch')
 
+	def dictionary(self):
+		d = {"id" : self.id, "name" : self.name, "windowStart" : self.windowStart, 
+				"windowEnd" : self.windowEnd,"videoUrl" : self.videoUrl,
+				"launchPad": self.launchPad, "rocket" : self.rocket,
+				"location_id" : self.location_id}
+		d["agencies"] = {agency.id: agency.name for agency in self.agencies}
+		d["mission"] = self.mission.name if self.mission is not None else "None"
+		return d
+
 class Location(db.Model):
 	id = db.Column(db.Integer, primary_key = True)	
 	name = db.Column(db.String(), unique = True)
@@ -48,6 +64,11 @@ class Location(db.Model):
 
 	# Many launches to one location
 	launches = db.relationship('Launch', backref = 'location_owner', lazy = 'dynamic')
+
+	def dictionary(self):
+		d = {"id" : self.id, "name" : self.name, "countryCode" : self.countryCode}
+		d["launches"] = {launch.id: launch.name for launch in self.launches}
+		return d
 
 class Mission(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -62,3 +83,10 @@ class Mission(db.Model):
 
 	# One mission to one launch
 	launch_id = db.Column(db.Integer, db.ForeignKey('launch.id'))
+
+	def dictionary(self):
+		d = {"id" : self.id, "name" : self.name, "description" : self.description, "typeName" : self.typeName,
+						"wikiUrl" : self.wikiUrl, "launch_id" : self.launch_id}
+		d["agencies"] = {agency.id: agency.name for agency in self.agencies}
+		d["launch_id"] = self.launch.id if self.launch is not None else "None"
+		return d
