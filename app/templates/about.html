@@ -112,7 +112,10 @@
              <li><a href="https://github.com/Benjamin28/idb/issues">GitHub Issue Tracker</a></li>
              <li><a href="https://github.com/Benjamin28/idb">GitHub Repo</a></li>
           </ul>
+      <button type="button" class="btn pull-right" id="runTestsButton" >Run Tests</button>
+      <div class="pull-right" id="testResults" style="padding-right:1em; padding-top:1em"></div>
       </div><!-- /.row -->
+
       <div class="row">
       <hr>
       <h2>Data</h2>
@@ -259,10 +262,33 @@ Now, if you attempt to go to local/elastic dns server, it should show your websi
         </div>
       </div>
 
+<script>
+
+function runTestsAsynch() {
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function() { 
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+          testCallback(JSON.parse(xmlHttp.responseText));
+  }
+  xmlHttp.open("GET", window.location.href + "/testResults" , true); // true for asynchronous 
+  xmlHttp.send(null);
+}
+
+function testCallback(resp) {
+  var testResults = document.getElementById("testResults");
+  testResults.innerHTML = resp[0].testResults;
+}
+
+var testButton = document.getElementById("runTestsButton");
+testButton.addEventListener("click", runTestsAsynch);
+</script>
+
+
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
 <!-- In base.html, I've written where the content will be put in for the html files that extend base.html. Look at index.html for an example-->
 
 <!-- Put any html that this page will display between block content and end block -->
+
 
 
 {% endblock %}
