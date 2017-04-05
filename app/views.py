@@ -47,9 +47,9 @@ def getTestResults():
 @app.route('/api/<model>/<criteria>/<int:page>')
 @app.route('/api/<model>/<criteria>/<int:page>/<filter>')
 def api_model(model, criteria=None, page=None, filter=None):
-	print("---------------------------DEBUG----------------------------------")
-	print(str(model) + " " + str(criteria) + " " + str(page) + " " + str(request.query_string))
-	print("---------------------------DEBUG----------------------------------")
+	# print("---------------------------DEBUG----------------------------------")
+	# print(str(model) + " " + str(criteria) + " " + str(page) + " " + str(request.query_string))
+	# print("---------------------------DEBUG----------------------------------")
 	l = []
 
 	m = ""
