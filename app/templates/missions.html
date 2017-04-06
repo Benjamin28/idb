@@ -126,8 +126,9 @@ var App = React.createClass({
 
   getInitialState: function() {
     return {
-      names: [],
-      images: []
+      names:  [],
+      images: [],
+      type:   []
     }
   },
 
@@ -135,12 +136,20 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest =
       axios
-        .get("https://launchlibrary.net/1.2/mission?offset=" + getParameterByName('page'))
+        .get("http://127.0.0.1:5000/api/mission?page=10")// + getParameterByName('page'))
         .then(function(result) {
-          const lch = result.data.missions.map(function(obj){return obj.name});
-          const img = result.data.missions.map(function(obj){return "http://placehold.it/200x200/000/fff"});
-          _this.setState({names: lch});
-          _this.setState({images: img})
+          const mis = result.data.map(function(obj){return obj.name});
+          const type = result.data.map(function(obj){return obj.typeName});
+          var img = "";
+          console.log(type);
+          console.log(type==undefined);
+          if(type != undefined){
+            img = result.data.map(function(obj){return "../static/images/missionTypes/"+obj.typeName+".png"});
+          }else{
+            img = result.data.map(function(obj){return "../static/images/missionTypes/Unknown.png"});
+          }
+          _this.setState({names: mis});
+          _this.setState({images: img});
         })
   },
 
