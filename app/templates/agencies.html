@@ -150,7 +150,7 @@ var App = React.createClass({
 
     return <div class="thumbnail">
             <img src={this.state.images[index]} ></img>
-            <div className="caption">{this.state.names[index]}</div>
+            <div className="caption"><a href="{{url_for('agency_instance')}}">{this.state.names[index]}</a></div>
            </div>
 
   }

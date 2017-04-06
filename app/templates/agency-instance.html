@@ -5,37 +5,35 @@
 {% endblock %}
 {% block content %}
 
-<div class="container">
+<div class="col-md-10 col-md-offset-1">
 	<h1>Mexican Space Agency</h1>
-
-	<div>
-		<h3>Country Code: MEX</h3>
-		<h3>Type: Government</h3>
-		<h3>Abbreviation: AEM</h3>
-		<div class="dropdown">
-			<h3>Launches:</h3>
-	        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
-	          <span class="caret"></span></button>
-	        <ul class="dropdown-menu">
-	          <li><a href="#">Example1</a></li>
-	          <li><a href="#">Example2</a></li>
-	          <li><a href="#">Example3</a></li>
-	        </ul>
-	    </div>
-	    <div class="dropdown">
-			<h3>Missions:</h3>
-	        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
-	          <span class="caret"></span></button>
-	        <ul class="dropdown-menu">
-	          <li><a href="#">Example1</a></li>
-	          <li><a href="#">Example2</a></li>
-	          <li><a href="#">Example3</a></li>
-	        </ul>
-	    </div>
-		<div class="row">
-			<iframe scrolling="yes" height="500" width="100%" style="border: 1px solid gray" src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"></iframe>
-		</div>
-	</div>
+	<hr>
+	<h3>Country Code: MEX</h3>
+	<h3>Type: Government</h3>
+	<h3>Abbreviation: AEM</h3>
+	<h3 class="inline-dropdown">Launches:</h3>
+	<div class="dropdown dropdown-text">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+          <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Example1</a></li>
+          <li><a href="#">Example2</a></li>
+          <li><a href="#">Example3</a></li>
+        </ul>
+    </div>
+    <br>
+    <h3 class="inline-dropdown">Missions:</h3>
+    <div class="dropdown dropdown-text"> 
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+          <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Example1</a></li>
+          <li><a href="#">Example2</a></li>
+          <li><a href="#">Example3</a></li>
+        </ul>
+    </div>
+    <hr>
+	<iframe scrolling="yes" height="500" width="100%" style="border: 1px solid gray" src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"></iframe>
 </div>
 
 {% endblock %}
