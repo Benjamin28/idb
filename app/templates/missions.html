@@ -10,7 +10,7 @@
     <div class="col-sm-3">
       <ul class="list-unstyled">
         <li>
-          <p>Filter 1</p>
+          <p>Mission Type</p>
           <form>
             <div class="checkbox">
               <label><input type="checkbox" value="">Earth Science</label>
@@ -54,6 +54,7 @@
             <div class="checkbox">
               <label><input type="checkbox" value="">Dedicated Rideshare</label>
             </div>
+
           </form>
         </li>
     </div>
@@ -111,6 +112,14 @@
         <div class="thumbnail" id="thumb10">
         </div>
       </div>
+      <div class="item col-xs-6 col-sm-4" id="col11">
+        <div class="thumbnail" id="thumb10">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col12">
+        <div class="thumbnail" id="thumb10">
+        </div>
+      </div>
 
     </div>
     <div>
@@ -139,9 +148,17 @@ var App = React.createClass({
 
   componentDidMount: function() {
     var _this = this;
-    this.serverRequest =
+    var pageNum = getParameterByName('page');
+    if(pageNum == null){
+      pageNum = 1;
+    }
+    var orderName = getParameterByName('orderBy');
+    if(orderName == null){
+      orderName = 'name';
+    }
+    _this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/missions?page=10")// + getParameterByName('page'))
+        .get("http://127.0.0.1:5000/api/missions?page=" + pageNum +"%26orderBy=" + orderName)
         .then(function(result) {
           const mis = result.data.map(function(obj){return obj.name});
           const type = result.data.map(function(obj){return obj.typeName});
@@ -184,13 +201,13 @@ function drawTables(numTables){
 
   }
 }
-drawTables(10);
+drawTables(12);
 console.log("https://launchlibrary.net/1.2/mission?offset=" + getParameterByName('page'))
 </script>
 
 <script>
 function totalPageNum(num) {
-  var total = 10;
+  var total = 30;
   if(num){
     total = num;
   }
@@ -232,10 +249,19 @@ function updateURLParameter(url, param, paramVal){
 
 function getNextPage() {
     var pageNum = getParameterByName('page');
+    if(pageNum == null){
+      pageNum = 1;
+    }
+    var orderName = getParameterByName('orderBy');
+    if(orderName == null){
+      orderName = 'name'; //default
+    }
     ++pageNum;
+    console.log(pageNum);
     var currentLink = window.location.href;
     if(pageNum <= totalPageNum()){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
+      newLink = updateURLParameter(newLink, 'orderBy', orderName);
     }else{
 
       var newLink = currentLink;
@@ -247,7 +273,7 @@ function getPrevPage() {
   var pageNum = getParameterByName('page');
     --pageNum;
     var currentLink = window.location.href;
-    if(pageNum >= 0){
+    if(pageNum >= 1){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
     }else{
       var newLink = currentLink;
@@ -260,7 +286,6 @@ next.addEventListener("click", getNextPage);
 
 var next = document.getElementById("prevButton");
 next.addEventListener("click", getPrevPage);
-
 </script>
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
