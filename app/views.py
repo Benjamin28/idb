@@ -42,18 +42,22 @@ def getTestResults():
 	#print(p)
 	print(finalPath)
 	process = subprocess.Popen(
-		["python", finalPath],
+		["python3", finalPath],
 		stdout = subprocess.PIPE,
 		stderr = subprocess.PIPE,
 		env = env
 	)
 	(stdout, stderr) = process.communicate()
-	print("STDOUT: " + stdout)
-	print("STDERR: " + stderr)
+#	print("STDOUT: " + stdout)
+#	print("STDERR: " + stderr)
 	#print(process.stdout.read())
+	#process.stdout.readline()
 	#process.readline()
-	#process.readline()
-	l = [{"testResults" : str(process)}]#out.decode('utf-8')}]
+	s = stderr.decode('utf-8')
+	#s.readline()
+	#s.readline()
+	s = s.split("\n",2)[2]
+	l = [{"testResults" : s}]#out.decode('utf-8')}]
 	# i = 1
 	# p.stdout.readline()
 	# p.stdout.readline()
