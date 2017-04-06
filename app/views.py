@@ -134,7 +134,7 @@ def models(model, page=1):
 	m = info[0]
 	if m == -1:
 		return "<h1>Model not found</h1>"
-	return render_template(info[1]+".html",models=l)
+	return render_template(info[1]+".html")
 
 # @app.route('/<model>')
 # @app.route('/<model>/<int:page>')
