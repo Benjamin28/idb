@@ -6,7 +6,7 @@
 {% block content %}
 
 <div class="container">
-    <h2>Agencies</h2>  
+    <h2>Agencies</h2>
     <div class="col-sm-3">
       <ul class="list-unstyled">
         <li>
@@ -127,12 +127,13 @@ var App = React.createClass({
 
   componentDidMount: function() {
     var _this = this;
-    this.serverRequest = 
+    this.serverRequest =
       axios
-        .get("https://launchlibrary.net/1.2/agency?offset=" + getParameterByName('page'))
-        .then(function(result) {    
-          const agc = result.data.agencies.map(function(obj){return obj.name});
-          const img = result.data.agencies.map(function(obj){return "http://placehold.it/200x200/000/fff"});
+        .get("http://127.0.0.1:5000/api/agency?page=0")// + getParameterByName('page'))
+        .then(function(result) {
+          console.log(result.data);
+          const agc = result.data.map(function(obj){return obj.name});
+          const img = result.data.map(function(obj){return "../static/images/agencyTypes/"+obj.agencyType+".png"});
           _this.setState({names: agc});
           _this.setState({images: img});
 
@@ -160,7 +161,7 @@ function drawTables(numTables){
 
   var i;
   for(i=0; i<numTables; i++){
-    
+
     ReactDOM.render(
       React.createElement(App, {items: i}),
       document.getElementById('col'+(i+1))
@@ -179,7 +180,7 @@ function totalPageNum(num) {
   if(num){
     total = num;
   }
-  return total; 
+  return total;
 }
 
 function getParameterByName(name, url) {
