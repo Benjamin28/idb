@@ -101,13 +101,16 @@ def api_model(model):
 
 		query_list = m.query
 
-		if model == 'agency' and str_dict['agencyType'] != None:
+		print("---------------DEBUG-----------------")
+		print(model)
+
+		if model == 'agencies' and str_dict['agencyType'] != None:
 			query_list = query_list.filter_by(agencyType=str_dict['agencyType']) 
-		elif model == 'launch' and str_dict['status'] != None:
+		elif model == 'launches' and str_dict['status'] != None:
 			query_list = query_list.filter_by(status=str_dict['status'])
-		elif model == 'location' and str_dict['countryCode'] != None:
+		elif model == 'locations' and str_dict['countryCode'] != None:
 			query_list = query_list.filter_by(countryCode=str_dict['countryCode'])
-		elif model == 'mission' and str_dict['typeName'] != None:
+		elif model == 'missions' and str_dict['typeName'] != None:
 			query_list = query_list.filter_by(typeName=str_dict['typeName'])
 
 		if(str_dict['order'] == 'desc'):
@@ -140,7 +143,7 @@ def models(model):
 			return render_template('location-instance.html')
 		elif info[1] == "missions":
 			return render_template('mission-instance.html')
-			
+
 	return render_template(info[1] + ".html")
 
 # @app.route('/<model>')
