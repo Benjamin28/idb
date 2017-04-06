@@ -5,28 +5,94 @@
 {% endblock %}
 {% block content %}
 
+<div id="root"></div>
+
+
+
 <div class="col-md-10 col-md-offset-1">
-	<h1>Nuclear Spectroscopic Telescope Array (NuSTAR)</h1>
-	<hr>
-	<h3>Description</h3>
-	<div>
-	Designed to image high-energy X-ray radiation, the Nuclear Spectroscopic Telescope Array (NuSTAR) is tasked with surveying regions surrounding the center of own Milky Way Galaxy and performing deep observations of the extragalactic sky, studying black holes and supernovas.
-	</div>
-	<h3><a href="{{url_for('launches_1')}}">Launch: Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)</a></h3>
-	<h3>Type: Astrophysics</h3>
-	<h3 class="inline-dropdown">Agencies:</h3>
-	<div class="dropdown dropdown-text">
-        <button class ="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
-          <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Example1</a></li>
-          <li><a href="#">Example2</a></li>
-          <li><a href="#">Example3</a></li>
-        </ul>
-    </div>
-    <hr>
-	<iframe scrolling="yes" height="500" width="100%" style="border: 1px solid gray" src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"></iframe>
 </div>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script type="text/jsx">
+
+var App = React.createClass({
+
+	getInitialState: function() {
+		return {
+			name: "",
+			description: "",
+			type: "",
+			wiki: "",
+			agencies: []
+		}
+	},
+
+	componentDidMount: function() {
+    var _this = this;
+    this.serverRequest =
+      axios
+        .get("http://127.0.0.1:5000/api/mission?id=15")
+        .then(function(result) {
+			console.log(result.data[0].name)
+  			const nam = result.data[0].name;
+  			const description = result.data[0].description;
+			const type = result.data[0].typeName;
+			const wiki = result.data[0].wikiUrl;
+			const agencies = result.data[0].agencies;
+
+            _this.setState({name: nam});
+            _this.setState({description: description});
+			_this.setState({type: type})
+			_this.setState({wiki: wiki})
+			_this.setState({agencies: agencies})
+        })
+  },
+
+	componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+  render: function() {
+    return(
+		<div className="col-md-10 col-md-offset-1">
+		<h1>{this.state.name}</h1>
+		<hr></hr>
+		<h3>Description</h3>
+		<div>{this.state.description}</div>
+		<h3><a href="{{url_for('launches_1')}}">Launch: Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)</a></h3>
+		<h3>Type: {this.state.type}</h3>
+		<h3 className="inline-dropdown">Agencies:</h3>
+		<div className="dropdown dropdown-text">
+		    <button className ="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+		      <span className="caret"></span></button>
+		    <ul className="dropdown-menu">
+		      {Object.values(this.state.agencies).map(function(value) {
+		              return <li><a href="#">{value}</a></li>;
+		       })}
+		    </ul>
+		</div>
+		<hr></hr>
+		<iframe className="iframe" height="500" width="100%" src={this.state.wiki}></iframe>
+		</div>
+	);
+  }
+});
+
+function drawInstance(){
+	console.log('want to draw')
+  ReactDOM.render(
+  	React.createElement(App, {items: 0}),
+  	document.getElementById('root')
+	);
+	document.getElementById('root').childNodes[0].className+= " col-md-10 col-md-offset-1";
+}
+//document.getElementById('wikiview').src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"
+drawInstance();
+</script>
 
 {% endblock %}

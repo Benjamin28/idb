@@ -7,10 +7,6 @@
 
 <div id="root"></div>
 
-
-
-<div class="col-md-10 col-md-offset-1">
-</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
@@ -24,7 +20,10 @@ var App = React.createClass({
 		return {
 			name: "",
 			abbrev: "",
-			cc: ""
+			cc: "",
+      wiki: "",
+      launches: [],
+      missions: []
 		}
 	},
 
@@ -32,16 +31,24 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/agency?id=20")
+        .get("http://127.0.0.1:5000/api/agency?id=17")
         .then(function(result) {
-					console.log(result.data[0].abbrev)
+					console.log(result.data[0].wikiURL)
           const nam = result.data[0].name;
 					const abbrev = result.data[0].abbrev;
-					const cc = result.data[0].countryCode
+					const cc = result.data[0].countryCode;
+          const wiki = result.data[0].wikiUrl
+
+          const launches = result.data[0].launches;
+          const missions = result.data[0].missions;
 
           _this.setState({name: nam});
 					_this.setState({abbrev: abbrev})
 					_this.setState({cc: cc})
+          _this.setState({wiki: wiki})
+
+          _this.setState({launches: launches})
+          _this.setState({missions: missions})
           //_this.setState({images: img});
 
 
@@ -65,9 +72,9 @@ var App = React.createClass({
         	<button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
           	<span className="caret"></span></button>
 					<ul className="dropdown-menu">
-						<li><a href="#">Example1</a></li>
-						<li><a href="#">Example2</a></li>
-						<li><a href="#">Example3</a></li>
+            {Object.values(this.state.launches).map(function(value) {
+              return <li><a href="#">{value}</a></li>;
+            })}
 					</ul>
 			</div>
 			<br></br>
@@ -76,13 +83,14 @@ var App = React.createClass({
         <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
           <span className="caret"></span></button>
         <ul className="dropdown-menu">
-          <li><a href="#">Example1</a></li>
-          <li><a href="#">Example2</a></li>
-          <li><a href="#">Example3</a></li>
+          {Object.values(this.state.missions).map(function(value) {
+              return <li><a href="#">{value}</a></li>;
+            })}
         </ul>
     </div>
 		<hr></hr>
-		<iframe className="iframe" height="500" width="100%" src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"></iframe>
+    <iframe className="iframe" height="500" width="100%" src={this.state.wiki}></iframe>
+    {/*<h3><a href={this.state.wiki}>Wikipedia</a></h3>*/}
 		</div>
 	);
   }

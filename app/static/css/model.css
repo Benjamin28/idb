@@ -15,7 +15,8 @@ body {
 	margin: 0;
 	background-image: none;
 	background: white;
-	border: 1px solid gray;
+	border: none;
+	border-bottom: 1px solid gray;
 	font-family: "Montserrat";
 }
 
