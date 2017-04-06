@@ -147,7 +147,7 @@ var App = React.createClass({
     var index = this.props.items
     var url = "/launches?id="+this.state.ids[index];
     return <div class="thumbnail">
-             <img src={this.state.images[index]} ></img>
+             <img className="pic" src={this.state.images[index]} ></img>
              <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
            </div>
 
