@@ -101,9 +101,6 @@ def api_model(model):
 
 		query_list = m.query
 
-		print("---------------DEBUG-----------------")
-		print(model)
-
 		if model == 'agencies' and str_dict['agencyType'] != None:
 			query_list = query_list.filter_by(agencyType=str_dict['agencyType']) 
 		elif model == 'launches' and str_dict['status'] != None:
