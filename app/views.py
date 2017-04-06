@@ -108,10 +108,8 @@ def api_model(model):
 			query_list = query_list.filter_by(typeName=str_dict['typeName'])
 
 		if(str_dict['order'] == 'desc'):
-			#query_list = m.query.order_by(desc(criteria)).paginate(page_num, str_dict['limit'], False).items
 			query_list = query_list.order_by(desc(criteria)).paginate(page_num, str_dict['limit'], False).items
 		else:
-			#query_list = m.query.order_by(criteria).paginate(page_num, str_dict['limit'], False).items
 			query_list = query_list.order_by(criteria).paginate(page_num, str_dict['limit'], False).items
 		if query_list == []:
 			return "<h1>Page "+str(str_dict['page'])+" does not contain any "+model+".</h1>"
@@ -122,29 +120,37 @@ def api_model(model):
 	return jsonify(l)
 
 @app.route('/<model>')
-@app.route('/<model>/<int:page>')
 def models(model, page=1):
-	NUM_PER_PAGE = 12
-	l = []
 	info = getModel(model)
 	m = info[0]
 	if m == -1:
 		return "<h1>Model not found</h1>"
-
-	# print("---------------------------DEBUG----------------------------------")
-	# # print(request.query_string)
-	# print(urllib.parse.unquote(str(request.query_string)))
-	# print("---------------------------DEBUG----------------------------------")
-
-	#filtwerin still not working
-	query_list = m.query.filter_by().paginate(page, NUM_PER_PAGE, False).items
-	if query_list == []:
-		return "<h1>Page "+str(page)+" does not contain any "+model+".</h1>"
-	for obj in query_list:
-		d = obj.dictionary()
-		l.append(d)
-	# return jsonify(l)
 	return render_template(info[1]+".html",models=l)
+
+# @app.route('/<model>')
+# @app.route('/<model>/<int:page>')
+# def models(model, page=1):
+# 	NUM_PER_PAGE = 12
+# 	l = []
+# 	info = getModel(model)
+# 	m = info[0]
+# 	if m == -1:
+# 		return "<h1>Model not found</h1>"
+
+# 	# print("---------------------------DEBUG----------------------------------")
+# 	# # print(request.query_string)
+# 	# print(urllib.parse.unquote(str(request.query_string)))
+# 	# print("---------------------------DEBUG----------------------------------")
+
+# 	#filtwerin still not working
+# 	query_list = m.query.filter_by().paginate(page, NUM_PER_PAGE, False).items
+# 	if query_list == []:
+# 		return "<h1>Page "+str(page)+" does not contain any "+model+".</h1>"
+# 	for obj in query_list:
+# 		d = obj.dictionary()
+# 		l.append(d)
+# 	# return jsonify(l)
+# 	return render_template(info[1]+".html",models=l)
 
 # @app.route('/api/<model>/<criteria>/<int:page>/<filter>')
 # def api_model_criteria_page_filter(model, criteria, page, filter):
