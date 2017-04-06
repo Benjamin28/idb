@@ -135,7 +135,7 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/launch?page=10") //+ getParameterByName('page'))
+        .get("http://127.0.0.1:5000/api/launches?page=10") //+ getParameterByName('page'))
         .then(function(result) {
           const lch = result.data.map(function(obj){return obj.name});
           const img = result.data.map(function(obj){return obj.rocketLink});

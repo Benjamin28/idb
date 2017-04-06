@@ -136,7 +136,7 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/mission?page=10")// + getParameterByName('page'))
+        .get("http://127.0.0.1:5000/api/missions?page=10")// + getParameterByName('page'))
         .then(function(result) {
           const mis = result.data.map(function(obj){return obj.name});
           const type = result.data.map(function(obj){return obj.typeName});
