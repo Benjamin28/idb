@@ -63,9 +63,6 @@ def getTestResults():
 #API
 @app.route('/api/<model>')
 def api_model(model):
-	# print("---------------------------DEBUG----------------------------------")
-	# print(urllib.parse.unquote(str(request.query_string)))
-	# print("---------------------------DEBUG----------------------------------")
 	NUM_PER_PAGE = 12
 	l = []
 	m = getModel(model)[0]
@@ -92,9 +89,6 @@ def api_model(model):
 			str_dict['countryCode'] = None
 		elif model == 'missions':
 			str_dict['typeName'] = None
-
-		#find a better place for this constant
-		FILTER_ATTRS = ['agencyType', 'status', 'countryCode','typeName']
 
 		for pair in split_req_str:
 			split_eq = pair.split("=")
