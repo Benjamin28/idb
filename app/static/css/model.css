@@ -71,6 +71,12 @@ body {
 .iframe {
 	border: 1px solid black;
 }
+.item .thumbnail .pic {
+	height: 200px;
+}
+.item .thumbnail .picflags {
+	height: 100px;
+}
 pre {
 	margin-bottom: 0;
 }
