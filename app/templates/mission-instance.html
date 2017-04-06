@@ -5,30 +5,27 @@
 {% endblock %}
 {% block content %}
 
-<div class="container">
+<div class="col-md-10 col-md-offset-1">
 	<h1>Nuclear Spectroscopic Telescope Array (NuSTAR)</h1>
-
+	<hr>
+	<h3>Description</h3>
 	<div>
-		<h4>Description</h4>
-		<div>
-		Designed to image high-energy X-ray radiation, the Nuclear Spectroscopic Telescope Array (NuSTAR) is tasked with surveying regions surrounding the center of own Milky Way Galaxy and performing deep observations of the extragalactic sky, studying black holes and supernovas.
-		</div>
-		<h4><a href="{{url_for('launches_1')}}">Launch: Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)</a></h4>
-		<h4>Type: Astrophysics</h4>
-		<div class="dropdown">
-			<h3>Agencies:</h3>
-	        <button class ="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
-	          <span class="caret"></span></button>
-	        <ul class="dropdown-menu">
-	          <li><a href="#">Example1</a></li>
-	          <li><a href="#">Example2</a></li>
-	          <li><a href="#">Example3</a></li>
-	        </ul>
-	    </div>
-		<div class="row">
-			<iframe scrolling="yes" height="500" width="100%" style="border: 1px solid gray" src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"></iframe>
-		</div>
+	Designed to image high-energy X-ray radiation, the Nuclear Spectroscopic Telescope Array (NuSTAR) is tasked with surveying regions surrounding the center of own Milky Way Galaxy and performing deep observations of the extragalactic sky, studying black holes and supernovas.
 	</div>
+	<h3><a href="{{url_for('launches_1')}}">Launch: Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)</a></h3>
+	<h3>Type: Astrophysics</h3>
+	<h3 class="inline-dropdown">Agencies:</h3>
+	<div class="dropdown dropdown-text">
+        <button class ="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+          <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Example1</a></li>
+          <li><a href="#">Example2</a></li>
+          <li><a href="#">Example3</a></li>
+        </ul>
+    </div>
+    <hr>
+	<iframe scrolling="yes" height="500" width="100%" style="border: 1px solid gray" src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"></iframe>
 </div>
 
 
