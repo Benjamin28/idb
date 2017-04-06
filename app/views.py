@@ -34,10 +34,15 @@ def about():
 def getTestResults():
 	#s = subprocess.check_output(['python3','./tests.py'])
 	path = os.path.dirname(os.path.realpath(__file__))
-	p = subprocess.check_output(['python3', os.path.join(path, '../tests.py')], stderr=subprocess.STDOUT)
+	finalPath = os.path.join(path, '../tests.py')
+	process = subprocess.check_output(['python3', finalPath], stderr=subprocess.STDOUT)
 	## But do not wait till netstat finish, start displaying output immediately ##
-	print(p)
-	l = [{"testResults" : p.decode('utf-8')}]#out.decode('utf-8')}]
+	#print(p)
+	#process = subprocess.Popen(['python ' + finalPath],shell=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	#print(process.stdout.read())
+	#process.readline()
+	#process.readline()
+	l = [{"testResults" : str(process)}]#out.decode('utf-8')}]
 	# i = 1
 	# p.stdout.readline()
 	# p.stdout.readline()
