@@ -67,6 +67,9 @@ body {
 .dropdown-text{
 	display: inline-block;
 }
+.iframe {
+	border: 1px solid black;
+}
 pre {
 	margin-bottom: 0;
 }
