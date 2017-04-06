@@ -113,7 +113,8 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       names: [],
-      images: []
+      images: [],
+      ids: []
     }
   },
 
@@ -133,9 +134,11 @@ var App = React.createClass({
         .then(function(result) {
           const agc = result.data.map(function(obj){return obj.name});
           const img = result.data.map(function(obj){return "../static/images/agencyTypes/"+obj.agencyType+".png"});
+          const id = result.data.map(function(obj){return obj.id});
           _this.setState({names: agc});
           _this.setState({images: img});
-
+          _this.setState({ids: id})
+          console.log(id)
 
         })
   },
@@ -147,10 +150,10 @@ var App = React.createClass({
 
   render: function() {
     var index = this.props.items
-
+    var url = "http://127.0.0.1:5000/agencies?id="+this.state.ids[index];
     return <div class="thumbnail">
             <img src={this.state.images[index]} ></img>
-            <div className="caption"><a href="{{url_for('agency_instance')}}">{this.state.names[index]}</a></div>
+            <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
            </div>
 
   }
