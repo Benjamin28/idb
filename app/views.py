@@ -3,7 +3,7 @@ from app.models import Agency, Launch, Location, Mission
 from flask import render_template, jsonify, request
 import json
 import os
-import subprocess
+import subprocess, sys
 import urllib
 
 @app.route('/')
@@ -35,10 +35,21 @@ def getTestResults():
 	#s = subprocess.check_output(['python3','./tests.py'])
 	path = os.path.dirname(os.path.realpath(__file__))
 	finalPath = os.path.join(path, '../tests.py')
-	process = subprocess.check_output(['python3', finalPath], stderr=subprocess.STDOUT)
+	env = os.environ.copy()
+	env['PYTHONPATH'] = ":".join(sys.path)
+	#process = subprocess.check_output(['python3', finalPath], stderr=subprocess.STDOUT)
 	## But do not wait till netstat finish, start displaying output immediately ##
 	#print(p)
-	#process = subprocess.Popen(['python ' + finalPath],shell=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	print(finalPath)
+	process = subprocess.Popen(
+		["python", finalPath],
+		stdout = subprocess.PIPE,
+		stderr = subprocess.PIPE,
+		env = env
+	)
+	(stdout, stderr) = process.communicate()
+	print("STDOUT: " + stdout)
+	print("STDERR: " + stderr)
 	#print(process.stdout.read())
 	#process.readline()
 	#process.readline()
