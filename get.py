@@ -15,6 +15,15 @@ def create_agency_types():
 	for agency_type in agencytype_json["types"]:
 		agency_types[agency_type["id"]] = agency_type["name"]
 
+launch_statuses = {}
+
+def create_launch_statuses():
+	launchstatus_response = requests.get("https://launchlibrary.net/1.2/launchstatus")
+	launchstatus_json = json.loads(launchstatus_response.text)
+	launch_statuses[0] = "UNKNOWN"
+	for launchstatus in launchstatus_json["types"]:
+		launch_statuses[launchstatus["id"]] = launchstatus["name"]
+
 #-----------------------
 #-------Agency----------
 #-----------------------
@@ -69,6 +78,7 @@ def create_launch():
 			assert launch_info["name"] != ""
 			current_launch = Launch(name = launch_info["name"], windowStart = launch_info["windowstart"], windowEnd = launch_info["windowend"], 
 								videoUrl = current_videoUrl, launchPad = current_launchPad, rocket = launch_info["rocket"]["name"],
+								rocketLink = launch_info["rocket"]["imageURL"], status = launch_statuses[launch_info["status"]], 
 								location_owner = related_location)
 			db.session.add(current_launch)
 
@@ -144,6 +154,7 @@ def create_mission():
 
 def main():
 	create_agency_types()
+	create_launch_statuses()
 	create_agency()
 	create_location()
 	create_launch()

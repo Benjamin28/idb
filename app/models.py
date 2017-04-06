@@ -42,6 +42,8 @@ class Launch(db.Model):
 	videoUrl = db.Column(db.String())
 	launchPad = db.Column(db.String())
 	rocket = db.Column(db.String())
+	rocketLink = db.Column(db.String())
+	status = db.Column(db.Integer)
 
 	#id used to identify the launches associated with the location
 	location_id = db.Column(db.Integer, db.ForeignKey('location.id')) # Use location_owner = "ex_location" to assign
@@ -55,13 +57,14 @@ class Launch(db.Model):
 		d = {"id" : self.id, "name" : self.name, "windowStart" : self.windowStart, 
 				"windowEnd" : self.windowEnd,"videoUrl" : self.videoUrl,
 				"launchPad": self.launchPad, "rocket" : self.rocket,
+				"rocketLink" : self.rocketLink, "status" : self.status,
 				"location_id" : self.location_id}
 		d["agencies"] = {agency.id: agency.name for agency in self.agencies}
 		d["mission"] = self.mission.name if self.mission is not None else "None"
 		return d
 
 	def attributes():
-		return ['id','name','windowStart','windowEnd','videoUrl','launchPad','rocket','location_id','mission.name']
+		return ['id','name','windowStart','windowEnd','videoUrl','launchPad','rocket', 'rocketLink', 'status', 'location_id']
 
 class Location(db.Model):
 	id = db.Column(db.Integer, primary_key = True)	
