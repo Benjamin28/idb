@@ -22,8 +22,9 @@ var App = React.createClass({
 
 	getInitialState: function() {
 		return {
-			names: [],
-			images: [],
+			name: "",
+			abbrev: "",
+			cc: ""
 		}
 	},
 
@@ -31,12 +32,17 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest =
       axios
-        .get("https://launchlibrary.net/1.2/agency?id=20")
+        .get("http://127.0.0.1:5000/api/agency?id=20")
         .then(function(result) {
-          const nam = result.data.agencies.map(function(obj){return obj.name});
-          const img = result.data.agencies.map(function(obj){return "http://placehold.it/200x200/000/fff"});
-          _this.setState({names: nam});
-          _this.setState({images: img});
+					console.log(result.data[0].abbrev)
+          const nam = result.data[0].name;
+					const abbrev = result.data[0].abbrev;
+					const cc = result.data[0].countryCode
+
+          _this.setState({name: nam});
+					_this.setState({abbrev: abbrev})
+					_this.setState({cc: cc})
+          //_this.setState({images: img});
 
 
         })
@@ -47,14 +53,13 @@ var App = React.createClass({
   },
 
   render: function() {
-    var index = this.props.items
     return(
 		<div>
-			<h1>{this.state.names[index]}</h1>
+			<h1>{this.state.name}</h1>
 			<hr></hr>
-			<h3>Country Code: MEX</h3>
+			<h3>Country Code: {this.state.cc}</h3>
 			<h3>Type: Government</h3>
-			<h3>Abbreviation: AEM</h3>
+			<h3>Abbreviation: {this.state.abbrev}</h3>
 			<h3 class="inline-dropdown">Launches:</h3>
 			<div class="dropdown dropdown-text">
         	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
