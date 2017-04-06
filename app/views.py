@@ -55,34 +55,69 @@ def getTestResults():
 
 #API
 @app.route('/api/<model>')
-@app.route('/api/<model>/<criteria>')
-@app.route('/api/<model>/<criteria>/<int:page>')
-@app.route('/api/<model>/<criteria>/<int:page>/<filter>')
-def api_model(model, criteria=None, page=None, filter=None):
-	# print("---------------------------DEBUG----------------------------------")
-	# print(str(model) + " " + str(criteria) + " " + str(page) + " " + str(request.query_string))
-	# print("---------------------------DEBUG----------------------------------")
+def api_model(model):
+	print("---------------------------DEBUG----------------------------------")
+	print(urllib.parse.unquote(str(request.query_string)))
+	print("---------------------------DEBUG----------------------------------")
+	NUM_PER_PAGE = 12
 	l = []
 	m = getModel(model)[0]
 
-	#TODO: citeria sort doesn't work if its related to another model
-	#		example: criteria 'mission' does not work for Launch
-	#		(for this reason these attributes are currently not in the Model attributes() lists)
-	criteria = criteria if criteria in m.attributes() else None
+	req_str = urllib.parse.unquote(str(request.query_string)[2:-1])
+	if len(req_str) == 0:
+		query_list = m.query.all()
+	elif len(req_str.split("&")) == 1 and "id" in req_str:
+		query_list = m.query.filter_by(id=req_str.replace("id=", ""))
+	else:
+		split_req_str = req_str.split("&")
+		str_dict = {'orderBy':None,'order':'asc','page':1,'limit':NUM_PER_PAGE}
 
-	#TODO: filter: can use .filter_by or .filter method, not sure how we want to do this
-	query_list = m.query.order_by(criteria).all()
+		#Check which model (agency, launch, location, mission)
+		#and change str_dict accordingly with default None values
+		if model == 'agency':
+			str_dict['agencyType'] = None
+		elif model == 'launch':
+			str_dict['status'] = None
+		elif model == 'location':
+			str_dict['countryCode'] = None
+		elif model == 'mission':
+			str_dict['missionType'] = None
+
+		for pair in split_req_str:
+			split_eq = pair.split("=")
+			str_dict[split_eq[0]] = split_eq[1]
+
+		criteria = str_dict['orderBy'] if str_dict['orderBy'] in m.attributes() else None
+		page_num = int(str_dict['page'])
+		page_num = page_num if page_num >= 1 else 1
+
+		query_list = m.query
+
+		if model == 'agency':
+			query_list = query_list.filter_by(agencyType=str_dict['agencyType'])
+		elif model == 'launch':
+			query_list = query_list.filter_by(status=str_dict['status'])
+		elif model == 'location':
+			query_list = query_list.filter_by(countryCode=str_dict['countryCode'])
+		elif model == 'mission':
+			query_list = query_list.filter_by(missionType=str_dict['missionType'])
+
+		if(str_dict['order'] == 'desc'):
+			#query_list = m.query.order_by(desc(criteria)).paginate(page_num, str_dict['limit'], False).items
+			query_list = query_list.order_by(desc(criteria)).paginate(page_num, str_dict['limit'], False).items
+		else:
+			#query_list = m.query.order_by(criteria).paginate(page_num, str_dict['limit'], False).items
+			query_list = query_list.order_by(criteria).paginate(page_num, str_dict['limit'], False).items
+		if query_list == []:
+			return "<h1>Page "+str(str_dict['page'])+" does not contain any "+model+".</h1>"
+
 	for obj in query_list:
 		d = obj.dictionary()
 		l.append(d)
 	return jsonify(l)
 
-	return "<h1>Model not found</h1>"
-
-# TODO: Jake change to what he had
 @app.route('/<model>')
 @app.route('/<model>/<int:page>')
-#@app.route('/<model>/<int:page>/<filter>')
 def models(model, page=1):
 	NUM_PER_PAGE = 12
 	l = []
