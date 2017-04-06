@@ -128,7 +128,7 @@ var App = React.createClass({
     }
     this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/launches?page=" + pageNum +"%26orderBy=" + orderName)
+        .get("/api/launches?page=" + pageNum +"%26orderBy=" + orderName)
         .then(function(result) {
           const lch = result.data.map(function(obj){return obj.name});
           const img = result.data.map(function(obj){return obj.rocketLink});
@@ -145,7 +145,7 @@ var App = React.createClass({
 
   render: function() {
     var index = this.props.items
-    var url = "http://127.0.0.1:5000/launches?id="+this.state.ids[index];
+    var url = "/launches?id="+this.state.ids[index];
     return <div class="thumbnail">
              <img src={this.state.images[index]} ></img>
              <div className="caption"><a href={url}>{this.state.names[index]}</a></div>

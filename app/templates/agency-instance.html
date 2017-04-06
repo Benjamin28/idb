@@ -31,7 +31,7 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/agencies?id=17")
+        .get("/api/agencies?id="+getParameterByName("id"))
         .then(function(result) {
 					console.log(result.data[0].wikiURL)
           const nam = result.data[0].name;
@@ -108,6 +108,18 @@ function drawInstance(){
 drawInstance();
 </script>
 
-
+<script>
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+</script>
 
 {% endblock %}
