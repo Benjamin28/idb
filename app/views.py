@@ -82,6 +82,7 @@ def api_model(model):
 	elif len(req_str.split("&")) == 1 and "id" in req_str:
 		query_list = m.query.filter_by(id=req_str.replace("id=", ""))
 	else:
+
 		split_req_str = req_str.split("&")
 		str_dict = {'orderBy':None,'order':'asc','page':1,'limit':NUM_PER_PAGE}
 
@@ -106,13 +107,13 @@ def api_model(model):
 
 		query_list = m.query
 
-		if model == 'agency':
-			query_list = query_list.filter_by(agencyType=str_dict['agencyType'])
-		elif model == 'launch':
+		if model == 'agency' and str_dict['agencyType'] != None:
+			query_list = query_list.filter_by(agencyType=str_dict['agencyType']) 
+		elif model == 'launch' and str_dict['status'] != None:
 			query_list = query_list.filter_by(status=str_dict['status'])
-		elif model == 'location':
+		elif model == 'location' and str_dict['countryCode'] != None:
 			query_list = query_list.filter_by(countryCode=str_dict['countryCode'])
-		elif model == 'mission':
+		elif model == 'mission' and str_dict['typeName'] != None:
 			query_list = query_list.filter_by(typeName=str_dict['typeName'])
 
 		if(str_dict['order'] == 'desc'):
