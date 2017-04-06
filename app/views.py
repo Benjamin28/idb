@@ -30,6 +30,14 @@ def missions():
 def about():
 	return render_template("about.html")
 
+@app.route('/agency/agency-instance')
+def agency_instance():
+	return render_template("agency-instance.html")
+
+@app.route('/launch/launch-instance')
+def launch_instance():
+	return render_template("launch-instance.html")
+
 @app.route('/about/testResults', methods=['GET'])
 def getTestResults():
 	#s = subprocess.check_output(['python3','./tests.py'])
