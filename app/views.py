@@ -135,9 +135,9 @@ def api_model(model):
 				query_list = query_list.filter_by(typeName=str_dict['typeName'])
 
 		if(str_dict['order'] == 'desc'):
-			query_list = query_list.order_by(desc(criteria)).paginate(page_num, str_dict['limit'], False).items
+			query_list = query_list.order_by(desc(criteria)).paginate(page_num, int(str_dict['limit']), False).items
 		else:
-			query_list = query_list.order_by(criteria).paginate(page_num, str_dict['limit'], False).items
+			query_list = query_list.order_by(criteria).paginate(page_num, int(str_dict['limit']), False).items
 		if query_list == []:
 			return "<h1>Page "+str(str_dict['page'])+" does not contain any "+model+".</h1>"
 
