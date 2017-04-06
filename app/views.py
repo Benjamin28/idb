@@ -5,6 +5,7 @@ import json
 import os
 import subprocess
 import urllib
+import operator
 
 @app.route('/')
 def index():
@@ -91,9 +92,16 @@ def api_model(model):
 		elif model == 'missions':
 			str_dict['typeName'] = None
 
+		#find a better place for this constant
+		FILTER_ATTRS = ['agencyType', 'status', 'countryCode','typeName']
+
 		for pair in split_req_str:
 			split_eq = pair.split("=")
-			str_dict[split_eq[0]] = split_eq[1]
+			split_plus = split_eq[1].split("+")
+			if len(split_plus) > 1:
+				str_dict[split_eq[0]] = split_plus
+			else:
+				str_dict[split_eq[0]] = split_eq[1]
 
 		criteria = str_dict['orderBy'] if str_dict['orderBy'] in m.attributes() else None
 		page_num = int(str_dict['page'])
@@ -102,18 +110,34 @@ def api_model(model):
 		query_list = m.query
 
 		if model == 'agencies' and str_dict['agencyType'] != None:
-			query_list = query_list.filter_by(agencyType=str_dict['agencyType']) 
+			if type(str_dict['agencyType']) is list:
+				my_list = str_dict['agencyType']
+				query_list = query_list.filter(Agency.agencyType.in_(my_list)) 
+			else:
+				query_list = query_list.filter_by(agencyType=str_dict['agencyType']) 
 		elif model == 'launches' and str_dict['status'] != None:
-			query_list = query_list.filter_by(status=str_dict['status'])
+			if type(str_dict['status']) is list:
+				my_list = str_dict['status']
+				query_list = query_list.filter(Launch.status.in_(my_list)) 
+			else:
+				query_list = query_list.filter_by(status=str_dict['status'])
 		elif model == 'locations' and str_dict['countryCode'] != None:
-			query_list = query_list.filter_by(countryCode=str_dict['countryCode'])
+			if type(str_dict['countryCode']) is list:
+				my_list = str_dict['countryCode']
+				query_list = query_list.filter(Location.countryCode.in_(my_list)) 
+			else:
+				query_list = query_list.filter_by(countryCode=str_dict['countryCode'])
 		elif model == 'missions' and str_dict['typeName'] != None:
-			query_list = query_list.filter_by(typeName=str_dict['typeName'])
+			if type(str_dict['typeName']) is list:
+				my_list = str_dict['typeName']
+				query_list = query_list.filter(Mission.typeName.in_(my_list)) 
+			else:
+				query_list = query_list.filter_by(typeName=str_dict['typeName'])
 
 		if(str_dict['order'] == 'desc'):
-			query_list = query_list.order_by(desc(criteria)).paginate(page_num, str_dict['limit'], False).items
+			query_list = query_list.order_by(desc(criteria)).paginate(page_num, int(str_dict['limit']), False).items
 		else:
-			query_list = query_list.order_by(criteria).paginate(page_num, str_dict['limit'], False).items
+			query_list = query_list.order_by(criteria).paginate(page_num, int(str_dict['limit']), False).items
 		if query_list == []:
 			return "<h1>Page "+str(str_dict['page'])+" does not contain any "+model+".</h1>"
 
