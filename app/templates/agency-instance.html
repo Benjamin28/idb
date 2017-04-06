@@ -49,35 +49,35 @@ var App = React.createClass({
   render: function() {
     var index = this.props.items
     return(
-		<div>
+		<div className="col-md-10 col-md-offset-1">
 			<h1>{this.state.names[index]}</h1>
 			<hr></hr>
 			<h3>Country Code: MEX</h3>
 			<h3>Type: Government</h3>
 			<h3>Abbreviation: AEM</h3>
-			<h3 class="inline-dropdown">Launches:</h3>
-			<div class="dropdown dropdown-text">
-        	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
-          	<span class="caret"></span></button>
-					<ul class="dropdown-menu">
+			<h3 className="inline-dropdown">Launches:</h3>
+			<div className="dropdown dropdown-text">
+        	<button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+          	<span className="caret"></span></button>
+					<ul className="dropdown-menu">
 						<li><a href="#">Example1</a></li>
 						<li><a href="#">Example2</a></li>
 						<li><a href="#">Example3</a></li>
 					</ul>
 			</div>
 			<br></br>
-			<h3 class="inline-dropdown">Missions:</h3>
-			<div class="dropdown dropdown-text">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
-          <span class="caret"></span></button>
-        <ul class="dropdown-menu">
+			<h3 className="inline-dropdown">Missions:</h3>
+			<div className="dropdown dropdown-text">
+        <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+          <span className="caret"></span></button>
+        <ul className="dropdown-menu">
           <li><a href="#">Example1</a></li>
           <li><a href="#">Example2</a></li>
           <li><a href="#">Example3</a></li>
         </ul>
     </div>
 		<hr></hr>
-		<a href="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana">link to wiki</a>
+		<iframe className="iframe" height="500" width="100%" src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"></iframe>
 		</div>
 	);
   }
