@@ -1,6 +1,7 @@
 from app import app, db
 from app.models import Agency, Launch, Location, Mission
 from flask import render_template, jsonify, request
+from sqlalchemy import desc
 import json
 import os
 import subprocess
@@ -103,7 +104,7 @@ def api_model(model):
 			else:
 				str_dict[split_eq[0]] = split_eq[1]
 
-		criteria = str_dict['orderBy'] if str_dict['orderBy'] in m.attributes() else None
+		criteria = str_dict['orderBy'] if str_dict['orderBy'] in m.attributes() else 'id'
 		page_num = int(str_dict['page'])
 		page_num = page_num if page_num >= 1 else 1
 
