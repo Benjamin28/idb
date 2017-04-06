@@ -38,6 +38,14 @@ def agency_instance():
 def launch_instance():
 	return render_template("launch-instance.html")
 
+@app.route('/location/location-instance')
+def location_instance():
+	return render_template("location-instance.html")
+
+@app.route('/mission/mission-instance')
+def mission_instance():
+	return render_template("mission-instance.html")
+
 @app.route('/about/testResults', methods=['GET'])
 def getTestResults():
 	#s = subprocess.check_output(['python3','./tests.py'])
