@@ -71,8 +71,8 @@
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
           <span class="caret"></span></button>
         <ul class="dropdown-menu">
-          <li><button  id="name" value="Name">Name</button></li>
-          <li><button  id="cc" value="countryCode">Country Code</button></li>
+          <li><p  id="name" value="Name">Name</p></li>
+          <li><p  id="cc" value="countryCode">Country Code</p></li>
         </ul>
       </div>
       <div class="item col-xs-6 col-sm-4" id="col1">
@@ -161,7 +161,7 @@ var App = React.createClass({
     }
     this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/agencies?page=" + pageNum +"%26orderBy=" + orderName)
+        .get("http://127.0.0.1:5000/api/locations?page=" + pageNum +"%26orderBy=" + orderName)
         .then(function(result) {
           const lch = result.data.map(function(obj){return obj.name});
           const cc  = result.data.map(function(obj){return obj.countryCode});
