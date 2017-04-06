@@ -4,6 +4,7 @@ from flask import render_template, jsonify, request
 import json
 import os
 import subprocess
+import urllib
 
 @app.route('/')
 def index():
@@ -62,23 +63,13 @@ def api_model(model, criteria=None, page=None, filter=None):
 	# print(str(model) + " " + str(criteria) + " " + str(page) + " " + str(request.query_string))
 	# print("---------------------------DEBUG----------------------------------")
 	l = []
-
-	m = ""
-	if model == 'agency':
-		m = Agency
-	elif model == 'launch':
-		m = Launch
-	elif model == 'location':
-		m = Location
-	elif model == 'mission':
-		m = Mission
+	m = getModel(model)[0]
 
 	#TODO: citeria sort doesn't work if its related to another model
 	#		example: criteria 'mission' does not work for Launch
 	#		(for this reason these attributes are currently not in the Model attributes() lists)
 	criteria = criteria if criteria in m.attributes() else None
 
-	#TODO: pagination.. need to discuss this, paginate() method is different for query than other methods used here
 	#TODO: filter: can use .filter_by or .filter method, not sure how we want to do this
 	query_list = m.query.order_by(criteria).all()
 	for obj in query_list:
@@ -88,14 +79,32 @@ def api_model(model, criteria=None, page=None, filter=None):
 
 	return "<h1>Model not found</h1>"
 
-#### might use some of these later for pagination?
-# @app.route('/api/<model>/<criteria>')
-# def api_model_criteria(model, criteria):
-# 	return model + " " + criteria
+# TODO: Jake change to what he had
+@app.route('/<model>')
+@app.route('/<model>/<int:page>')
+#@app.route('/<model>/<int:page>/<filter>')
+def models(model, page=1):
+	NUM_PER_PAGE = 12
+	l = []
+	info = getModel(model)
+	m = info[0]
+	if m == -1:
+		return "<h1>Model not found</h1>"
 
-# @app.route('/api/<model>/<criteria>/<int:page>')
-# def api_model_criteria_page(model, criteria, page):
-# 	return model + " " + criteria + " " + str(page)
+	# print("---------------------------DEBUG----------------------------------")
+	# # print(request.query_string)
+	# print(urllib.parse.unquote(str(request.query_string)))
+	# print("---------------------------DEBUG----------------------------------")
+
+	#filtwerin still not working
+	query_list = m.query.filter_by().paginate(page, NUM_PER_PAGE, False).items
+	if query_list == []:
+		return "<h1>Page "+str(page)+" does not contain any "+model+".</h1>"
+	for obj in query_list:
+		d = obj.dictionary()
+		l.append(d)
+	# return jsonify(l)
+	return render_template(info[1]+".html",models=l)
 
 # @app.route('/api/<model>/<criteria>/<int:page>/<filter>')
 # def api_model_criteria_page_filter(model, criteria, page, filter):
@@ -155,6 +164,17 @@ def mission_3():
 	return render_template("temp/mission_3.html");
 
 
-
+#UTILITY METHODS
+def getModel(model):
+	if model == 'agency':
+		return (Agency, "agencies")
+	elif model == 'launch':
+		return (Launch, "launches")
+	elif model == 'location':
+		return (Location, "locations")
+	elif model == 'mission':
+		return (Mission, "missions")
+	else:
+		return -1
 
 
