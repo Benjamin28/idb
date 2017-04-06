@@ -67,6 +67,8 @@ def api_model(model):
 	NUM_PER_PAGE = 12
 	l = []
 	m = getModel(model)[0]
+	if m == -1:
+		return "<h1>Error 404: Page not found</h1>"	
 
 	req_str = urllib.parse.unquote(str(request.query_string)[2:-1])
 	if len(req_str) == 0:
@@ -80,13 +82,13 @@ def api_model(model):
 
 		#Check which model (agency, launch, location, mission)
 		#and change str_dict accordingly with default None values
-		if model == 'agency':
+		if model == 'agencies':
 			str_dict['agencyType'] = None
-		elif model == 'launch':
+		elif model == 'launches':
 			str_dict['status'] = None
-		elif model == 'location':
+		elif model == 'locations':
 			str_dict['countryCode'] = None
-		elif model == 'mission':
+		elif model == 'missions':
 			str_dict['typeName'] = None
 
 		for pair in split_req_str:
@@ -125,7 +127,7 @@ def models(model):
 	info = getModel(model)
 	m = info[0]
 	if m == -1:
-		return "<h1>Model not found</h1>"
+		return "<h1>Error 404: Page not found</h1>"
 	return render_template(info[1] + ".html")
 
 # @app.route('/<model>')

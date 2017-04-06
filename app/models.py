@@ -57,8 +57,8 @@ class Launch(db.Model):
 		d = {"id" : self.id, "name" : self.name, "windowStart" : self.windowStart, 
 				"windowEnd" : self.windowEnd,"videoUrl" : self.videoUrl,
 				"launchPad": self.launchPad, "rocket" : self.rocket,
-				"rocketLink" : self.rocketLink, "status" : self.status,
-				"location_id" : self.location_id}
+				"rocketLink" : self.rocketLink, "status" : self.status}
+		d["location"] = Location.query.get(self.location_id).name
 		d["agencies"] = {agency.id: agency.name for agency in self.agencies}
 		d["mission"] = self.mission.name if self.mission is not None else "None"
 		return d
@@ -98,9 +98,9 @@ class Mission(db.Model):
 
 	def dictionary(self):
 		d = {"id" : self.id, "name" : self.name, "description" : self.description, "typeName" : self.typeName,
-						"wikiUrl" : self.wikiUrl, "launch_id" : self.launch_id}
+						"wikiUrl" : self.wikiUrl}
 		d["agencies"] = {agency.id: agency.name for agency in self.agencies}
-		d["launch_id"] = self.launch.id if self.launch is not None else "None"
+		d["launch"] = Launch.query.get(self.launch_id).name if self.launch is not None else "None"
 		return d
 
 	def attributes():
