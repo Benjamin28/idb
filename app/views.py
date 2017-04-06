@@ -134,12 +134,13 @@ def models(model):
 		id = req_str.replace("id=", "")
 		if info[1] == "agencies":
 			return render_template('agency-instance.html')
-		if info[1] == "launches":
+		elif info[1] == "launches":
 			return render_template('launch-instance.html')
-		if info[1] == "locations":
+		elif info[1] == "locations":
 			return render_template('location-instance.html')
-		if info[1] == "missions":
+		elif info[1] == "missions":
 			return render_template('mission-instance.html')
+			
 	return render_template(info[1] + ".html")
 
 # @app.route('/<model>')
