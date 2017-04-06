@@ -5,27 +5,102 @@
 {% endblock %}
 {% block content %}
 
+<div id="root"></div>
+
+
+
 <div class="col-md-10 col-md-offset-1">
-	<h1>Ariane 5 ECA | SGDC 1 &amp; Koreasat 7</h1>
-	<hr>
-	<h3>Start: March 24, 2017</h3>
-	<h3>Status: 1</h3>
-	<h3>Rocket: Ariane 5 ECA</h3>
-	<h3><a href="{{url_for('location_1')}}">Location: Kourou, French Guiana</h3>
-	<h3><a href="{{url_for('mission_1')}}">Mission: SGDC 1 &amp; Koreasat 7</a></h3>
-	<h3 class="inline-dropdown">Agencies:</h3>
-	<div class="dropdown dropdown-text">
-	    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
-	      <span class="caret"></span></button>
-	    <ul class="dropdown-menu">
-	      <li><a href="#">Example1</a></li>
-	      <li><a href="#">Example2</a></li>
-	      <li><a href="#">Example3</a></li>
-	    </ul>
-    </div>
-    <hr>
-    <img class="img-square" src="https://s3.amazonaws.com/launchlibrary/RocketImages/Ariane+5+ECA_1920.jpg" alt="Generic placeholder image" width="300" height="300">
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script type="text/jsx">
+
+var App = React.createClass({
+
+	getInitialState: function() {
+		return {
+			name: "",
+			start: "",
+			mission: "",
+			status: "",
+			rocket: "",
+			rocketLink: "",
+			agencies: []
+		}
+	},
+
+	componentDidMount: function() {
+    var _this = this;
+    this.serverRequest =
+      axios
+        .get("http://127.0.0.1:5000/api/launch?id=65")
+        .then(function(result) {
+			console.log(result.data[0].name)
+  			const nam = result.data[0].name;
+			const start = result.data[0].windowStart;
+			const mission = result.data[0].mission;
+			const stat = result.data[0].status;
+			const rocket = result.data[0].rocket;
+			const rocketLink = result.data[0].rocketLink;
+			const agencies = result.data[0].agencies;
+
+            _this.setState({name: nam});
+			_this.setState({start: start})
+			_this.setState({mission: mission})
+			_this.setState({status: stat})
+			_this.setState({rocket: rocket})
+			_this.setState({rocketLink: rocketLink})
+			_this.setState({agencies: agencies})
+
+        })
+  },
+
+	componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+  render: function() {
+    return(
+		<div class="col-md-10 col-md-offset-1">
+			<h1>{this.state.name}</h1>
+			<hr></hr>
+			<h3>Start: {this.state.start}</h3>
+			<h3>Status: {this.state.status}</h3>
+			<h3>Rocket: {this.state.rocket}</h3>
+			<h3><a href="{{url_for('location_1')}}">Location: Kourou, French Guiana</a></h3>
+			<h3><a href="{{url_for('mission_1')}}">Mission: {this.state.mission}</a></h3>
+			<h3 className="inline-dropdown">Agencies:</h3>
+			<div className="dropdown dropdown-text">
+			    <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+			      <span className="caret"></span></button>
+			    <ul className="dropdown-menu">
+			      {Object.values(this.state.agencies).map(function(value) {
+		              return <li><a href="#">{value}</a></li>;
+		            })}
+			    </ul>
+		    </div>
+		    <hr></hr>
+		    <img className="img-square" src={this.state.rocketLink} alt="Generic placeholder image" width="300" height="300"></img>
+		</div>
+	);
+  }
+});
+
+function drawInstance(){
+	console.log('want to draw')
+  ReactDOM.render(
+  	React.createElement(App, {items: 0}),
+  	document.getElementById('root')
+	);
+	document.getElementById('root').childNodes[0].className+= " col-md-10 col-md-offset-1";
+}
+//document.getElementById('wikiview').src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"
+drawInstance();
+</script>
 
 
 {% endblock %}

@@ -5,24 +5,85 @@
 {% endblock %}
 {% block content %}
 
-<div class="col-md-10 col-md-offset-1">
-	<h1>Jiuquan, People's Republic of China</h1>
-	<hr>
-	<h3>CountryCode: CHN</h3>
-	<h3 class="inline-dropdown">Agencies:</h3>
-	<div class="dropdown dropdown-text">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
-          <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Example1</a></li>
-          <li><a href="#">Example2</a></li>
-          <li><a href="#">Example3</a></li>
-        </ul>
-    </div>
-    <hr>
-    <img class="img-square" src="http://i.imgur.com/voLgap2.jpg" alt="flag" width="300" height="300">
+<div id="root"></div>
 
+
+
+<div class="col-md-10 col-md-offset-1">
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+<script type="text/jsx">
+
+var App = React.createClass({
+
+	getInitialState: function() {
+		return {
+			name: "",
+			cc: "",
+			launches: []
+		}
+	},
+
+	componentDidMount: function() {
+    var _this = this;
+    this.serverRequest =
+      axios
+        .get("http://127.0.0.1:5000/api/location?id=32")
+        .then(function(result) {
+			console.log(result.data[0].countryCode)
+  			const nam = result.data[0].name;
+			const cc = result.data[0].countryCode
+			const launches = result.data[0].launches
+
+            _this.setState({name: nam});
+			_this.setState({cc: cc})
+			_this.setState({launches: launches})
+        })
+  },
+
+	componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+  render: function() {
+	var img = "https://restcountries.eu/data/"+(this.state.cc.toLowerCase())+".svg"
+    return(
+		<div className="col-md-10 col-md-offset-1">
+			<h1>{this.state.name}</h1>
+			<hr></hr>
+			<h3>Country Code: {this.state.cc}</h3>
+			<h3 className="inline-dropdown">Launches:</h3>
+			<div className="dropdown dropdown-text">
+		        <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+		          <span className="caret"></span></button>
+		        <ul className="dropdown-menu">
+		          {Object.values(this.state.launches).map(function(value) {
+		              return <li><a href="#">{value}</a></li>;
+		            })}
+		        </ul>
+		    </div>
+		    <hr></hr>
+		    <img class="img-square" src={img} alt="flag" width="450" height="300"></img>
+
+		</div>
+	);
+  }
+});
+
+function drawInstance(){
+	console.log('want to draw')
+  ReactDOM.render(
+  	React.createElement(App, {items: 0}),
+  	document.getElementById('root')
+	);
+	document.getElementById('root').childNodes[0].className+= " col-md-10 col-md-offset-1";
+}
+//document.getElementById('wikiview').src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"
+drawInstance();
+</script>
 {% endblock %}
