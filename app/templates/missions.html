@@ -63,13 +63,10 @@
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
           <span class="caret"></span></button>
         <ul class="dropdown-menu">
-          <li><a href="#">Name</a></li>
-          <li><a href="#">Start</a></li>
-          <li><a href="#">Status</a></li>
-          <li><a href="#">Rocket</a></li>
-          <li><a href="#">Agency</a></li>
-          <li><a href="#">Location</a></li>
-          <li><a href="#">Mission</a></li>
+          <li><p  id="namea">Name (A-Z)</p></li>
+          <li><p  id="named">Name (Z-A)</p></li>
+          <li><p  id="loca">Launch Name (A-Z)</p></li>
+          <li><p  id="locd">Launch Name (Z-A)</p></li>
         </ul>
       </div>
       <div class="item col-xs-6 col-sm-4" id="col1">
@@ -157,9 +154,13 @@ var App = React.createClass({
     if(orderName == null){
       orderName = 'name';
     }
+    var order = getParameterByName('order');
+    if(!order){
+      order = "asc";
+    }
     _this.serverRequest =
       axios
-        .get("/api/missions?page=" + pageNum +"%26orderBy=" + orderName)
+        .get("/api/missions?page=" + pageNum +"%26orderBy=" + orderName + "%26order="+ order)
         .then(function(result) {
           const mis = result.data.map(function(obj){return obj.name});
           const type = result.data.map(function(obj){return obj.typeName});
@@ -248,7 +249,6 @@ function updateURLParameter(url, param, paramVal){
     return baseURL + "?" + newAdditionalURL + rows_txt;
 }
 
-
 function getNextPage() {
     var pageNum = getParameterByName('page');
     if(pageNum == null){
@@ -258,12 +258,17 @@ function getNextPage() {
     if(orderName == null){
       orderName = 'name'; //default
     }
+    var order = getParameterByName('order');
+    if(order == null){
+      order = "asc";
+    }
     ++pageNum;
     console.log(pageNum);
     var currentLink = window.location.href;
     if(pageNum <= totalPageNum()){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
       newLink = updateURLParameter(newLink, 'orderBy', orderName);
+      newLink = updateURLParameter(newLink, 'order', order);
     }else{
 
       var newLink = currentLink;
@@ -283,11 +288,55 @@ function getPrevPage() {
     window.location.href = newLink;
 }
 
+function removeParameter(url, parameter)
+{
+  var urlparts= url.split('?');
+
+  if (urlparts.length>=2)
+  {
+      var urlBase=urlparts.shift(); //get first part, and remove from array
+      var queryString=urlparts.join("?"); //join it back up
+
+      var prefix = encodeURIComponent(parameter)+'=';
+      var pars = queryString.split(/[&;]/g);
+      for (var i= pars.length; i-->0;)               //reverse iteration as may be destructive
+          if (pars[i].lastIndexOf(prefix, 0)!==-1)   //idiom for string.startsWith
+              pars.splice(i, 1);
+      url = urlBase+'?'+pars.join('&');
+  }
+  return url;
+}
+
+function sortPage(value, order){
+  var currentLink = window.location.href;
+    var newLink = updateURLParameter(currentLink, 'orderBy', value);
+      newLink = updateURLParameter(newLink, 'page', 1);
+  if(!order){
+    newLink = removeParameter(newLink, 'order', 'asc');
+  }else{
+    newLink = updateURLParameter(newLink, 'order', order);
+  }
+
+  window.location.href = newLink;
+}
+
 var next = document.getElementById("nextButton");
 next.addEventListener("click", getNextPage);
 
 var next = document.getElementById("prevButton");
 next.addEventListener("click", getPrevPage);
+
+var sort1 = document.getElementById("namea");
+sort1.addEventListener("click", function(){return sortPage("name", 'asc');});
+
+var sort1_2 = document.getElementById("named");
+sort1_2.addEventListener("click", function(){return sortPage("name", "desc");});
+
+var sort2 = document.getElementById("loca");
+sort2.addEventListener("click", function(){return sortPage("launch", 'asc');});
+
+var sort2_2 = document.getElementById("locd");
+sort2_2.addEventListener("click", function(){return sortPage("launch", "desc");});
 </script>
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
