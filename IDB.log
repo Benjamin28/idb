@@ -1,3 +1,435 @@
+commit e745f294c2ea35c1ca5d5c4edffc163f6f7c9e50
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 12:54:03 2017 -0500
+
+    fixed url issue
+
+commit 3062736027279b9173b25deba1749458b5ef0da5
+Merge: 972a275 d5b4b63
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 12:50:51 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 972a27576720aa79e69c58a5d6f8496e84895077
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 12:50:48 2017 -0500
+
+    icons working for missions
+
+commit d5b4b638a22d3ec95650b5cc5099acd066526fd4
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Thu Apr 6 11:32:41 2017 -0500
+
+    included location_id and launch_id back in
+
+commit 2405ef3c3a89e765d134a2b7913fd1897300ca8e
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Thu Apr 6 10:56:34 2017 -0500
+
+    Update with location (not location_id) & launches (not launch_id)
+    Also updated error page for invalid models
+
+commit d5a76301f8ec60022e3d6c99856e39aa3b7d6273
+Merge: 8951a44 1e31c59
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Thu Apr 6 10:34:01 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 8951a44a5e1420ab6d15c075c23f54071170f947
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Thu Apr 6 10:33:33 2017 -0500
+
+    cleaned up views, added dynamic routing for agencies, ..., etc
+
+commit 1e31c592c95073b04c490812a788420096c5d3dc
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 10:05:37 2017 -0500
+
+    dynamically loading rocket photos from our api
+
+commit 072ebaa479e42409ff8aeeb81a06c06ff0353f7e
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 09:59:28 2017 -0500
+
+    added icons by agency type
+
+commit 8e60ad9d8e37a241d278622a14f6786b3e19d776
+Merge: 77d36fc 3717e1b
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 08:52:24 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 77d36fc5c84c9093cb9d0a2c429c2d24e5cae10e
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 08:52:18 2017 -0500
+
+    added icons for mission
+
+commit 3717e1ba9027c3bd263d1ea026c045a88dda8c61
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Thu Apr 6 05:34:54 2017 -0500
+
+    minor fixes
+
+commit 939cf82d58933fc77f2c926536e90299c2a173b7
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Thu Apr 6 05:08:59 2017 -0500
+
+    almost all data in all instances loaded from our api
+
+commit e3824ae83276191e8485acdd0146d70cdbff4b4d
+Merge: 9b3b7f7 03ee022
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 01:09:35 2017 -0500
+
+    everything pretty, data loaded from our api
+
+commit 9b3b7f7e4a3168cf9c9f041886e0938d300b95e6
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 01:05:32 2017 -0500
+
+    now loading most of data from our api
+
+commit 03ee022673f54deb3f165e2923bbf0a2941800e1
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Thu Apr 6 00:55:50 2017 -0500
+
+    fixed agencies_instance
+
+commit 1bc8989e173049743e6a5792ccf800e9cf9a3981
+Merge: d156aee c8897d5
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Thu Apr 6 00:38:36 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit d156aee4620c2b9e40031193dac7cf6696417539
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Thu Apr 6 00:38:33 2017 -0500
+
+    Removed models argument from render_template call in models view
+
+commit c8897d560cd2e2c72ee5047b109caa796360f1ea
+Merge: 67b19f3 f352b61
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 00:36:53 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 67b19f397debb6603611db0b36748723f15c7bd6
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Thu Apr 6 00:36:45 2017 -0500
+
+    made ugly react agency page for sam to fix
+
+commit f352b61fe4d136046a747aca3a1362fcb23ca0e6
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Wed Apr 5 23:23:13 2017 -0500
+
+    fixed locations and missions instance pages
+
+commit 2c30bfa202df51a3989866d1ccc89c4f9fc388c4
+Merge: 2b32c91 189a90f
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Wed Apr 5 22:41:11 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 2b32c91ef06b1af59128184f0eb1ccb87b843ba6
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Wed Apr 5 22:40:47 2017 -0500
+
+    missions and locations load dynamically flags loading
+
+commit 189a90f4e59345ad78b0f4c8ed735186f1bd144a
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 22:21:42 2017 -0500
+
+    Fixed issue where no results when unique model filter attributes were not present
+
+commit 7a33f07f9eb684f6376fc47755bc899f3ac8d7fe
+Merge: 41f8627 e9adbe5
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 22:08:56 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 41f8627f792cf567003210a0df0c5d96be4f13fd
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 22:08:44 2017 -0500
+
+    updated /<model> view to just render <models>.html, ex: launch renders launches.html
+
+commit e9adbe5be7385fd1019074ec5959afcfcd423e9c
+Author: Samuel Yang <sam.yang@utexas.edu>
+Date:   Wed Apr 5 22:05:21 2017 -0500
+
+    fixed agency and launch instance pages
+
+commit bbab30e3f7abadcb160a8fbd45bd8dbc602723ee
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 22:03:36 2017 -0500
+
+    Changed missionType to typeName
+
+commit bb86b0f0fd0bede91cf6276685e6b083c294f3e2
+Merge: 6c45040 08dd387
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 21:56:22 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 6c45040383d0fdecb58d32c25dc362ddfb1b300f
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 21:56:19 2017 -0500
+
+    Added URL routing for filtering
+
+commit 08dd38740698885f93eb7909304ff5d1d34ccf0c
+Merge: 23d5937 40f9b2d
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Apr 5 21:46:49 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 23d5937c42bc57ac24fe576cd38ea88047d2711f
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Apr 5 21:38:58 2017 -0500
+
+    updated db with rocketLink,status and updated tests
+    Fixes #31, fixed by just taking the first id that showed up
+
+commit 40f9b2de854d1c74bec345a1409be49cc3da12f2
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Apr 5 21:25:18 2017 -0500
+
+    updated database with rocketLink and status
+
+commit eff7f7aff2274fade951f284f81425eb9b1a97ad
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Wed Apr 5 21:17:51 2017 -0500
+
+    added rocketLink, status to Launch model
+
+commit c0c781a23489d6be4516ed3147b2dfa3c423a388
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Wed Apr 5 20:58:12 2017 -0500
+
+    Server porting to python 3.5
+
+commit 9f4d9dc6064cb8377d7f5251d43250409eb875a9
+Author: root <root@ip-172-31-24-170.us-west-2.compute.internal>
+Date:   Thu Apr 6 01:52:50 2017 +0000
+
+    wsgi changes so it will use venv now
+
+commit a0a01dae1815611f43a3fb4d7823339aa321da05
+Merge: e002140 3a877e5
+Author: Fumika Bai <fumika@wireless-10-145-144-121.public.utexas.edu>
+Date:   Wed Apr 5 20:12:16 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit e002140af2ed503b34f2747806567a6bf377d5d9
+Author: Fumika Bai <fumika@wireless-10-145-144-121.public.utexas.edu>
+Date:   Wed Apr 5 20:11:42 2017 -0500
+
+    made page switch work in launches and agencies
+
+commit 3a877e59874e463baf8320a85be1aaace84caba0
+Author: Samuel Yang <sam.yang@utexas.edu>
+Date:   Wed Apr 5 20:09:48 2017 -0500
+
+    added instance files
+
+commit 2dc618c02bc986cde7f8b060bb1c0cb1289bb754
+Merge: 46cade9 47ab094
+Author: root <root@ip-172-31-24-170.us-west-2.compute.internal>
+Date:   Thu Apr 6 00:42:08 2017 +0000
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 46cade9e2e30aa3735f09a4dfba263240ae5b550
+Author: root <root@ip-172-31-24-170.us-west-2.compute.internal>
+Date:   Thu Apr 6 00:41:11 2017 +0000
+
+    UNIT TESTS CAN BE HIT BY THE USER
+
+commit 47ab094dc353c03bd925ba2c90e1779617bdacc7
+Merge: 4e24607 77b40d1
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 19:27:07 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 4e24607126cb8f67ae8df6d3e743552cd93f5c54
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 19:27:00 2017 -0500
+
+    Pagination working, filtering not implemented yet.
+
+commit 77b40d1e737a8958c073a0656ea21837d7226ff2
+Author: Samuel Yang <sam.yang@utexas.edu>
+Date:   Wed Apr 5 19:20:45 2017 -0500
+
+    fixed navbar and launch captions
+
+commit 3b0728b51cf198ae2a831b7f8d133355463eb92f
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Wed Apr 5 18:32:57 2017 -0500
+
+    server needs flask
+
+commit 3589f1b178a6d118fee451733a176c26c24953a7
+Merge: f8ec0df a810f4c
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Wed Apr 5 17:42:35 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit f8ec0df795ff5efad7697e10734e63808228d663
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Wed Apr 5 17:21:54 2017 -0500
+
+    Unit test fix
+
+commit a810f4cc67931e1573f6d66683a09896d4bb5d2e
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Wed Apr 5 17:02:04 2017 -0500
+
+    fixed caption issue
+
+commit 34be0b35ae6cc846005b7e8f15313bf10c63e879
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Wed Apr 5 16:42:29 2017 -0500
+
+    tests should work on server now
+
+commit 0cf1aa2811f4556b2d2089ef2f8e7fc84af91cf1
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Wed Apr 5 16:11:30 2017 -0500
+
+    added my loader to launches
+
+commit b709257dfd5a049f8d4c9bd6881d2d703cdf122c
+Merge: 74d119c 8cfc8d2
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Wed Apr 5 15:54:09 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 74d119c6ae566d5bfe9eaf8d6599ee5ab0eeefce
+Author: Benjamin28 <Benjamin.Baker@utexas.edu>
+Date:   Wed Apr 5 15:54:00 2017 -0500
+
+    added function to load in all images and names from api
+
+commit 8cfc8d26edc3ed3a209d95a9abaa5f23d38fa9da
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Wed Apr 5 14:23:50 2017 -0500
+
+    trying to get aws to allow input capturing
+
+commit 62b6fbb6ee283b445a53d5908df389679d827441
+Merge: f7613ee 62c5da0
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Wed Apr 5 02:42:47 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit f7613eeaa1c00bd39232c3f9f3402dcef7c16f4a
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Wed Apr 5 02:42:33 2017 -0500
+
+    update navbar
+
+commit 62c5da02d5b9628c96c6d5af558bdfad9484e201
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 00:12:14 2017 -0500
+
+    Commented out debug code
+
+commit 7d31fee04cf55f3659c420ba0a2104e63933bea2
+Merge: 4896e7a 052ea6a
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 00:10:27 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 052ea6a07f0817e00f46fe092c67ae6df888fcca
+Merge: 716a1fb 565e921
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Wed Apr 5 00:09:32 2017 -0500
+
+     Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 716a1fb283f1e1831db1fcaf9291643694748c73
+Author: Fumika Bai <fumika@Fumikas-MacBook-Pro.local>
+Date:   Wed Apr 5 00:09:13 2017 -0500
+
+    implemented axis to read in json file
+
+commit 4896e7ae9f656d0503bdb9572d26dae862ff5009
+Merge: 1c78c96 565e921
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 00:08:48 2017 -0500
+
+    Merge branch 'master' of https://github.com/Benjamin28/idb
+
+commit 1c78c96a0c223a9f9546eb758f49596c3804e0f2
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 00:08:24 2017 -0500
+
+    Cleaned api_model methods, not used Model methods and sorts by given criteria.
+
+commit 0a6d36d30ecf6759baa8363acc5486b74774afcd
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Wed Apr 5 00:04:12 2017 -0500
+
+    Added attributes methods.
+
+commit 565e92122fdd479ffd0426a0d1d003ed26b57ca9
+Author: zachcwc <zachcw2279@gmail.com>
+Date:   Wed Apr 5 00:01:29 2017 -0500
+
+    Added some button functionality, but the server side needs to respond before it works, also got test running to work
+
+commit 1e1f4ccf54d2a48e4c9434e6d181e75bee147adc
+Author: Jacob Courtney <jacob.courtney2018@utexas.edu>
+Date:   Tue Apr 4 23:43:45 2017 -0500
+
+    Added dictionary methods for models.
+
+commit 558b3f54deaa9742fc74a0ccf9463cfb94202432
+Author: Vincent Chow <chow_vincent@utexas.edu>
+Date:   Tue Apr 4 21:57:58 2017 -0500
+
+    added api views and json for models
+
+commit e3ecd7a6b98c5b3c6252d03ed6117347460da0ba
+Author: Sam Yang <sam.yang@utexas.edu>
+Date:   Tue Apr 4 19:19:02 2017 -0500
+
+    added prev and next buttons
+
+commit dd1d5ec09a98bb435c2950a306978460896c3156
+Merge: 8ae244b e80126f
+Author: Fumika Bai <fumikabai@utexas.edu>
+Date:   Tue Apr 4 16:21:42 2017 -0500
+
+    Merge pull request #38 from Benjamin28/render-data
+    
+    updated pages with react render
+
+commit e80126f92ce97e4464ed0bcd7052d70531983190
+Author: Fumika Bai <fumika@wireless-10-147-201-62.public.utexas.edu>
+Date:   Tue Apr 4 16:18:10 2017 -0500
+
+    updated 4 pages with render
+
 commit 8ae244bbbf5dc0d40f8e5eb49d60343b93302e84
 Merge: 835b6c9 670c233
 Author: Benjamin Baker <benjamin.baker@utexas.edu>

@@ -120,18 +120,24 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       names: [],
-      images: [],
-      totalPageNum: 30
+      images: []
     }
   },
 
   componentDidMount: function() {
     var _this = this;
-    this.serverRequest =
+    var pageNum = getParameterByName('page');
+    if(pageNum == null){
+    	pageNum = 1;
+    }
+    var orderName = getParameterByName('orderBy');
+    if(orderName == null){
+    	orderName = 'name'; //default
+    }
+    _this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/agencies?page=0")// + getParameterByName('page'))
+        .get("http://127.0.0.1:5000/api/agencies?page=" + pageNum +"%26orderBy=" + orderName)
         .then(function(result) {
-          console.log(result.data);
           const agc = result.data.map(function(obj){return obj.name});
           const img = result.data.map(function(obj){return "../static/images/agencyTypes/"+obj.agencyType+".png"});
           _this.setState({names: agc});
@@ -176,7 +182,7 @@ drawTables(10);
 <script>
 
 function totalPageNum(num) {
-  var total = 10;
+  var total = 30;
   if(num){
     total = num;
   }
@@ -218,10 +224,19 @@ function updateURLParameter(url, param, paramVal){
 
 function getNextPage() {
     var pageNum = getParameterByName('page');
+    if(pageNum == null){
+    	pageNum = 1;
+    }
+    var orderName = getParameterByName('orderBy');
+    if(orderName == null){
+    	orderName = 'name'; //default
+    }
     ++pageNum;
+    console.log(pageNum);
     var currentLink = window.location.href;
     if(pageNum <= totalPageNum()){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
+      newLink = updateURLParameter(newLink, 'orderBy', orderName);
     }else{
 
       var newLink = currentLink;
@@ -233,7 +248,7 @@ function getPrevPage() {
   var pageNum = getParameterByName('page');
     --pageNum;
     var currentLink = window.location.href;
-    if(pageNum >= 0){
+    if(pageNum >= 1){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
     }else{
       var newLink = currentLink;

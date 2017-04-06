@@ -136,12 +136,20 @@ var App = React.createClass({
 
   componentDidMount: function() {
     var _this = this;
+    var pageNum = getParameterByName('page');
+    if(pageNum == null){
+      pageNum = 1;
+    }
+    var orderName = getParameterByName('orderBy');
+    if(orderName == null){
+      orderName = 'name'; //default
+    }
     this.serverRequest =
       axios
-        .get("https://launchlibrary.net/1.2/location?offset=" + getParameterByName('page'))
+        .get("http://127.0.0.1:5000/api/agencies?page=" + pageNum +"%26orderBy=" + orderName)
         .then(function(result) {
-          const lch = result.data.locations.map(function(obj){return obj.name});
-          const cc  = result.data.locations.map(function(obj){return obj.countrycode});
+          const lch = result.data.map(function(obj){return obj.name});
+          const cc  = result.data.map(function(obj){return obj.countryCode});
           _this.setState({names: lch});
           _this.setState({country: cc});
         })
@@ -157,7 +165,7 @@ var App = React.createClass({
     if(this.state.country.length == 0){
       var img = "http://placehold.it/200x200/000/fff";
     }else{
-      img = "https://restcountries.eu/data/"+(this.state.country[index].toLowerCase())+".svg"
+      img = "https://restcountries.eu/data/"+((this.state.country[index].substring(0, 3)).toLowerCase())+".svg"
     }
     return <div class="thumbnail">
              <img src={img} ></img>
@@ -183,8 +191,9 @@ console.log("https://launchlibrary.net/1.2/location?offset=" + getParameterByNam
 </script>
 
 <script>
+
 function totalPageNum(num) {
-  var total = 10;
+  var total = 30;
   if(num){
     total = num;
   }
@@ -226,10 +235,19 @@ function updateURLParameter(url, param, paramVal){
 
 function getNextPage() {
     var pageNum = getParameterByName('page');
+    if(pageNum == null){
+      pageNum = 1;
+    }
+    var orderName = getParameterByName('orderBy');
+    if(orderName == null){
+      orderName = 'name'; //default
+    }
     ++pageNum;
+    console.log(pageNum);
     var currentLink = window.location.href;
     if(pageNum <= totalPageNum()){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
+      newLink = updateURLParameter(newLink, 'orderBy', orderName);
     }else{
 
       var newLink = currentLink;
@@ -241,7 +259,7 @@ function getPrevPage() {
   var pageNum = getParameterByName('page');
     --pageNum;
     var currentLink = window.location.href;
-    if(pageNum >= 0){
+    if(pageNum >= 1){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
     }else{
       var newLink = currentLink;

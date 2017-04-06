@@ -133,9 +133,17 @@ var App = React.createClass({
 
   componentDidMount: function() {
     var _this = this;
+    var pageNum = getParameterByName('page');
+    if(pageNum == null){
+      pageNum = 1;
+    }
+    var orderName = getParameterByName('orderBy');
+    if(orderName == null){
+      orderName = 'name'; //default
+    }
     this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/launches?page=10") //+ getParameterByName('page'))
+        .get("http://127.0.0.1:5000/api/launches?page=" + pageNum +"%26orderBy=" + orderName)
         .then(function(result) {
           const lch = result.data.map(function(obj){return obj.name});
           const img = result.data.map(function(obj){return obj.rocketLink});
@@ -175,8 +183,9 @@ drawTables(10);
 </script>
 
 <script>
+
 function totalPageNum(num) {
-  var total = 10;
+  var total = 30;
   if(num){
     total = num;
   }
@@ -218,10 +227,19 @@ function updateURLParameter(url, param, paramVal){
 
 function getNextPage() {
     var pageNum = getParameterByName('page');
+    if(pageNum == null){
+      pageNum = 1;
+    }
+    var orderName = getParameterByName('orderBy');
+    if(orderName == null){
+      orderName = 'name'; //default
+    }
     ++pageNum;
+    console.log(pageNum);
     var currentLink = window.location.href;
     if(pageNum <= totalPageNum()){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
+      newLink = updateURLParameter(newLink, 'orderBy', orderName);
     }else{
 
       var newLink = currentLink;
@@ -233,7 +251,7 @@ function getPrevPage() {
   var pageNum = getParameterByName('page');
     --pageNum;
     var currentLink = window.location.href;
-    if(pageNum >= 0){
+    if(pageNum >= 1){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
     }else{
       var newLink = currentLink;
@@ -246,6 +264,7 @@ next.addEventListener("click", getNextPage);
 
 var next = document.getElementById("prevButton");
 next.addEventListener("click", getPrevPage);
+
 
 </script>
 
