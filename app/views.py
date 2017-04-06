@@ -33,10 +33,17 @@ def about():
 def getTestResults():
 	#s = subprocess.check_output(['python3','./tests.py'])
 	path = os.path.dirname(os.path.realpath(__file__))
-	p = subprocess.check_output(['python3', os.path.join(path, '../tests.py')], stderr=subprocess.STDOUT)
+	finalPath = os.path.join(path, '../tests.py')
+	#p = subprocess.check_output(['python3', finalPath], stderr=subprocess.STDOUT)
 	## But do not wait till netstat finish, start displaying output immediately ##
-	print(p)
-	l = [{"testResults" : p.decode('utf-8')}]#out.decode('utf-8')}]
+	#print(p)
+	process = subprocess.Popen(['python ' + finalPath],shell=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	returncode = process.wait()
+	print('ping returned {0}'.format(returncode))
+	#print(process.stdout.read())
+	process.stdout.readline()
+	process.stdout.readline()
+	l = [{"testResults" : str(process.stdout.read())}]#out.decode('utf-8')}]
 	# i = 1
 	# p.stdout.readline()
 	# p.stdout.readline()
