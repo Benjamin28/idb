@@ -46,10 +46,10 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li><a href="{{url_for('agencies')}}">AGENCIES</a></li>
-            <li><a href="{{url_for('launches')}}">LAUNCHES</a></li>
-            <li><a href="{{url_for('locations')}}">LOCATIONS</a></li>
-            <li><a href="{{url_for('missions')}}">MISSIONS</a></li>
+            <li><a href="{{url_for('models', model='/agencies')}}">AGENCIES</a></li>
+            <li><a href="{{url_for('models',model='/launches')}}">LAUNCHES</a></li>
+            <li><a href="{{url_for('models',model='/locations')}}">LOCATIONS</a></li>
+            <li><a href="{{url_for('models',model='/missions')}}">MISSIONS</a></li>
             <li><a href="{{url_for('about')}}">ABOUT</a></li>
 
           </ul>
