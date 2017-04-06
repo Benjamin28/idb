@@ -17,7 +17,8 @@ class TestModels(unittest.TestCase):
 						countryCode='testCC', wikiUrl='https://www.wikipedia.org')
 		launch = Launch(name='testnameLaunch', windowStart='March 24, 2017 20:31:00 UTC',
 						windowEnd='March 24, 2017 23:20:00 UTC', videoUrl='https://www.youtube.com/watch?v=wCy401hkXuk',
-						launchPad='testLP', rocket='testRocket')
+						launchPad='testLP', rocket='testRocket', rocketLink = 'https://s3.amazonaws.com/launchlibrary/RocketImages/Ariane+5+ECA_1920.jpg',
+						status = 'SUCCESS')
 		location = Location(name='testLoc', countryCode='testCC2')
 		mission = Mission(name='testMissionN', description='This is a description about this mission.',
 						  typeName='testType2', wikiUrl='https://www.wikipedia2.org')
@@ -203,7 +204,7 @@ class TestModels(unittest.TestCase):
 		with app.test_request_context():
 			mission1 = db.session.query(Mission).filter_by(name="WGS-4 (USA-233)").first()
 			launch_id1 = mission1.launch_id
-			self.assertEqual(launch_id1, 484)
+			self.assertEqual(launch_id1, 485)
 
 
 if __name__ == "__main__":
