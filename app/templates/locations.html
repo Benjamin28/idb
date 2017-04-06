@@ -71,13 +71,8 @@
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
           <span class="caret"></span></button>
         <ul class="dropdown-menu">
-          <li><a href="#">Name</a></li>
-          <li><a href="#">Start</a></li>
-          <li><a href="#">Status</a></li>
-          <li><a href="#">Rocket</a></li>
-          <li><a href="#">Agency</a></li>
-          <li><a href="#">Location</a></li>
-          <li><a href="#">Mission</a></li>
+          <li><button  id="name" value="Name">Name</button></li>
+          <li><button  id="cc" value="countryCode">Country Code</button></li>
         </ul>
       </div>
       <div class="item col-xs-6 col-sm-4" id="col1">
@@ -120,11 +115,11 @@
         <div class="thumbnail" id="thumb10">
         </div>
       </div>
-      <div class="item col-xs-6 col-sm-4" id="col10">
+      <div class="item col-xs-6 col-sm-4" id="col11">
         <div class="thumbnail" id="thumb11">
         </div>
       </div>
-      <div class="item col-xs-6 col-sm-4" id="col10">
+      <div class="item col-xs-6 col-sm-4" id="col12">
         <div class="thumbnail" id="thumb12">
         </div>
       </div>
@@ -157,11 +152,11 @@ var App = React.createClass({
   componentDidMount: function() {
     var _this = this;
     var pageNum = getParameterByName('page');
-    if(pageNum == null){
+    if(pageNum == null || pageNum == ''){
       pageNum = 1;
     }
     var orderName = getParameterByName('orderBy');
-    if(orderName == null){
+    if(orderName == null || orderName ==''){
       orderName = 'name'; //default
     }
     this.serverRequest =
@@ -291,11 +286,26 @@ function getPrevPage() {
     window.location.href = newLink;
 }
 
+function sortPage(value){
+  var currentLink = window.location.href;
+  var pageNum = getParameterByName('page');
+  var newLink = updateURLParameter(currentLink, 'orderBy', value);
+    newLink = updateURLParameter(newLink, 'page', 1);
+
+  window.location.href = newLink;
+}
+
 var next = document.getElementById("nextButton");
 next.addEventListener("click", getNextPage);
 
 var next = document.getElementById("prevButton");
 next.addEventListener("click", getPrevPage);
+
+var sort1 = document.getElementById("name");
+sort1.addEventListener("click", function(){return sortPage( sort1.value)});
+
+var sort2 = document.getElementById("cc");
+sort2.addEventListener("click", function(){return sortPage( sort2.value)});
 
 </script>
 
