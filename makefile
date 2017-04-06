@@ -41,6 +41,9 @@ restart:
 	service apache2 reload
 	service apache2 restart
 
+permissions:
+	chmod go+wr database.db
+
 unittest:
 	python3 ./tests.py
 
