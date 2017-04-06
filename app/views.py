@@ -3,7 +3,7 @@ from app.models import Agency, Launch, Location, Mission
 from flask import render_template, jsonify, request
 import json
 import os
-import subprocess, sys
+import subprocess
 import urllib
 
 @app.route('/')
@@ -35,29 +35,14 @@ def getTestResults():
 	#s = subprocess.check_output(['python3','./tests.py'])
 	path = os.path.dirname(os.path.realpath(__file__))
 	finalPath = os.path.join(path, '../tests.py')
-	env = os.environ.copy()
-	env['PYTHONPATH'] = ":".join(sys.path)
-	#process = subprocess.check_output(['python3', finalPath], stderr=subprocess.STDOUT)
+	process = subprocess.check_output(['python3', finalPath], stderr=subprocess.STDOUT)
 	## But do not wait till netstat finish, start displaying output immediately ##
 	#print(p)
-	print(finalPath)
-	process = subprocess.Popen(
-		["python3", finalPath],
-		stdout = subprocess.PIPE,
-		stderr = subprocess.PIPE,
-		env = env
-	)
-	(stdout, stderr) = process.communicate()
-#	print("STDOUT: " + stdout)
-#	print("STDERR: " + stderr)
+	#process = subprocess.Popen(['python ' + finalPath],shell=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 	#print(process.stdout.read())
-	#process.stdout.readline()
 	#process.readline()
-	s = stderr.decode('utf-8')
-	#s.readline()
-	#s.readline()
-	s = s.split("\n",2)[2]
-	l = [{"testResults" : s}]#out.decode('utf-8')}]
+	#process.readline()
+	l = [{"testResults" : str(process)}]#out.decode('utf-8')}]
 	# i = 1
 	# p.stdout.readline()
 	# p.stdout.readline()
@@ -143,6 +128,18 @@ def models(model):
 	m = info[0]
 	if m == -1:
 		return "<h1>Error 404: Page not found</h1>"
+	req_str = urllib.parse.unquote(str(request.query_string)[2:-1])
+
+	if "id" in req_str:
+		id = req_str.replace("id=", "")
+		if info[1] == "agencies":
+			return render_template('agency-instance.html')
+		if info[1] == "launches":
+			return render_template('launch-instance.html')
+		if info[1] == "locations":
+			return render_template('location-instance.html')
+		if info[1] == "missions":
+			return render_template('mission-instance.html')
 	return render_template(info[1] + ".html")
 
 # @app.route('/<model>')
