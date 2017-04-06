@@ -5,35 +5,96 @@
 {% endblock %}
 {% block content %}
 
+<div id="root"></div>
+
+
+
 <div class="col-md-10 col-md-offset-1">
-	<h1>Mexican Space Agency</h1>
-	<hr>
-	<h3>Country Code: MEX</h3>
-	<h3>Type: Government</h3>
-	<h3>Abbreviation: AEM</h3>
-	<h3 class="inline-dropdown">Launches:</h3>
-	<div class="dropdown dropdown-text">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
-          <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Example1</a></li>
-          <li><a href="#">Example2</a></li>
-          <li><a href="#">Example3</a></li>
-        </ul>
-    </div>
-    <br>
-    <h3 class="inline-dropdown">Missions:</h3>
-    <div class="dropdown dropdown-text"> 
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
-          <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Example1</a></li>
-          <li><a href="#">Example2</a></li>
-          <li><a href="#">Example3</a></li>
-        </ul>
-    </div>
-    <hr>
-	<iframe scrolling="yes" height="500" width="100%" style="border: 1px solid gray" src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"></iframe>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script type="text/jsx">
+
+var App = React.createClass({
+
+	getInitialState: function() {
+		return {
+			names: [],
+			images: [],
+		}
+	},
+
+	componentDidMount: function() {
+    var _this = this;
+    this.serverRequest =
+      axios
+        .get("https://launchlibrary.net/1.2/agency?id=20")
+        .then(function(result) {
+          const nam = result.data.agencies.map(function(obj){return obj.name});
+          const img = result.data.agencies.map(function(obj){return "http://placehold.it/200x200/000/fff"});
+          _this.setState({names: nam});
+          _this.setState({images: img});
+
+
+        })
+  },
+
+	componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+  render: function() {
+    var index = this.props.items
+    return(
+		<div>
+			<h1>{this.state.names[index]}</h1>
+			<hr></hr>
+			<h3>Country Code: MEX</h3>
+			<h3>Type: Government</h3>
+			<h3>Abbreviation: AEM</h3>
+			<h3 class="inline-dropdown">Launches:</h3>
+			<div class="dropdown dropdown-text">
+        	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+          	<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a href="#">Example1</a></li>
+						<li><a href="#">Example2</a></li>
+						<li><a href="#">Example3</a></li>
+					</ul>
+			</div>
+			<br></br>
+			<h3 class="inline-dropdown">Missions:</h3>
+			<div class="dropdown dropdown-text">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+          <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Example1</a></li>
+          <li><a href="#">Example2</a></li>
+          <li><a href="#">Example3</a></li>
+        </ul>
+    </div>
+		<hr></hr>
+		<a href="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana">link to wiki</a>
+		</div>
+	);
+  }
+});
+
+function drawInstance(){
+	console.log('want to draw')
+  ReactDOM.render(
+  	React.createElement(App, {items: 0}),
+  	document.getElementById('root')
+	);
+	document.getElementById('root').childNodes[0].className+= " col-md-10 col-md-offset-1";
+}
+//document.getElementById('wikiview').src="https://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"
+drawInstance();
+</script>
+
+
 
 {% endblock %}
