@@ -6,7 +6,7 @@
 {% block content %}
 
 <div class="container">
-    <h2>Missions</h2>  
+    <h2>Missions</h2>
     <div class="col-sm-3">
       <ul class="list-unstyled">
         <li>
@@ -58,119 +58,187 @@
           <span class="caret"></span></button>
         <ul class="dropdown-menu">
           <li><a href="#">Name</a></li>
-          <li><a href="#">Launch</a></li>
-          <li><a href="#">Type</a></li>
+          <li><a href="#">Start</a></li>
+          <li><a href="#">Status</a></li>
+          <li><a href="#">Rocket</a></li>
           <li><a href="#">Agency</a></li>
-          <li><a href="#">Launch Date</a></li>
+          <li><a href="#">Location</a></li>
+          <li><a href="#">Mission</a></li>
         </ul>
       </div>
-      <div class="item col-xs-6 col-sm-4">
-        <div class="thumbnail">
-          <img src="http://placehold.it/200x200/000/fff">
-          <div class="caption" id="content1">
-            
-          </div>
+      <div class="item col-xs-6 col-sm-4" id="col1">
+        <div class="thumbnail" id="thumb1">
         </div>
       </div>
-      <div class="item col-xs-6 col-sm-4">
-        <div class="thumbnail">
-          <img src="http://placehold.it/200x200/000/fff">
-          <div class="caption" id="content2">
-           
-          </div>
+      <div class="item col-xs-6 col-sm-4" id="col2">
+        <div class="thumbnail" id="thumb2">
         </div>
       </div>
-      <div class="item col-xs-6 col-sm-4">
-        <div class="thumbnail">
-          <img src="http://placehold.it/200x200/000/fff">
-          <div class="caption" id="content3">
-            
-          </div>
+      <div class="item col-xs-6 col-sm-4" id="col3">
+        <div class="thumbnail" id="thumb3">
         </div>
       </div>
+      <div class="item col-xs-6 col-sm-4" id="col4">
+        <div class="thumbnail" id="thumb4">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col5">
+        <div class="thumbnail" id="thumb5">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col6">
+        <div class="thumbnail" id="thumb6">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col7">
+        <div class="thumbnail" id="thumb7">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col8">
+        <div class="thumbnail" id="thumb8">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col9">
+        <div class="thumbnail" id="thumb9">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col10">
+        <div class="thumbnail" id="thumb10">
+        </div>
+      </div>
+
     </div>
+    <div>
       <button type="button" class="btn pull-right" id="nextButton">Next</button>
       <button type="button" class="btn pull-right" id="prevButton">Previous</button>
     </div>
   </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
-<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/jsx">
 /** @jsx React.DOM */
 
-var Missions = React.createClass({displayName: "Missions",
-  
-render: function() {
-  
-  var mission = this.props.items;
+var App = React.createClass({
 
-  return (
-    React.createElement("a", {href: "{{url_for('mission_1')}}"}, mission.title)
-  )
-}
+  getInitialState: function() {
+    return {
+      names: [],
+      images: []
+    }
+  },
 
+  componentDidMount: function() {
+    var _this = this;
+    this.serverRequest =
+      axios
+        .get("https://launchlibrary.net/1.2/mission?offset=" + getParameterByName('page'))
+        .then(function(result) {
+          const lch = result.data.missions.map(function(obj){return obj.name});
+          const img = result.data.missions.map(function(obj){return "http://placehold.it/200x200/000/fff"});
+          _this.setState({names: lch});
+          _this.setState({images: img})
+        })
+  },
+
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+  render: function() {
+    var index = this.props.items
+    return <div class="thumbnail">
+             <img src={this.state.images[index]} ></img>
+             <div className="caption">{this.state.names[index]}</div>
+           </div>
+
+  }
 });
+function drawTables(numTables){
 
-var missions = [
-  {"title": "Nuclear Spectroscopic Telescope Array (NuSTAR)"}, 
-  {"title": "Shenzhou-10"}, 
-  {"title": "SpX CRS-1"}
-];
+  var i;
+  for(i=0; i<numTables; i++){
 
-ReactDOM.render(
-  React.createElement(Missions, {items:  missions[0] }),
-  document.getElementById('content1')
-);
+    ReactDOM.render(
+      React.createElement(App, {items: i}),
+      document.getElementById('col'+(i+1))
+    );
+    document.getElementById('col'+(i+1)).childNodes[0].className+= " thumbnail";
 
-ReactDOM.render(
-  React.createElement(Missions, {items:  missions[1] }),
-  document.getElementById('content2')
-);
-
-ReactDOM.render(
-  React.createElement(Missions, {items:  missions[2] }),
-  document.getElementById('content3')
-);
+  }
+}
+drawTables(10);
+console.log("https://launchlibrary.net/1.2/mission?offset=" + getParameterByName('page'))
+</script>
 
 <script>
+function totalPageNum(num) {
+  var total = 10;
+  if(num){
+    total = num;
+  }
+  return total;
+}
+
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function updateURLParameter(url, param, paramVal){
+    var newAdditionalURL = "";
+    var tempArray = url.split("?");
+    var baseURL = tempArray[0];
+    var additionalURL = tempArray[1];
+    var temp = "";
+    if (additionalURL) {
+        tempArray = additionalURL.split("&");
+        for (var i=0; i<tempArray.length; i++){
+            if(tempArray[i].split('=')[0] != param){
+                newAdditionalURL += temp + tempArray[i];
+                temp = "&";
+            }
+        }
+    }
+
+    var rows_txt = temp + "" + param + "=" + paramVal;
+    return baseURL + "?" + newAdditionalURL + rows_txt;
+}
+
 
 function getNextPage() {
-  var currentLink = window.location.href;
-  var newLink;
-  /*  first page does not have number signifier 
-    i.e. is just itslaunchtime.me/agencies not itslaunchtime.me/agencies/1 */
-  window.alert("Substr " + parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1)));
-  if(isNaN(parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1)))) {
-    newLink = currentLink + "/2";
-    window.alert("hell yeh");
-  }
-  else {
-    newLink = currentLink.substr(0, currentLink.lastIndexOf('/'));
-    var curPageNum = parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1));
-    ++curPageNum;
-    newLink += "/" + curPageNum;
-  }
-  window.location.href = newLink;
+    var pageNum = getParameterByName('page');
+    ++pageNum;
+    var currentLink = window.location.href;
+    if(pageNum <= totalPageNum()){
+      var newLink = updateURLParameter(currentLink, 'page', pageNum);
+    }else{
+
+      var newLink = currentLink;
+    }
+    window.location.href = newLink;
 }
 
 function getPrevPage() {
-  var currentLink = window.location.href;
-  var newLink;
-  /*  first page does not have prev */
-  window.alert("Substr " + parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1)));
-  if(isNaN(parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1)))) {
-    return;
-
-  }
-  else {
-    newLink = currentLink.substr(0, currentLink.lastIndexOf('/'));
-    var curPageNum = parseInt(currentLink.substr(currentLink.lastIndexOf('/') + 1));
-    --curPageNum;
-    newLink += "/" + curPageNum;
-  }
-  window.location.href = newLink;
+  var pageNum = getParameterByName('page');
+    --pageNum;
+    var currentLink = window.location.href;
+    if(pageNum >= 0){
+      var newLink = updateURLParameter(currentLink, 'page', pageNum);
+    }else{
+      var newLink = currentLink;
+    }
+    window.location.href = newLink;
 }
 
 var next = document.getElementById("nextButton");
@@ -178,8 +246,6 @@ next.addEventListener("click", getNextPage);
 
 var next = document.getElementById("prevButton");
 next.addEventListener("click", getPrevPage);
-
-</script>
 
 </script>
 
