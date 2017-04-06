@@ -142,7 +142,8 @@ var App = React.createClass({
     return {
       names:  [],
       images: [],
-      type:   []
+      type:   [],
+      ids: []
     }
   },
 
@@ -162,9 +163,8 @@ var App = React.createClass({
         .then(function(result) {
           const mis = result.data.map(function(obj){return obj.name});
           const type = result.data.map(function(obj){return obj.typeName});
+          const id = result.data.map(function(obj){return obj.id});
           var img = "";
-          console.log(type);
-          console.log(type==undefined);
           if(type != undefined){
             img = result.data.map(function(obj){return "../static/images/missionTypes/"+obj.typeName+".png"});
           }else{
@@ -172,6 +172,7 @@ var App = React.createClass({
           }
           _this.setState({names: mis});
           _this.setState({images: img});
+          _this.setState({ids: id})
         })
   },
 
@@ -181,9 +182,10 @@ var App = React.createClass({
 
   render: function() {
     var index = this.props.items
+    var url = "http://127.0.0.1:5000/missions?id="+this.state.ids[index];
     return <div class="thumbnail">
              <img src={this.state.images[index]} ></img>
-             <div className="caption"><a href="{{url_for('mission_instance')}}">{this.state.names[index]}</a></div>
+             <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
            </div>
 
   }

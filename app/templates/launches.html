@@ -111,7 +111,8 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       names: [],
-      images: []
+      images: [],
+      ids: []
     }
   },
 
@@ -131,8 +132,10 @@ var App = React.createClass({
         .then(function(result) {
           const lch = result.data.map(function(obj){return obj.name});
           const img = result.data.map(function(obj){return obj.rocketLink});
+          const id = result.data.map(function(obj){return obj.id});
           _this.setState({names: lch});
           _this.setState({images: img})
+          _this.setState({ids: id});
         })
   },
 
@@ -142,9 +145,10 @@ var App = React.createClass({
 
   render: function() {
     var index = this.props.items
+    var url = "http://127.0.0.1:5000/launches?id="+this.state.ids[index];
     return <div class="thumbnail">
              <img src={this.state.images[index]} ></img>
-             <div className="caption"><a href="{{url_for('launch_instance')}}">{this.state.names[index]}</a></div>
+             <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
            </div>
 
   }

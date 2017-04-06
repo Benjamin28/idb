@@ -149,7 +149,8 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       names: [],
-      country: []
+      country: [],
+      ids: []
     }
   },
 
@@ -169,8 +170,11 @@ var App = React.createClass({
         .then(function(result) {
           const lch = result.data.map(function(obj){return obj.name});
           const cc  = result.data.map(function(obj){return obj.countryCode});
+          const id = result.data.map(function(obj){return obj.id});
           _this.setState({names: lch});
           _this.setState({country: cc});
+          _this.setState({ids: id})
+
         })
   },
 
@@ -180,6 +184,7 @@ var App = React.createClass({
 
   render: function() {
     var index = this.props.items
+    var url = "http://127.0.0.1:5000/agencies?id="+this.state.ids[index];
     var img
     if(this.state.country.length == 0){
       var img = "http://placehold.it/200x200/000/fff";
@@ -188,7 +193,7 @@ var App = React.createClass({
     }
     return <div class="thumbnail">
              <img src={img} ></img>
-            <div className="caption"><a href="{{url_for('location_instance')}}">{this.state.names[index]}</a></div>
+            <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
             </div>
   }
 });
