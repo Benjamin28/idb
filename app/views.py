@@ -61,9 +61,9 @@ def getTestResults():
 #API
 @app.route('/api/<model>')
 def api_model(model):
-	print("---------------------------DEBUG----------------------------------")
-	print(urllib.parse.unquote(str(request.query_string)))
-	print("---------------------------DEBUG----------------------------------")
+	# print("---------------------------DEBUG----------------------------------")
+	# print(urllib.parse.unquote(str(request.query_string)))
+	# print("---------------------------DEBUG----------------------------------")
 	NUM_PER_PAGE = 12
 	l = []
 	m = getModel(model)[0]
@@ -86,7 +86,7 @@ def api_model(model):
 		elif model == 'location':
 			str_dict['countryCode'] = None
 		elif model == 'mission':
-			str_dict['missionType'] = None
+			str_dict['typeName'] = None
 
 		for pair in split_req_str:
 			split_eq = pair.split("=")
@@ -105,7 +105,7 @@ def api_model(model):
 		elif model == 'location':
 			query_list = query_list.filter_by(countryCode=str_dict['countryCode'])
 		elif model == 'mission':
-			query_list = query_list.filter_by(missionType=str_dict['missionType'])
+			query_list = query_list.filter_by(typeName=str_dict['typeName'])
 
 		if(str_dict['order'] == 'desc'):
 			#query_list = m.query.order_by(desc(criteria)).paginate(page_num, str_dict['limit'], False).items
