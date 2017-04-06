@@ -1,5 +1,5 @@
 body {
-  padding-top: 50px;
+  padding-top: 76px;
 }
 html,
 body {
@@ -13,8 +13,7 @@ body {
 .navbar {
 	margin: 0;
 	background-image: none;
-	background: none;
-	border: none;
+	background: white;
 	font-family: "Montserrat";
 }
 
