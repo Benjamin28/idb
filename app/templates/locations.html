@@ -192,7 +192,7 @@ var App = React.createClass({
       img = "https://restcountries.eu/data/"+((this.state.country[index].substring(0, 3)).toLowerCase())+".svg"
     }
     return <div class="thumbnail">
-             <img src={img} ></img>
+             <img src={img}></img>
             <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
             </div>
   }

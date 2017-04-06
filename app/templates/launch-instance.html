@@ -27,6 +27,7 @@ var App = React.createClass({
 			start: "",
 			mission: "",
 			status: "",
+			location: "",
 			rocket: "",
 			rocketLink: "",
 			agencies: []
@@ -37,13 +38,14 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/launch?id=65")
+        .get("http://127.0.0.1:5000/api/launches?id=65")
         .then(function(result) {
 			console.log(result.data[0].name)
   			const nam = result.data[0].name;
 			const start = result.data[0].windowStart;
 			const mission = result.data[0].mission;
 			const stat = result.data[0].status;
+			const location = result.data[0].location;
 			const rocket = result.data[0].rocket;
 			const rocketLink = result.data[0].rocketLink;
 			const agencies = result.data[0].agencies;
@@ -52,6 +54,7 @@ var App = React.createClass({
 			_this.setState({start: start})
 			_this.setState({mission: mission})
 			_this.setState({status: stat})
+			_this.setState({location: location})
 			_this.setState({rocket: rocket})
 			_this.setState({rocketLink: rocketLink})
 			_this.setState({agencies: agencies})
@@ -71,8 +74,8 @@ var App = React.createClass({
 			<h3>Start: {this.state.start}</h3>
 			<h3>Status: {this.state.status}</h3>
 			<h3>Rocket: {this.state.rocket}</h3>
-			<h3><a href="{{url_for('location_instance')}}">Location: Kourou, French Guiana</a></h3>
-			<h3><a href="{{url_for('mission_instance')}}">Mission: {this.state.mission}</a></h3>
+			<h3><a href="#">Location: {this.state.location}</a></h3>
+			<h3><a href="#">Mission: {this.state.mission}</a></h3>
 			<h3 className="inline-dropdown">Agencies:</h3>
 			<div className="dropdown dropdown-text">
 			    <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One

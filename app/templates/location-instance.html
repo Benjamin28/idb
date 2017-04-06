@@ -33,7 +33,7 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/location?id=32")
+        .get("http://127.0.0.1:5000/api/locations?id=32")
         .then(function(result) {
 			console.log(result.data[0].countryCode)
   			const nam = result.data[0].name;

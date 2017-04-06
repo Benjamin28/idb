@@ -28,6 +28,7 @@ var App = React.createClass({
 			description: "",
 			type: "",
 			wiki: "",
+			launch: "",
 			agencies: []
 		}
 	},
@@ -36,7 +37,7 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest =
       axios
-        .get("http://127.0.0.1:5000/api/mission?id=15")
+        .get("http://127.0.0.1:5000/api/missions?id=15")
         .then(function(result) {
 			console.log(result.data[0].name)
   			const nam = result.data[0].name;
@@ -44,12 +45,14 @@ var App = React.createClass({
 			const type = result.data[0].typeName;
 			const wiki = result.data[0].wikiUrl;
 			const agencies = result.data[0].agencies;
+			const launch = result.data[0].launch;
 
             _this.setState({name: nam});
             _this.setState({description: description});
 			_this.setState({type: type})
 			_this.setState({wiki: wiki})
 			_this.setState({agencies: agencies})
+			_this.setState({launch: launch})
         })
   },
 
@@ -64,7 +67,7 @@ var App = React.createClass({
 		<hr></hr>
 		<h3>Description</h3>
 		<div>{this.state.description}</div>
-		<h3><a href="{{url_for('launch_instance')}}">Launch: Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)</a></h3>
+		<h3><a href="#">Launch: {this.state.launch}</a></h3>
 		<h3>Type: {this.state.type}</h3>
 		<h3 className="inline-dropdown">Agencies:</h3>
 		<div className="dropdown dropdown-text">
