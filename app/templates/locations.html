@@ -161,7 +161,7 @@ var App = React.createClass({
     }
     this.serverRequest =
       axios
-        .get("/api/agencies?page=" + pageNum +"%26orderBy=" + orderName)
+        .get("/api/locations?page=" + pageNum +"%26orderBy=" + orderName)
         .then(function(result) {
           const lch = result.data.map(function(obj){return obj.name});
           const cc  = result.data.map(function(obj){return obj.countryCode});
@@ -179,7 +179,7 @@ var App = React.createClass({
 
   render: function() {
     var index = this.props.items
-    var url = "/agencies?id="+this.state.ids[index];
+    var url = "/locations?id="+this.state.ids[index];
     var img
     if(this.state.country.length == 0){
       var img = "http://placehold.it/200x200/000/fff";

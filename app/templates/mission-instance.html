@@ -29,6 +29,7 @@ var App = React.createClass({
 			type: "",
 			wiki: "",
 			launch: "",
+			launchid: "",
 			agencies: []
 		}
 	},
@@ -46,6 +47,7 @@ var App = React.createClass({
 			const wiki = result.data[0].wikiUrl;
 			const agencies = result.data[0].agencies;
 			const launch = result.data[0].launch;
+			const launchid = result.data[0].launch_id;
 
             _this.setState({name: nam});
             _this.setState({description: description});
@@ -53,6 +55,7 @@ var App = React.createClass({
 			_this.setState({wiki: wiki})
 			_this.setState({agencies: agencies})
 			_this.setState({launch: launch})
+			_this.setState({launchid: launchid})
         })
   },
 
@@ -61,21 +64,24 @@ var App = React.createClass({
   },
 
   render: function() {
+  	var agency_dict = this.state.agencies
+    var agency_keys = Object.keys(this.state.agencies)
+  	var launchurl = "/launches?id="+ this.state.launchid
     return(
 		<div className="col-md-10 col-md-offset-1">
 		<h1>{this.state.name}</h1>
 		<hr></hr>
 		<h3>Description</h3>
 		<div>{this.state.description}</div>
-		<h3><a href="#">Launch: {this.state.launch}</a></h3>
+		<h3><a href={launchurl}>Launch: {this.state.launch}</a></h3>
 		<h3>Type: {this.state.type}</h3>
 		<h3 className="inline-dropdown">Agencies:</h3>
 		<div className="dropdown dropdown-text">
 		    <button className ="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
 		      <span className="caret"></span></button>
 		    <ul className="dropdown-menu">
-		      {Object.values(this.state.agencies).map(function(value) {
-		              return <li><a href="#">{value}</a></li>;
+		       {agency_keys.map(function(key) {
+		              return <li><a href={"/agencies?id=" + key}>{agency_dict[key]}</a></li>;
 		       })}
 		    </ul>
 		</div>

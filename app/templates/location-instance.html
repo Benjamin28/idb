@@ -33,7 +33,7 @@ var App = React.createClass({
     var _this = this;
     this.serverRequest =
       axios
-        .get("/api/missions?id="+getParameterByName("id"))
+        .get("/api/locations?id="+getParameterByName("id"))
         .then(function(result) {
 			console.log(result.data[0].countryCode)
   			const nam = result.data[0].name;
@@ -51,6 +51,8 @@ var App = React.createClass({
   },
 
   render: function() {
+  	var launch_dict = this.state.launches
+    var launch_keys = Object.keys(this.state.launches)
 	var img = "https://restcountries.eu/data/"+(this.state.cc.toLowerCase())+".svg"
     return(
 		<div className="col-md-10 col-md-offset-1">
@@ -62,8 +64,8 @@ var App = React.createClass({
 		        <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
 		          <span className="caret"></span></button>
 		        <ul className="dropdown-menu">
-		          {Object.values(this.state.launches).map(function(value) {
-		              return <li><a href={}>"#"</a></li>;
+		          {launch_keys.map(function(key) {
+		              return <li><a href={"/launches?id=" + key}>{launch_dict[key]}</a></li>;
 		            })}
 		        </ul>
 		    </div>

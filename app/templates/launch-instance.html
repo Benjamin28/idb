@@ -28,6 +28,7 @@ var App = React.createClass({
 			mission: "",
 			status: "",
 			location: "",
+			locationid: "",
 			rocket: "",
 			rocketLink: "",
 			agencies: []
@@ -46,6 +47,7 @@ var App = React.createClass({
 			const mission = result.data[0].mission;
 			const stat = result.data[0].status;
 			const location = result.data[0].location;
+			const locationid = result.data[0].location_id;
 			const rocket = result.data[0].rocket;
 			const rocketLink = result.data[0].rocketLink;
 			const agencies = result.data[0].agencies;
@@ -55,6 +57,7 @@ var App = React.createClass({
 			_this.setState({mission: mission})
 			_this.setState({status: stat})
 			_this.setState({location: location})
+			_this.setState({locationid: locationid})
 			_this.setState({rocket: rocket})
 			_this.setState({rocketLink: rocketLink})
 			_this.setState({agencies: agencies})
@@ -67,6 +70,9 @@ var App = React.createClass({
   },
 
   render: function() {
+  	var agency_dict = this.state.agencies
+    var agency_keys = Object.keys(this.state.agencies)
+  	var locationurl = "/locations?id="+ this.state.locationid
     return(
 		<div class="col-md-10 col-md-offset-1">
 			<h1>{this.state.name}</h1>
@@ -74,15 +80,15 @@ var App = React.createClass({
 			<h3>Start: {this.state.start}</h3>
 			<h3>Status: {this.state.status}</h3>
 			<h3>Rocket: {this.state.rocket}</h3>
-			<h3><a href="#">Location: {this.state.location}</a></h3>
+			<h3><a href={locationurl}>Location: {this.state.location}</a></h3>
 			<h3><a href="#">Mission: {this.state.mission}</a></h3>
 			<h3 className="inline-dropdown">Agencies:</h3>
 			<div className="dropdown dropdown-text">
 			    <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
 			      <span className="caret"></span></button>
 			    <ul className="dropdown-menu">
-			      {Object.values(this.state.agencies).map(function(value) {
-		              return <li><a href="#">{value}</a></li>;
+			      {agency_keys.map(function(key) {
+		              return <li><a href={"/agencies?id=" + key}>{agency_dict[key]}</a></li>;
 		            })}
 			    </ul>
 		    </div>
