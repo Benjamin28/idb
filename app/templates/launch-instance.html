@@ -84,8 +84,8 @@ var App = React.createClass({
 			<h3>Start: {this.state.start}</h3>
 			<h3>Status: {this.state.status}</h3>
 			<h3>Rocket: {this.state.rocket}</h3>
-			<h3><a href={locationurl}>Location: {this.state.location}</a></h3>
-			<h3><a href={missionurl}>Mission: {this.state.mission}</a></h3>
+			<h3>Location: <a href={locationurl}>{this.state.location}</a></h3>
+			<h3>Mission: <a href={missionurl}>{this.state.mission}</a></h3>
 			<h3 className="inline-dropdown">Agencies:</h3>
 			<div className="dropdown dropdown-text">
 			    <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
