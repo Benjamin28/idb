@@ -3,7 +3,7 @@ from app.models import Agency, Launch, Location, Mission
 from flask import render_template, jsonify, request
 from sqlalchemy import desc
 import json
-import os
+import os, sys
 import subprocess
 import urllib
 import operator
@@ -34,31 +34,23 @@ def mission_instance():
 
 @app.route('/about/testResults', methods=['GET'])
 def getTestResults():
-	#s = subprocess.check_output(['python3','./tests.py'])
 	path = os.path.dirname(os.path.realpath(__file__))
 	finalPath = os.path.join(path, '../tests.py')
-	process = subprocess.check_output(['python3', finalPath], stderr=subprocess.STDOUT)
-	## But do not wait till netstat finish, start displaying output immediately ##
-	#print(p)
-	#process = subprocess.Popen(['python ' + finalPath],shell=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-	#print(process.stdout.read())
-	#process.readline()
-	#process.readline()
-	l = [{"testResults" : str(process)}]#out.decode('utf-8')}]
-	# i = 1
-	# p.stdout.readline()
-	# p.stdout.readline()
-	# while True and i > 0:
-	# 	out = p.stdout.read()
-	# 	if out == '' and p.poll() != None:
-	# 		break
-	# 	if out != '':
-	# 		print(out)
-	# 	i-=1
-	# print(out)
+	env = os.environ.copy()
+	env['PYTHONPATH'] = ":".join(sys.path)
 
+	print(finalPath)
+	process = subprocess.Popen(
+		["python3", finalPath],
+		stdout = subprocess.PIPE,
+		stderr = subprocess.PIPE,
+		env = env
+	)
+	(stdout, stderr) = process.communicate()
+	s = stderr.decode('utf-8')
+	s = s.split("\n", 2)[2]
+	l = [{"testResults" : s}]
 	return jsonify(l)
-
 
 #API
 @app.route('/api/<model>')
