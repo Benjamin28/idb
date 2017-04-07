@@ -76,7 +76,11 @@ var App = React.createClass({
   	var agency_dict = this.state.agencies
     var agency_keys = Object.keys(this.state.agencies)
   	var locationurl = "/locations?id="+ this.state.locationid
-  	var missionurl = "/missions?id="+ this.state.missionid
+  	var missionurl
+  	if (this.state.missionid == "None")
+  		missionurl = "#"
+  	else
+  		missionurl = "/missions?id="+ this.state.missionid
     return(
 		<div class="col-md-10 col-md-offset-1">
 			<h1>{this.state.name}</h1>
