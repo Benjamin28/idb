@@ -13,16 +13,16 @@
           <p>Status</p>
           <form>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Success</label>
+              <label><input type="checkbox" id="sbox" value="">Success</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Failed</label>
+              <label><input type="checkbox" id="fbox" value="">Failed</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Green</label>
+              <label><input type="checkbox" id="gbox" value="">Green</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Red</label>
+              <label><input type="checkbox" id="rbox" value="">Red</label>
             </div>
           </form>
         </li>
@@ -129,6 +129,12 @@ var App = React.createClass({
     if(!order){
       order = "asc";
     }
+
+    var status = getParameterByName('countryCode');
+    if(countries == null || countries ==''){
+      countries = "DZA+GUF+IND+IRN+ISR+JPN+KAZ+KEN+KOR+NZL+PRK+RUS+UNK+USA+rmi";
+    }
+
     this.serverRequest =
       axios
         .get("/api/launches?page=" + pageNum +"%26orderBy=" + orderName+ "%26order="+ order)
