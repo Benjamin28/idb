@@ -1,131 +1,554 @@
 FORMAT: 1A
-HOST: http://launchti.me/
+HOST: http://itslaunchti.me/api/
 
 # launchtime
 
 API allowing users to query information concerning rockets, rocket launches, 
 missions, and locations of rocket launches
 
-## Agency Information [/agency/{agency_id}]
+## Agency Information [/agencies]
 
-+ Parameter
-    + agency_id (number) - ID of the agency whose information you want
+### View all agencies [GET]
 
-### View an Agency's Details [GET]
+Each agency object has the following attributes.
+- abbrev
+- agencyType
+- countryCode
+- id
+- launches
+- missions
+- name
+- wikiUrl
 
 + Response 200 (application/json)
 
         [
             {
-                "id": "1234",
-                "name": "National Aeronautics and Space Administration",
-                "abbrev": "NASA",
+                "abbrev": "BSA",
                 "agencyType": "Government",
-                "countryCode": 1, 
-                "wikiUrl": "https://en.wikipedia.org/wiki/NASA"
+                "countryCode": "BLR",
+                "id": 1,
+                "launches": {},
+                "missions": {
+                  "42": "Chang'e 3 & Yutu",
+                  "244": "Soyuz TMA-15",
+                  "276": "GPS IIF-2 (USA-232)",
+                  "277": "GPS IIF SV-1 (USA-213)"
+                },
+                "name": "Belarus Space Agency",
+                "wikiUrl": "http://en.wikipedia.org/wiki/Belarus_Space_Agency"
+            },
+            {
+                "abbrev": "CIDA-E",
+                "agencyType": "Government",
+                "countryCode": "URY",
+                "id": 2,
+                "launches": {},
+                "missions": {
+                  "118": "Soyuz TMA-19M",
+                  "239": "Soyuz TMA-20"
+                },
+                "name": "Aeronautics and Space Research and Diffusion Center",
+                "wikiUrl": ""
+            },
+            {
+                "abbrev": "AEM",
+                "agencyType": "Government",
+                "countryCode": "MEX",
+                "id": 3,
+                "launches": {},
+                "missions": {
+                  "95": "ISS 44",
+                  "96": "HTV-5",
+                  "138": "IRNSS-1F",
+                  "242": "Soyuz TMA-17"
+                },
+                "name": "Mexican Space Agency",
+                "wikiUrl": "http://en.wikipedia.org/wiki/Agencia_Espacial_Mexicana"
+            },
+            {
+                "abbrev": "ASAL",
+                "agencyType": "Government",
+                "countryCode": "DZA",
+                "id": 4,
+                "launches": {},
+                "missions": {
+                  "178": "Apollo 7",
+                  "179": "Apollo 8",
+                  "185": "Apollo 9",
+                  "186": "Apollo 10",
+                  "209": "Apollo 17",
+                  "223": "Soyuz TMA-14M",
+                  "238": "Soyuz TMA-21",
+                  "241": "Soyuz TMA-18",
+                  "482": "Alcomsat-1"
+                },
+                "name": "Algerian Space Agency",
+                "wikiUrl": "http://en.wikipedia.org/wiki/Algerian_Space_Agency"
+            }
+            {
+                "abbrev": "OSC",
+                "agencyType": "Commercial",
+                "countryCode": "USA",
+                "id": 99,
+                "launches": {
+                  "133": "Pegasus  | Pegsat, NavySat",
+                  "144": "Pegasus HAPS | 7 microsats",
+                  "161": "Pegasus  | Satélite de Coleta de Dados-1 (SCD-1)",
+                  "163": "Pegasus  | Array of Low Energy X-ray Imaging Sensors (ALEXIS)",
+                  "174": "Pegasus HAPS | Space Test Experiments Platform 2 (STEP-2)",
+                  "175": "Pegasus XL | Space Test Experiments Platform 1 (STEP-1)",
+                  "176": "Pegasus  | Advanced Photovoltaic Experiment (APEX)",
+                  "185": "Pegasus Hybrid | 2xOrbcomm & OrbView-1",
+                  "186": "Pegasus XL | Space Test Experiments Platform-3 (STEP-3)",
+                  "197": "Pegasus XL | REX II",
+                  "199": "Pegasus Hybrid | Miniature Sensor Technology Integration 3 (MSTI-3)",
+                  "202": "Pegasus XL | Total Ozone Mapping Spectrometer (TOMS)",
+                  "204": "Pegasus XL | Fast Auroral Snapshot Explorer (FAST)",
+                  "212": "Pegasus XL | Minisat & Celestis Space Burial #1",
+                  "215": "Pegasus XL | OrbView-2",
+                  "225": "Pegasus XL | Broadband Advanced Technologies Satellite (BATSAT/Teledesic T1) & Student Nitric Oxide Explorer (SNOE)",
+                  "226": "Pegasus XL | Transition Region and Coronal Explorer (TRACE)",
+                  "232": "Pegasus Hybrid | Satélite de Coleta de Dados-2 (SCD-2)",
+                  "235": "Pegasus XL | Submillimeter Wave Astronomy Satellite (SWAS)",
+                  "237": "Pegasus XL | Wide Field Infrared Explorer (WIRE)",
+                  "238": "Pegasus XL HAPS | Multiple Paths, Beyond-Line-of-Sight Communications (MUBLCOM)  & Topographic Experiment using Radiative Recombinative Ionospheric EUV and Radio Sources (TERRIERS)",
+                  "247": "Pegasus XL | Tri-Services Experiments Platform-5 (TSX-5)",
+                  "249": "Pegasus Hybrid | High Energy Transient Explorer 2 (HETE-2)",
+                  "261": "Pegasus XL | Reuven Ramaty High Energy Solar Spectroscopic Imager (RHESSI)",
+                  "274": "Pegasus XL | Solar Radiation and Climate Experiment (SORCE)",
+                  "276": "Pegasus XL | Galaxy Evolution Explorer (GALEX)",
+                  "277": "Pegasus XL | OrbView-3",
+                  "278": "Pegasus XL | SCISAT-1",
+                  "284": "Pegasus XL | Demonstration for Autonomous Rendezvous Technology (DART)",
+                  "289": "Pegasus XL | Space Technology 5 (ST-5) (3x microsats)",
+                  "297": "Pegasus XL | Aeronomy of Ice in the Mesosphere (AIM)",
+                  "305": "Pegasus XL | Communications/Navigation Outage Forecasting System (C/NOFS)",
+                  "311": "Pegasus XL | Interstellar Boundary Explorer (IBEX)",
+                  "515": "Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)",
+                  "591": "Pegasus XL | Interface Region Imaging Spectrograph (IRIS)",
+                  "907": "Pegasus XL | 8 x CYGNSS",
+                  "963": "Pegasus XL | Ionospheric Connection Explorer (ICON)"
+                },
+                "missions": {
+                  "483": "NROL-66 (RPP) (USA-225)",
+                  "484": "STP S-26",
+                  "485": "ORS-1 (USA-231)"
+                },
+                "name": "Orbital Sciences Corporation",
+                "wikiUrl": "http://en.wikipedia.org/wiki/Orbital_Sciences_Corporation"
             }
         ]
+        
+## Specific Agency's Information [/agencies?{id}]
 
-## Mission Information [/mission/{mission_id}]
+An agency object has the following attributes.
+- abbrev
+- agencyType
+- countryCode
+- id
+- launches
+- missions
+- name
+- wikiUrl
 
-+ Parameter
-    + mission_id (number) - ID of the mission whose information you want
++ Parameters 
+    + id (required, number, `id=1`) ... ID of the agency you want specific information about
 
-### View a Mission's Details [GET]
+
+### View specific agency information [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "id": "5",
-                "name": "Nuclear Spectroscopic Telescope Array",
-                "abbrev": "NuSTAR",
-                "description": "Designed to image high-energy X-ray radiation, the Nuclear Spectroscopic Telescope Array (NuSTAR) is tasked with surveying regions surrounding the center of own Milky Way Galaxy and performing deep observations of the extragalactic sky, studying black holes and supernovas.",
-                "agencies": [
-                                {
-                                    "id": 44,
-                                    "name": "National Aeronautics and Space Administration",
-                                    "abbrev": "NASA",
-                                    "countryCode": "USA",
-                                    "agencyType": "Government",
-                                    "countryCode": 1,
-                                    "wikiURL": "http://en.wikipedia.org/wiki/National_Aeronautics_and_Space_Administration"
-                                }
-                            ],
-                "launchName": "Nuclear Spectroscopic Telescope Array (NuSTAR)",
-                "rocket": "Pegasus XL"
+                "abbrev": "BSA",
+                "agencyType": "Government",
+                "countryCode": "BLR",
+                "id": 1,
+                "launches": {},
+                "missions": {
+                  "42": "Chang'e 3 & Yutu",
+                  "244": "Soyuz TMA-15",
+                  "276": "GPS IIF-2 (USA-232)",
+                  "277": "GPS IIF SV-1 (USA-213)"
+                },
+                "name": "Belarus Space Agency",
+                "wikiUrl": "http://en.wikipedia.org/wiki/Belarus_Space_Agency"
             }
         ]
 
-## Launch Information [/launch/{launch_id}]
+## Missions Information [/missions]
+
+Each missions object has the following attributes.
+- agency/agencies
+- description
+- id
+- launch
+- launch_id
+- name
+- typeName
+- wikiUrl
+
+### View all missions [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "agencies": {
+                  "44": "National Aeronautics and Space Administration"
+                },
+                "description": "Designed to image high-energy X-ray radiation, the Nuclear Spectroscopic Telescope Array (NuSTAR) is tasked with surveying regions surrounding the center of own Milky Way Galaxy and performing deep observations of the extragalactic sky, studying black holes and supernovas.",
+                "id": 1,
+                "launch": "Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)",
+                "launch_id": 515,
+                "name": "Nuclear Spectroscopic Telescope Array (NuSTAR)",
+                "typeName": "Astrophysics",
+                "wikiUrl": "https://en.wikipedia.org/wiki/NuSTAR"
+            },
+            {
+                "agencies": {
+                  "123": "United Launch Alliance",
+                  "162": "US Army"
+                },
+                "description": "The United Launch Alliance Delta 4 rocket launched the fourth Wideband Global SATCOM spacecraft, formerly known as the Wideband Gapfiller Satellite. Built by Boeing, this geostationary communications spacecraft serves U.S. military forces.",
+                "id": 2,
+                "launch": "Delta IV M+(5,4) | WGS-4 (USA-233)",
+                "launch_id": 485,
+                "name": "WGS-4 (USA-233)",
+                "typeName": "Communications",
+                "wikiUrl": "https://en.wikipedia.org/wiki/Wideband_Global_SATCOM"
+            },
+            {
+                "agencies": {
+                  "117": "International Launch Services"
+                },
+                "description": "An International Launch Services Proton rocket with a Breeze M upper stage will deploy the SES 4 satellite to provide telecommunications services over the Americas, Africa, Europe and the Middle East. ",
+                "id": 3,
+                "launch": "Proton-M Briz-M | SES-4",
+                "launch_id": 489,
+                "name": "SES-4",
+                "typeName": "Communications",
+                "wikiUrl": ""
+            },
+            {
+                "agencies": {},
+                "description": "SpaceX COTS Demo Flight 2",
+                "id": 4,
+                "launch": "None",
+                "launch_id": null,
+                "name": "Dragon C2",
+                "typeName": "",
+                "wikiUrl": "http://wiki.spacevidcast.com/en/List_of_Upcoming_Launches"
+            },
+            {
+                "agencies": {
+                  "44": "National Aeronautics and Space Administration"
+                },
+                "description": "This was the third flight for the uncrewed Dragon cargo spacecaft and the first SpaceX mission under their Commercial Resupply Services contract with NASA. Dragon delivered various cargo to the staion, and returned after being berthed to the station for 17 days. The spacecraft landed in the Pacific Ocean and was recovered by SpaceX.",
+                "id": 5,
+                "launch": "None",
+                "launch_id": null,
+                "name": "SpX CRS-1",
+                "typeName": "Resupply",
+                "wikiUrl": "https://en.wikipedia.org/wiki/SpaceX_CRS-1"
+            },
+            {
+                "agencies": {
+                  "44": "National Aeronautics and Space Administration",
+                  "123": "United Launch Alliance"
+                },
+                "description": "TDRS-11, known before launch as TDRS-K, is an American communications satellite which is operated by NASA as part of the Tracking and Data Relay Satellite System, which provides a multitude of communications services to a wide variety of missions.",
+                "id": 6,
+                "launch": "Atlas V 401 | TDRS-K",
+                "launch_id": 562,
+                "name": "TDRS-K",
+                "typeName": "Communications",
+                "wikiUrl": "https://en.wikipedia.org/wiki/TDRS-11"
+            }
+        ]
+        
+## Specific Mission's Information [/missions?{id}]
+
+A mission object has the following attributes.
+- agency/agencies
+- description
+- id
+- launch
+- launch_id
+- name
+- typeName
+- wikiUrl
 
 + Parameter
-    + launch_id (number) - ID of the launch whose information you want
+    + id (required, number, `id=1`) ... ID of the mission you want specific information about
 
-### View a Launch's Details [GET]
+
+### View a specific mission's details [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "agencies": {
+                  "44": "National Aeronautics and Space Administration"
+                },
+                "description": "Designed to image high-energy X-ray radiation, the Nuclear Spectroscopic Telescope Array (NuSTAR) is tasked with surveying regions surrounding the center of own Milky Way Galaxy and performing deep observations of the extragalactic sky, studying black holes and supernovas.",
+                "id": 1,
+                "launch": "Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)",
+                "launch_id": 515,
+                "name": "Nuclear Spectroscopic Telescope Array (NuSTAR)",
+                "typeName": "Astrophysics",
+                "wikiUrl": "https://en.wikipedia.org/wiki/NuSTAR"
+            }
+        ]
+
+## Launch Information [/launches]
+
+Each launch object has the following attributes.
+- agency/agencies
+- id
+- launchpad
+- location
+- location_id
+- mission
+- name
+- rocket
+- rocketLink
+- status
+- videoUrl
+- windowEnd
+- windowStart
+
+
+### View all Launches [GET]
 
 + Response 200 (application/json)
 
         [ 
             {
-                "id": 628,
-                "name": "Pegasus XL | Nuclear Spectroscopic Telescope Array (NuSTAR)",
-                "windowstart": "June 13, 2012 16:00:37 UTC",
-                "windowend": "June 13, 2012 16:00:37 UTC",
-                "net": "June 13, 2012 16:00:37 UTC"
-                "vidURLs": [
-                    "https://www.youtube.com/watch?v=btR6uHFcv2s"
-                ],
-                "location": {
-                    "pads": [
-                      {
-                        "id": 162,
-                        "name": "Kwajalein Atoll",
-                        "infoURL": null,
-                        "wikiURL": "https://en.wikipedia.org/wiki/Kwajalein_Atoll",
-                        "mapURL": "https://www.google.com/maps/place/8%C2%B043'00.0%22N+167%C2%B044'00.0%22E/@8.716667,167.733333,12z/data=!4m5!3m4!1s0x0:0x0!8m2!3d8.716667!4d167.733333?hl=en",
-                        "latitude": 8.716667,
-                        "longitude": 167.733333,
-                        "agencies": [
-                          {
-                            "id": 179,
-                            "name": "Orbital ATK",
-                            "abbrev": "OA",
-                            "countryCode": "USA",
-                            "type": 3,
-                            "infoURL": "https://www.orbitalatk.com/",
-                            "wikiURL": "https://en.wikipedia.org/wiki/Orbital_ATK",
-                            "infoURLs": [
-                              "https://www.orbitalatk.com/"
-                            ]
-                          },
-                          {
-                            "id": 100,
-                            "name": "Orbital Sciences Corporation",
-                            "abbrev": "OSC",
-                            "countryCode": "USA",
-                            "type": 3,
-                            "infoURL": "http://www.orbital.com/",
-                            "wikiURL": "http://en.wikipedia.org/wiki/Orbital_Sciences_Corporation",
-                            "infoURLs": [
-                              "http://www.orbital.com/"
-                            ]
-                          }
-                        ]
-                      }
-                    ],
-                "rocket": "Pegasus XL"
-                "agencies": [
-                    {
-                        "id": "1234",
-                        "name": "National Aeronautics and Space Administration",
-                        "abbrev": "NASA",
-                        "agencyType": "Government",
-                        "countryCode": 1, 
-                        "wikiUrl": "https://en.wikipedia.org/wiki/NASA"
-                    }
-                ]   
+                "agencies": {
+                  "63": "Russian Federal Space Agency (ROSCOSMOS)",
+                  "161": "Russian Aerospace Defence Forces"
+                },
+                "id": 1,
+                "launchPad": "1/5, Baikonur Cosmodrome, Kazakhstan",
+                "location": "Baikonur Cosmodrome, Republic of Kazakhstan",
+                "location_id": 10,
+                "mission": "Vostok 1",
+                "name": "Vostok-K | Vostok 1",
+                "rocket": "Vostok-K",
+                "rocketLink": "https://s3.amazonaws.com/launchlibrary/RocketImages/placeholder_1920.png",
+                "status": "SUCCESS",
+                "videoUrl": "None",
+                "windowEnd": "April 12, 1961 06:07:00 UTC",
+                "windowStart": "April 12, 1961 06:07:00 UTC"
+            },
+            {
+                "agencies": {
+                  "63": "Russian Federal Space Agency (ROSCOSMOS)",
+                  "161": "Russian Aerospace Defence Forces"
+                },
+                "id": 2,
+                "launchPad": "1/5, Baikonur Cosmodrome, Kazakhstan",
+                "location": "Baikonur Cosmodrome, Republic of Kazakhstan",
+                "location_id": 10,
+                "mission": "Vostok 2",
+                "name": "Vostok-K | Vostok 2",
+                "rocket": "Vostok-K",
+                "rocketLink": "https://s3.amazonaws.com/launchlibrary/RocketImages/placeholder_1920.png",
+                "status": "SUCCESS",
+                "videoUrl": "None",
+                "windowEnd": "August 6, 1961 06:00:00 UTC",
+                "windowStart": "August 6, 1961 06:00:00 UTC"
+            },
+            {
+                "agencies": {
+                  "44": "National Aeronautics and Space Administration",
+                  "159": "United States Air Force"
+                },
+                "id": 3,
+                "launchPad": "Space Launch Complex 14, Cape Canaveral, FL",
+                "location": "Cape Canaveral, FL, USA",
+                "location_id": 16,
+                "mission": "Mercury-Atlas 6",
+                "name": "Atlas LV-3B | Mercury-Atlas 6",
+                "rocket": "Atlas LV-3B",
+                "rocketLink": "https://s3.amazonaws.com/launchlibrary/RocketImages/placeholder_1920.png",
+                "status": "SUCCESS",
+                "videoUrl": "None",
+                "windowEnd": "February 20, 1962 14:47:39 UTC",
+                "windowStart": "February 20, 1962 14:47:39 UTC"
+            },
+            {
+                "agencies": {
+                  "44": "National Aeronautics and Space Administration",
+                  "159": "United States Air Force"
+                },
+                "id": 4,
+                "launchPad": "Space Launch Complex 14, Cape Canaveral, FL",
+                "location": "Cape Canaveral, FL, USA",
+                "location_id": 16,
+                "mission": "Mercury-Atlas 7",
+                "name": "Atlas LV-3B | Mercury-Atlas 7",
+                "rocket": "Atlas LV-3B",
+                "rocketLink": "https://s3.amazonaws.com/launchlibrary/RocketImages/placeholder_1920.png",
+                "status": "SUCCESS",
+                "videoUrl": "None",
+                "windowEnd": "May 24, 1962 12:45:16 UTC",
+                "windowStart": "May 24, 1962 12:45:16 UTC"
+            },
+            {
+                "agencies": {
+                  "63": "Russian Federal Space Agency (ROSCOSMOS)",
+                  "161": "Russian Aerospace Defence Forces"
+                },
+                "id": 5,
+                "launchPad": "1/5, Baikonur Cosmodrome, Kazakhstan",
+                "location": "Baikonur Cosmodrome, Republic of Kazakhstan",
+                "location_id": 10,
+                "mission": "Vostok 3",
+                "name": "Vostok-K | Vostok 3",
+                "rocket": "Vostok-K",
+                "rocketLink": "https://s3.amazonaws.com/launchlibrary/RocketImages/placeholder_1920.png",
+                "status": "SUCCESS",
+                "videoUrl": "None",
+                "windowEnd": "August 11, 1962 08:24:00 UTC",
+                "windowStart": "August 11, 1962 08:24:00 UTC"
+            },
+            {
+                "agencies": {
+                  "63": "Russian Federal Space Agency (ROSCOSMOS)",
+                  "161": "Russian Aerospace Defence Forces"
+                },
+                "id": 6,
+                "launchPad": "1/5, Baikonur Cosmodrome, Kazakhstan",
+                "location": "Baikonur Cosmodrome, Republic of Kazakhstan",
+                "location_id": 10,
+                "mission": "Vostok 4",
+                "name": "Vostok-K | Vostok 4",
+                "rocket": "Vostok-K",
+                "rocketLink": "https://s3.amazonaws.com/launchlibrary/RocketImages/placeholder_1920.png",
+                "status": "SUCCESS",
+                "videoUrl": "None",
+                "windowEnd": "August 12, 1962 08:02:33 UTC",
+                "windowStart": "August 12, 1962 08:02:33 UTC"
+            }
+        ]
+
+## Specific Launch Information [/launches?{id}]
+
+A launch object has the following attributes.
+- agency/agencies
+- id
+- launchpad
+- location
+- location_id
+- mission
+- name
+- rocket
+- rocketLink
+- status
+- videoUrl
+- windowEnd
+- windowStart
+
++ Parameter
+    + id (required, number, `id=1`) ... ID of the launch you want specific information about
+    
+
+### View a specific launch's details [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "agencies": {
+                  "63": "Russian Federal Space Agency (ROSCOSMOS)",
+                  "161": "Russian Aerospace Defence Forces"
+                },
+                "id": 1,
+                "launchPad": "1/5, Baikonur Cosmodrome, Kazakhstan",
+                "location": "Baikonur Cosmodrome, Republic of Kazakhstan",
+                "location_id": 10,
+                "mission": "Vostok 1",
+                "name": "Vostok-K | Vostok 1",
+                "rocket": "Vostok-K",
+                "rocketLink": "https://s3.amazonaws.com/launchlibrary/RocketImages/placeholder_1920.png",
+                "status": "SUCCESS",
+                "videoUrl": "None",
+                "windowEnd": "April 12, 1961 06:07:00 UTC",
+                "windowStart": "April 12, 1961 06:07:00 UTC"
             }
         ]
 
 
+## Location Information [/locations]
+
+Each location object has the following attributes.
+ - countryCode
+ - id
+ - launches
+ - name
+ - countryCode
+ - id
+ - launches
+ - name
+
+### View all locations [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "countryCode": "IRN",
+                "id": 6,
+                "launches": {
+                "426": "Safir  | Rasad 1",
+                "487": "Safir | Navid",
+                "511": "Safir 1B | Fajr",
+                "739": "Safir | Fajr"
+                },
+                "name": "Islamic Republic of Iran"
+                },
+                {
+                "countryCode": "KEN",
+                "id": 7,
+                "launches": {},
+                "name": "Kenya"
+                },
+                {
+                "countryCode": "JPN",
+                "id": 8,
+                "launches": {},
+                "name": "Kagoshima, Japan"
+            }
+        ]
+
+## Specific Location Information [/locations?{id}]
+
+Each location object has the following attributes.
+ - countryCode
+ - id
+ - launches
+ - name
+
++ Parameters
+    + id (required, number, `id=6`) ... ID of the location you want specific information about
+
+### View each location's information [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "countryCode": "IRN",
+                "id": 6,
+                "launches": {
+                "426": "Safir  | Rasad 1",
+                "487": "Safir | Navid",
+                "511": "Safir 1B | Fajr",
+                "739": "Safir | Fajr"
+            }
+        ]
