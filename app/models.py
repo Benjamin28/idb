@@ -62,6 +62,7 @@ class Launch(db.Model):
 		d["location"] = Location.query.get(self.location_id).name
 		d["agencies"] = {agency.id: agency.name for agency in self.agencies}
 		d["mission"] = self.mission.name if self.mission is not None else "None"
+		d["mission_id"] = Mission.query.filter_by(name = self.mission.name).first().id if self.mission is not None else "None"
 		return d
 
 	def attributes():
