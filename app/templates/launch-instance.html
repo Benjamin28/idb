@@ -26,6 +26,7 @@ var App = React.createClass({
 			name: "",
 			start: "",
 			mission: "",
+			missionid: "",
 			status: "",
 			location: "",
 			locationid: "",
@@ -45,6 +46,7 @@ var App = React.createClass({
   			const nam = result.data[0].name;
 			const start = result.data[0].windowStart;
 			const mission = result.data[0].mission;
+			const missionid = result.data[0].mission_id;
 			const stat = result.data[0].status;
 			const location = result.data[0].location;
 			const locationid = result.data[0].location_id;
@@ -55,6 +57,7 @@ var App = React.createClass({
             _this.setState({name: nam});
 			_this.setState({start: start})
 			_this.setState({mission: mission})
+			_this.setState({missionid: missionid})
 			_this.setState({status: stat})
 			_this.setState({location: location})
 			_this.setState({locationid: locationid})
@@ -73,6 +76,7 @@ var App = React.createClass({
   	var agency_dict = this.state.agencies
     var agency_keys = Object.keys(this.state.agencies)
   	var locationurl = "/locations?id="+ this.state.locationid
+  	var missionurl = "/missions?id="+ this.state.missionid
     return(
 		<div class="col-md-10 col-md-offset-1">
 			<h1>{this.state.name}</h1>
@@ -81,7 +85,7 @@ var App = React.createClass({
 			<h3>Status: {this.state.status}</h3>
 			<h3>Rocket: {this.state.rocket}</h3>
 			<h3><a href={locationurl}>Location: {this.state.location}</a></h3>
-			<h3><a href="#">Mission: {this.state.mission}</a></h3>
+			<h3><a href={missionurl}>Mission: {this.state.mission}</a></h3>
 			<h3 className="inline-dropdown">Agencies:</h3>
 			<div className="dropdown dropdown-text">
 			    <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
