@@ -112,8 +112,8 @@
              <li><a href="https://github.com/Benjamin28/idb/issues">GitHub Issue Tracker</a></li>
              <li><a href="https://github.com/Benjamin28/idb">GitHub Repo</a></li>
           </ul>
-      <button type="button" class="btn pull-right" id="runTestsButton" >Run Tests</button>
-      <div class="pull-right" id="testResults" style="padding-right:1em; padding-top:1em"></div>
+      <button type="button" class="btn" id="runTestsButton">Run Tests</button>
+      <div class="col-md-1"><pre><code id="testResults"></pre></code></div>
       </div><!-- /.row -->
 
       <div class="row">
@@ -152,6 +152,10 @@
           <ul>
             <li><a href="{{url_for('about', _anchor = 'mission')}}">Mission Statement</a></li>
             <li><a href="{{url_for('about', _anchor = 'backend')}}">Backend Design</a></li>
+            <ul>
+              <li><a href="{{url_for('about', _anchor = 'usingapi')}}">Using the API</a></li>
+              <li><a href="{{url_for('about', _anchor = 'buildingapi  ')}}">Building the API</a></li>
+            </ul>
             <li><a href="{{url_for('about', _anchor = 'frontend')}}">Frontend Design</a></li>
             <ul>
               <li><a href="{{url_for('about', _anchor = 'ui')}}">User Interface</a></li>
@@ -179,6 +183,14 @@
 <p>Next, we set up our models in models.py. We defined our 4 models/tables and listed the various properties/columns that those models have.The relationships were set up using SQLAlchemy’s relationship() method. All many to many, one to many, and one to one relationships were defined this way. Agency has a one to many relationship to Launch. Agency has a many to many relationship to Mission. Launch has a one to one relationship with Mission. Launch has a many to one relationship with Location. The many to many relationship required an association table. Having knowledge about relational databases such as foreign keys definitely helped in creating this part.<br>
 Following the setup of the models, we established and created database.db and used sqlite3 to import the models into the database.</p>
 <p>After all of the application setup, we proceeded to create our HTML pages. Base.html came first and we used bootstrap to create a nav bar. All files would extend from base.html and also include the nav bar in all the other pages. We then created index.html. We also used a bootstrap theme to create the carousel. The HTML files for our four models were generated the same way. Extending base.html got us the nav bar, then we built the tables for the models and instances in the respective HTML files.</p>
+<b id= "usingapi">Using the API</b>
+<p>In a file named get.py, we put in all our API get requests to the Launch Library API to populate our database.db file with all the necessary information for our models. This was done programmatically where we could just run ‘python get.py’ to pull all the data from the Launch Library API. Luckily the API was structured well and it was easy to access the various endpoints and grab data from the different forms of models. For the Launch Library API, they had a page for all instances of the different models. A get request was first requested on the page to get all the instances. Next, we looped through the instances and got the unique ID of the instances and performed a get request again on the url for that specific instance of that model. Since the Launch Library structured it like this, it was very easy to access the endpoints of the different models. After this, grabbing the data from the JSON was easy. Most of all the data was either stored as an integer, string, dict, or list. An instance of the model in our database was created and added for every endpoint of the Launch Library API.
+  </p><p>Since this was done programmatically, a specific order of execution was needed in order to satisfy the requirements of the relationships among the models. First we created our agency model since it didn’t have any relationship attributes that is set in the model. Other models would set up the many to many relationship with it, but the agency model didn’t set it up itself. After agency, our location, launch, and mission model followed.
+  </p><p>At the end of running ‘python get.py’, our database.db file would be populated with all the information that we needed to obtain from the Launch Library API. From then on, we simply just have to query our own database in order to acquire the data we needed.
+</p>
+<b id="buildingapi"> Building our own API </b>
+  <p>Building our API was a large part of the task since we decided to structure our website to where our real links would request our own API and pull the data to dynamically display it. We first defined methods for each of our models that would return a dictionary of all the information stored inside that model. For all the attributes inside the models we simply just gave what was stored in the database. However for the relationships of the various models, we had to build a container to store that information. Additionally for our launch and mission model, we had to join on the location and launch models respectively in order to get the name instead of the id. We routed all of our API information to /api/<model>. This would display all the JSON information for the given model. This was done by simply creating a list and appending all the instances of the model to that list and using the jsonify() function to turn it into JSON form.
+  </p><p>Our API will also return sorted models when given certain sorting criteria. For example, /api/<model>?orderBy=name&order=desc will return a JSON containing models of <model> sorted by <model>.name and in descending order. The API has many other sorting criteria including orderBy, order, page, id, and limit for the general model case. For agencies you can sort by agencyType, for launches by status, for locations by countryCode, and for missions by typeName. In short, this was done in app/views.py by grabbing the request URL and splitting that string at the ‘&’ character and then splitting those subtrings at the ‘=’ character. A dictionary was then filled with this information and then a query on our database was made using this information.</p>
 
 <hr>
 <h3 id="frontend">Frontend Design</h3>
@@ -195,9 +207,25 @@ Following the setup of the models, we established and created database.db and us
 &ltscript src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">&lt/script></pre></code></p>
 <p>The splash page was created using a modified carousel template from Bootstrap’s website. We extended it to fill the entire screen, and saved images in app/static/images to embed in the carousel. The nav bar across the top is also created and stylized largely with Bootstrap, customizing it with our own tabs and links. Bootstrap provides many default css properties, but they can be overridden with our own css files, placed in app/static/css. For each model page, we created a template that could be used for each model. Bootstrap’s grid system allows us to divide the page into rows and columns. We placed a filtering system on the left hand side, composed of an unordered list of different categories of filters, inside of which is a list of the filter options. We also included a sorting dropdown menu that can sort through models based on their attributes. On the right, we placed a grid of items. Each item consists of a thumbnail with an image and a caption which links to the page for that instance. Since the website is not currently hooked with a database, elements in each model are linked to some static dummy pages which are stored inside temp folder. Those pages include the relevant information for that instance and contain links to other pages. Again, we created templates that could be filled in and re-used for each instance page. For the about page, again, Bootstrap’s grid system allows us to cleanly organize pictures and captions on the page.</p>
 
-<b id="react">Note on React</b>
-<p>Our project does not yet use React, but we will add it to the pages that need to display data from the database. The React code will fetch the names of instances and photographs of the instances from the backend and the backend code. The react body of code will then implant the data from the backend as html on the category and instance pages. The ability to sort and filter this data will come from code implemented in the frontend. Because this code is not yet implemented, we do not have sufficient details for this.</p>
-  
+<b id="react">React Integration</b>
+<p>When including React in the project, the developer has two choices: to upload the scripts for React and Babel to the client computer from the server, and to reference an external script elsewhere on the web. The first approach is generally preferable because it provides the developer with control over the scripts the client uses to view the site. We would have certainly taken this approach if we were working on a Node server. In a Node project, providing the providing the developers with additional scripts is easy. We decided to do without NPM, so as to minimize the number of things to learn. Part of efficiently managing projects is avoiding unnecessary challenges. 
+</p>
+<p>
+In order to provide the client with access to the script via a 3rd party URL, simply import the scripts at the top of the page.<br>
+<pre><code>&lt!script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+&lt!script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+&lt!script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+</pre></code>
+<p>
+We chose to embed the jsx for react inside of the HTML to limit the number of files that the database has to keep track of. The react code essentially obtains the URL of the current page, and modifies it to make an API call to our API. It does this by inserting /api/ in the beginning of the arguments. This returns a json file, the relevant contents of which are then injected into the table elements on the page via the ReactDom.render method. The data, after injected, is rendered through the bootstrap configuration which we set up in the first version of the assignment. In the case of instance pages, almost the entire page is generated through react and then rendered.
+</p>
+<p>
+The content loads dynamically based on the url of the page. If for example, I visit itslaunchti.me/agencies?page=1, the website will load content from itslaunchti.me/api/agencies?page=1. The instance pages work the same way with /agencies?id=5 calling /api/agencies?id=5. Querying the database proved to be an area of challenge. We use a library called axios in order to parse the json file. When creating a react component, initialize the initial state to contain variables for what you want to collect. For example, if you are going to collect names from all of the launches, use “names: [].”
+</p>
+<p>
+In the case of photographs, we use the Restcountries api to find the flag of a location or agency. We then embed it in the page. As for mission types, we use icons that describe the type of mission. The launches use a photo from the launch library api of the rocket itself.
+</p>
+
 <hr>
 <h3 id="hosting">Hosting</h3>
 <hr>
