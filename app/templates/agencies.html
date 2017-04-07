@@ -301,13 +301,13 @@ var next = document.getElementById("prevButton");
 next.addEventListener("click", getPrevPage);
 
 var sort1 = document.getElementById("namea");
-sort1.addEventListener("click", function(){return sortPage("name");});
+sort1.addEventListener("click", function(){return sortPage("name", 'asc');});
 
 var sort1_2 = document.getElementById("named");
 sort1_2.addEventListener("click", function(){return sortPage("name", "desc");});
 
 var sort2 = document.getElementById("cca");
-sort2.addEventListener("click", function(){return sortPage("countryCode");});
+sort2.addEventListener("click", function(){return sortPage("countryCode", 'asc');});
 
 var sort2_2 = document.getElementById("ccd");
 sort2_2.addEventListener("click", function(){return sortPage("countryCode", "desc");});
