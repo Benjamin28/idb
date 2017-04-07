@@ -13,46 +13,46 @@
           <p>Mission Type</p>
           <form>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Earth Science</label>
+              <label><input type="checkbox" id="ESbox" value="">Earth Science</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Planetary Science</label>
+              <label><input type="checkbox" id="PSbox" value="">Planetary Science</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Astrophysics</label>
+              <label><input type="checkbox" id="Abox" value="">Astrophysics</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Heliophysics</label>
+              <label><input type="checkbox" id="Hbox" value="">Heliophysics</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Human Exploration</label>
+              <label><input type="checkbox" id="HEbox" value="">Human Exploration</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Robotic Exploration</label>
+              <label><input type="checkbox" id="REbox" value="">Robotic Exploration</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Government/Top Secret</label>
+              <label><input type="checkbox" id="GTSbox" value="">Government/Top Secret</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Tourism</label>
+              <label><input type="checkbox" id="Tbox" value="">Tourism</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Unknown</label>
+              <label><input type="checkbox" id="Ubox" value="">Unknown</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Communications</label>
+              <label><input type="checkbox" id="Cbox" value="">Communications</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Resupply</label>
+              <label><input type="checkbox" id="Rbox" value="">Resupply</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Suborbital</label>
+              <label><input type="checkbox" id="Sbox" value="">Suborbital</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Test Flight</label>
+              <label><input type="checkbox" id="TFbox" value="">Test Flight</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" value="">Dedicated Rideshare</label>
+              <label><input type="checkbox" id="DRbox" value="">Dedicated Rideshare</label>
             </div>
 
           </form>
@@ -168,7 +168,12 @@ var App = React.createClass({
           const id = result.data.map(function(obj){return obj.id});
           var img = "";
           if(type != undefined){
-            img = result.data.map(function(obj){return "../static/images/missionTypes/"+obj.typeName+".png"});
+              img = result.data.map(function(obj){
+                if(obj.typeName == "Government/Top Secret"){
+                  return "..static/images/missionTypes/Government.png"
+                }
+                return "../static/images/missionTypes/"+obj.typeName+".png"
+              });
           }else{
             img = result.data.map(function(obj){return "../static/images/missionTypes/Unknown.png"});
           }
