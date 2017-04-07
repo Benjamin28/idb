@@ -39,6 +39,10 @@ def getTestResults():
 	env = os.environ.copy()
 	env['PYTHONPATH'] = ":".join(sys.path)
 
+	f = open(os.path.join(path, "../coverage.txt"), "r")
+	s = f.read()
+	s += "\n"
+	print(s)
 	print(finalPath)
 	process = subprocess.Popen(
 		["python3", finalPath],
@@ -47,8 +51,10 @@ def getTestResults():
 		env = env
 	)
 	(stdout, stderr) = process.communicate()
-	s = stderr.decode('utf-8')
-	s = s.split("\n", 2)[2]
+	percentage = stderr.decode('utf-8')
+	percentage = percentage.split("\n", 2)[2]
+	s += "\n"
+	s += percentage
 	l = [{"testResults" : s}]
 	return jsonify(l)
 
