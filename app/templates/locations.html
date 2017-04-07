@@ -64,6 +64,7 @@
               <label><input type="checkbox" value="">rmi</label>
             </div>
           </form>
+          <button type="button" id="filter">Filter</button>
         </li>
     </div>
     <div class="col-sm-9">
@@ -188,7 +189,7 @@ var App = React.createClass({
     var url = "/locations?id="+this.state.ids[index];
     var img
     if(this.state.country.length == 0){
-      var img = "http://placehold.it/200x200/000/fff";
+      img = "http://placehold.it/200x200/000/fff";
     }else{
       img = "https://restcountries.eu/data/"+((this.state.country[index].substring(0, 3)).toLowerCase())+".svg"
     }
