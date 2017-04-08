@@ -16,7 +16,7 @@ body {
 	background-image: none;
 	background: white;
 	border: none;
-	border-bottom: 1px solid gray;
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
 	font-family: "Montserrat";
 }
 
@@ -47,7 +47,19 @@ body {
 
 .item {
 	padding: 10px;
+
+	-webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 1.5s; /* Firefox < 16 */
+        -ms-animation: fadein 1.5s; /* Internet Explorer */
+         -o-animation: fadein 1.5s; /* Opera < 12.1 */
+            animation: fadein 1.5s;
 }
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
 
 .thumbnail {
 	border-radius: 0px;

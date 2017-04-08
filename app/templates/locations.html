@@ -202,7 +202,7 @@ var App = React.createClass({
     } else {
       img = "https://restcountries.eu/data/"+((this.state.country[index].substring(0, 3)).toLowerCase())+".svg"
     }
-    return <div class="thumbnail">
+    return <div className="thumbnail">
              <img className="picflags" src={img}></img>
             <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
             </div>
@@ -217,7 +217,7 @@ function drawTables(numTables){
       React.createElement(App, {items: i}),
       document.getElementById('col'+(i+1))
     );
-    document.getElementById('col'+(i+1)).childNodes[0].className+= " thumbnail";
+    
 
   }
 }
