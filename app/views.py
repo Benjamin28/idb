@@ -201,6 +201,7 @@ def search_and(relation, term):
 
 	if results:
 		is_here = False
+		l_term = term.lower()
 		for item in results:
 			t = {}
 			highlight_list = []
@@ -213,9 +214,9 @@ def search_and(relation, term):
 				l_value = value.lower()
 
 				#_sa_instance_state is the key for relationship attributes
-				if not "_sa_instance_state" in l_key and l_key != "id" and (term in l_key or term in l_value):
+				if not "_sa_instance_state" in l_key and l_key != "id" and (l_term in l_key or l_term in l_value):
 					is_here = True
-					if term in l_value:
+					if l_term in l_value:
 						highlight_list.append(key + " : " + highlight_word(value, term))
 					else:
 						highlight_list.append(key + " : " + highlight_word(key, term))
@@ -256,8 +257,9 @@ def search_or(relation, terms_list):
 				t[key] = value
 
 				for word in terms_list:
+					l_word = word.lower()
 					#_sa_instance_state is the key for relationship attributes
-					if not "_sa_instance_state" in l_key and l_key != "id" and (word in l_key or word in l_value):
+					if not "_sa_instance_state" in l_key and l_key != "id" and (l_word in l_key or l_word in l_value):
 						exists = True
 						highlight_list.append(highlight_words((key, value), word))
 						counter = counter + 1
@@ -304,6 +306,7 @@ def highlight_words(tup, term):
 	"""
 	highlights_c = ""
 	words = ()
+	term = term.lower()
 
 	if term in tup[1].lower():
 		words = re.split(' ', tup[1])
