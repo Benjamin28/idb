@@ -165,15 +165,12 @@ def models(model):
 @app.route('/search')
 def search():
 	req_str = urllib.parse.unquote(str(request.query_string)[2:-1])
-	print("----------------------------")
-	print(req_str)
-	print("----------------------------")
 
 	# Model list
 	MODELS = [[Agency, "agencies"], [Launch, "launches"], [Location, "locations"], [Mission, "missions"]]
 	# MODELS = [Agency]
 
-	return_dict = {}
+	return_dict = {"and_search":{}, "or_search":{}}
 
 	for modl in MODELS:
 		m = modl[0]
@@ -183,8 +180,8 @@ def search():
 		if 'term' in req_str:
 			search_terms = req_str.replace("term=", "")
 			search_terms_list = search_terms.split(" ")
-
-			return_dict[m_str] = search_and(m, search_terms)
+			return_dict["and_search"][m_str] = search_and(m, search_terms)
+			return_dict["or_search"][m_str] = search_or(m, search_terms_list)
 		else:
 			return {}
 
@@ -193,8 +190,10 @@ def search():
 	return jsonify(return_dict)
 
 def search_and(relation, term):
-	#relation is the Model, ex: Agency
-	#term is the search term to AND search for
+	"""
+	relation: the Model, ex: Agency
+	term: the search term to AND search for
+	"""
 	if not term:
 		return []
 
@@ -206,6 +205,7 @@ def search_and(relation, term):
 		for item in results:
 			t = {}
 			highlight_list = []
+			counter = 0
 			for key, value in item.__dict__.items():
 				key = str(key)
 				value = str(value)
@@ -220,64 +220,53 @@ def search_and(relation, term):
 						highlight_list.append(key + " : " + highlight_word(value, term))
 					else:
 						highlight_list.append(key + " : " + highlight_word(key, term))
+					counter = counter + 1
 			if is_here:
-				t["highlight"] = highlight_list
+				t["highlight_list"] = highlight_list
 				results_list += [t]
 				is_here = False
 	return results_list
 
 def search_or(relation, terms_list):
-	#relation is the Model, ex: Agency
-	#terms is the list of search terms
+	"""
+	relation: the Model, ex: Agency
+	terms: the list of search terms to perform OR search on
+	"""
+	if not terms_list or len(terms_list) == 0:
+		return []
 
-	pass
+	results_list = []
 
-	# courses = models.Course.query
+	result = relation.query.all()
 
-	# if searchForm.validate_on_submit():
-	# 	courses = courses.filter(models.Course.name.like('%' + searchForm.courseName.data + '%'))
+	if result:
 
-	# courses = courses.order_by(models.Course.name).all()
+		exists = False
+		for item in result:
 
-	# return render_template('courselist.html', courses = courses)
+			t = {}
+			counter = 0
+			highlight_list = []
+			for key, value in item.__dict__.items():
 
-	#or with list filter
-	# term_list = []
-	# for t in str_dict['countryCode']:
-	# 	term_list.append(Location.countryCode == t)
-	# query_list = query_list.filter(operator.or_(*term_list))
+				key = str(key)
+				value = str(value)
 
-# @app.route('/<model>')
-# @app.route('/<model>/<int:page>')
-# def models(model, page=1):
-# 	NUM_PER_PAGE = 12
-# 	l = []
-# 	info = getModel(model)
-# 	m = info[0]
-# 	if m == -1:
-# 		return "<h1>Model not found</h1>"
+				l_key = key.lower()
+				l_value = value.lower()
+				t[key] = value
 
-# 	# print("---------------------------DEBUG----------------------------------")
-# 	# # print(request.query_string)
-# 	# print(urllib.parse.unquote(str(request.query_string)))
-# 	# print("---------------------------DEBUG----------------------------------")
-
-# 	#filtwerin still not working
-# 	query_list = m.query.filter_by().paginate(page, NUM_PER_PAGE, False).items
-# 	if query_list == []:
-# 		return "<h1>Page "+str(page)+" does not contain any "+model+".</h1>"
-# 	for obj in query_list:
-# 		d = obj.dictionary()
-# 		l.append(d)
-# 	# return jsonify(l)
-# 	return render_template(info[1]+".html",models=l)
-
-# @app.route('/api/<model>/<criteria>/<int:page>/<filter>')
-# def api_model_criteria_page_filter(model, criteria, page, filter):
-# 	#url: /api/agency/name/1/filter?countryCode=USA
-# 	#Use request.query_string to get the parameter to filter with
-#     return request.query_string
-####
+				for word in terms_list:
+					#_sa_instance_state is the key for relationship attributes
+					if not "_sa_instance_state" in l_key and (word in l_key or word in l_value):
+						exists = True
+						highlight_list.append(highlight_words((key, value), word))
+						counter = counter + 1
+			if exists:
+				t["highlight_list"] = highlight_list
+				results_list += [t]
+				exists = False
+	return results_list
 
 #UTILITY METHODS
 def getModel(model):
