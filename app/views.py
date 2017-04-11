@@ -7,6 +7,7 @@ import os, sys
 import subprocess
 import urllib
 import operator
+import re
 
 @app.route('/')
 def index():
@@ -160,6 +161,92 @@ def models(model):
 
 	return render_template(info[1] + ".html")
 
+#search, don't allow search for ID
+@app.route('/search')
+def search():
+	req_str = urllib.parse.unquote(str(request.query_string)[2:-1])
+	print("----------------------------")
+	print(req_str)
+	print("----------------------------")
+
+	# Model list
+	MODELS = [[Agency, "agencies"], [Launch, "launches"], [Location, "locations"], [Mission, "missions"]]
+	# MODELS = [Agency]
+
+	return_dict = {}
+
+	for modl in MODELS:
+		m = modl[0]
+		m_str = modl[1]
+		l = []
+		query_list = m.query
+		if 'term' in req_str:
+			search_terms = req_str.replace("term=", "")
+			search_terms_list = search_terms.split(" ")
+
+			return_dict[m_str] = search_and(m, search_terms)
+		else:
+			return {}
+
+
+	# return json.dumps(return_dict, ensure_ascii=False) #json dump version
+	return jsonify(return_dict)
+
+def search_and(relation, term):
+	#relation is the Model, ex: Agency
+	#term is the search term to AND search for
+	if not term:
+		return []
+
+	results_list = []
+	results = relation.query.all()
+
+	if results:
+		is_here = False
+		for item in results:
+			t = {}
+			highlight_list = []
+			for key, value in item.__dict__.items():
+				key = str(key)
+				value = str(value)
+				t[key] = value
+				l_key = key.lower()
+				l_value = value.lower()
+
+				#_sa_instance_state is the key for relationship attributes
+				if not "_sa_instance_state" in l_key and (term in l_key or term in l_value):
+					is_here = True
+					if term in l_value:
+						highlight_list.append(key + " : " + highlight_word(value, term))
+					else:
+						highlight_list.append(key + " : " + highlight_word(key, term))
+			if is_here:
+				t["highlight"] = highlight_list
+				results_list += [t]
+				is_here = False
+	return results_list
+
+def search_or(relation, terms_list):
+	#relation is the Model, ex: Agency
+	#terms is the list of search terms
+
+	pass
+
+	# courses = models.Course.query
+
+	# if searchForm.validate_on_submit():
+	# 	courses = courses.filter(models.Course.name.like('%' + searchForm.courseName.data + '%'))
+
+	# courses = courses.order_by(models.Course.name).all()
+
+	# return render_template('courselist.html', courses = courses)
+
+	#or with list filter
+	# term_list = []
+	# for t in str_dict['countryCode']:
+	# 	term_list.append(Location.countryCode == t)
+	# query_list = query_list.filter(operator.or_(*term_list))
+
 # @app.route('/<model>')
 # @app.route('/<model>/<int:page>')
 # def models(model, page=1):
@@ -205,4 +292,39 @@ def getModel(model):
 	else:
 		return (-1, "Model not found")
 
+def highlight_word(word, term):
+	"""
+	Highlighting term inside of word
+	word: string that contains given term
+	term: word to highlight
+	return: position of given search term
+	"""
+	highlight_word = ""
+	word_loc = word.lower().find(term.lower())
+	if word_loc >= 0:
+		highlight_word = word[:word_loc] + '<span class="highlight"><strong>' + word[word_loc:(word_loc + len(term))] + '</strong></span>' +  word[(word_loc + len(term)):]
+	return highlight_word
 
+def highlight_words(tup, term):
+	"""
+	Highlighting multiple words
+	tup: contains key, value of attribute of model and value for that attribute
+	term: search term
+	return: highlighted string
+
+	uses hightlight_word(word, term) method
+	"""
+	highlights_c = ""
+	words = ()
+
+	if term in tup[1].lower():
+		words = re.split(' ', tup[1])
+
+		for word in words:
+			if term in word.lower():
+				highlights_c = highlights_c + " " + highlight_word(word, term)
+			else:
+				highlights_c = highlights_c + " " + word
+	else:
+		highlights_c = highlight_word(tup[0], term)
+	return tup[0] + " : " + highlights_c
