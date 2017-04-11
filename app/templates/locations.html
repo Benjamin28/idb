@@ -166,10 +166,15 @@ var App = React.createClass({
       if(countries == null || countries ==''){
         countries = "CHN+DZA+GUF+IND+IRN+ISR+JPN+KAZ+KEN+KOR+NZL+PRK+RUS+UNK+USA+rmi";
       }
-
+      var order = getParameterByName('order');
+      if(!order){
+        order = "asc";
+      }
+      
       var request = "/api/locations?page=" + pageNum
                     +"%26orderBy=" + orderName
-                    +"%26countryCode="+countries;
+                    +"%26countryCode="+countries
+                    +"%26order="+order;
       console.log(request);
       this.serverRequest =
         axios
