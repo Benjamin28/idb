@@ -16,55 +16,55 @@
           <p>Country Code</p>
           <form>
             <div class="checkbox">
-              <label><input type="checkbox" id="chnbox" value="">CHN</label>
+              <label><input type="checkbox" id="chnbox" value="CHN">CHN</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="dzabox" value="">DZA</label>
+              <label><input type="checkbox" id="dzabox" value="DZA">DZA</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="gufbox" value="">GUF</label>
+              <label><input type="checkbox" id="gufbox" value="GUF">GUF</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="indbox" value="">IND</label>
+              <label><input type="checkbox" id="indbox" value="IND">IND</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="irnbox" value="">IRN</label>
+              <label><input type="checkbox" id="irnbox" value="IRN">IRN</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="isrbox" value="">ISR</label>
+              <label><input type="checkbox" id="isrbox" value="ISR">ISR</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="jpnbox" value="">JPN</label>
+              <label><input type="checkbox" id="jpnbox" value="JPN">JPN</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="kazbox" value="">KAZ</label>
+              <label><input type="checkbox" id="kazbox" value="KAZ">KAZ</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="kenbox" value="">KEN</label>
+              <label><input type="checkbox" id="kenbox" value="KEN">KEN</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="korbox" value="">KOR</label>
+              <label><input type="checkbox" id="korbox" value="KOR">KOR</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="nzlbox" value="">NZL</label>
+              <label><input type="checkbox" id="nzlbox" value="NZL">NZL</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="prkbox" value="">PRK</label>
+              <label><input type="checkbox" id="prkbox" value="PRK">PRK</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="rusbox" value="">RUS</label>
+              <label><input type="checkbox" id="rusbox" value="RUS">RUS</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="unkbox" value="">UNK</label>
+              <label><input type="checkbox" id="unkbox" value="UNK">UNK</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="usabox" value="">USA</label>
+              <label><input type="checkbox" id="usabox" value="USA">USA</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="rmibox" value="">rmi</label>
+              <label><input type="checkbox" id="rmibox" value="rmi">rmi</label>
             </div>
           </form>
-          <button type="button" id="filter">Filter</button>
+          <button type="button" id="filter" onclick="doFilter()">Filter</button>
         </li>
     </div>
     <div class="col-sm-9">
@@ -170,7 +170,7 @@ var App = React.createClass({
       if(!order){
         order = "asc";
       }
-      
+
       var request = "/api/locations?page=" + pageNum
                     +"%26orderBy=" + orderName
                     +"%26countryCode="+countries
@@ -272,8 +272,18 @@ function updateURLParameter(url, param, paramVal){
     return baseURL + "?" + newAdditionalURL + rows_txt;
 }
 
+function doFilter(){
+  $inputs = $(":checkbox:checked");
+  var stringInputs = "";
+  $inputs.each(function(index){
+    stringInputs += $(this).attr("value") + "+";
+  });
 
-function getNextPage() {
+  getNextPage(stringInputs);
+}
+
+
+function getNextPage(ccString) {
     var pageNum = getParameterByName('page');
     if(pageNum == null){
       pageNum = 1;
@@ -286,6 +296,12 @@ function getNextPage() {
     if(order == null){
       order = "asc";
     }
+    var stringInputs = getParameterByName('countryCode');
+    if(stringInputs == null){
+      stringInputs = ccString;
+    }
+
+
     ++pageNum;
     console.log(pageNum);
     var currentLink = window.location.href;
@@ -293,6 +309,9 @@ function getNextPage() {
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
       newLink = updateURLParameter(newLink, 'orderBy', orderName);
       newLink = updateURLParameter(newLink, 'order', order);
+      if(stringInputs == null){
+        newLink = updateURLParameter(newLink, 'countryCode', stringInputs);
+      }
     }else{
 
       var newLink = currentLink;
