@@ -168,7 +168,6 @@ def search():
 
 	# Model list
 	MODELS = [[Agency, "agencies"], [Launch, "launches"], [Location, "locations"], [Mission, "missions"]]
-	# MODELS = [Agency]
 
 	return_dict = {"and_search":{}, "or_search":{}}
 
@@ -214,7 +213,7 @@ def search_and(relation, term):
 				l_value = value.lower()
 
 				#_sa_instance_state is the key for relationship attributes
-				if not "_sa_instance_state" in l_key and (term in l_key or term in l_value):
+				if not "_sa_instance_state" in l_key and l_key != "id" and (term in l_key or term in l_value):
 					is_here = True
 					if term in l_value:
 						highlight_list.append(key + " : " + highlight_word(value, term))
@@ -258,7 +257,7 @@ def search_or(relation, terms_list):
 
 				for word in terms_list:
 					#_sa_instance_state is the key for relationship attributes
-					if not "_sa_instance_state" in l_key and (word in l_key or word in l_value):
+					if not "_sa_instance_state" in l_key and l_key != "id" and (word in l_key or word in l_value):
 						exists = True
 						highlight_list.append(highlight_words((key, value), word))
 						counter = counter + 1
