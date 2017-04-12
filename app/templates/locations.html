@@ -78,6 +78,7 @@
           <li><a href="#" onclick="return false" id="ccd">Country Code (Z-A)</a></li>
         </ul>
       </div>
+
       <div class="item col-xs-6 col-sm-4" id="col1">
         <div class="thumbnail" id="thumb1">
         </div>
@@ -182,7 +183,7 @@ var App = React.createClass({
           .then(function(result) {
             const lch = result.data.map(function(obj){return obj.name});
             const cc  = result.data.map(function(obj){return obj.countryCode});
-            console.log(cc)
+            //console.log(cc)
             const id = result.data.map(function(obj){return obj.id});
             _this.setState({names: lch});
             _this.setState({country: cc});
@@ -202,6 +203,7 @@ var App = React.createClass({
     var img
     if(this.state.country.length == 0){
       var img = "http://placehold.it/200x200/000/fff";
+      return <div></div>
     }else if(this.state.country[index] == "rmi"){
         img = "../static/images/Reagan.jpg"
     } else {
@@ -222,7 +224,6 @@ function drawTables(numTables){
       React.createElement(App, {items: i}),
       document.getElementById('col'+(i+1))
     );
-    
 
   }
 }
@@ -249,7 +250,8 @@ function getParameterByName(name, url) {
         results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+    // return decodeURIComponent(results[2].replace(/\+/g, " "));
+    return decodeURIComponent(results[2]);
 }
 
 function updateURLParameter(url, param, paramVal){
@@ -279,13 +281,13 @@ function doFilter(){
     stringInputs += $(this).attr("value") + "+";
   });
 
-  getNextPage(stringInputs);
+  getNextPage(stringInputs, true);
 }
 
 
-function getNextPage(ccString) {
+function getNextPage(ccString, filter) {
     var pageNum = getParameterByName('page');
-    if(pageNum == null){
+    if(pageNum == null || filter){
       pageNum = 1;
     }
     var orderName = getParameterByName('orderBy');
@@ -301,16 +303,18 @@ function getNextPage(ccString) {
       stringInputs = ccString;
     }
 
-
-    ++pageNum;
+    if(!filter){
+      ++pageNum;
+    }
     console.log(pageNum);
     var currentLink = window.location.href;
     if(pageNum <= totalPageNum()){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
       newLink = updateURLParameter(newLink, 'orderBy', orderName);
       newLink = updateURLParameter(newLink, 'order', order);
-      if(stringInputs == null){
+      if(stringInputs != null){
         newLink = updateURLParameter(newLink, 'countryCode', stringInputs);
+        // newLink += '&countryCode=' + stringInputs;
       }
     }else{
 
