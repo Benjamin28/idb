@@ -11,33 +11,33 @@
       <ul class="list-unstyled">
         <li>
           <p>Agency Type</p>
-          <form>
+          <form id=checkboxes>
             <div class="checkbox">
-              <label><input type="checkbox" id="gbox" value="">Government</label>
+              <label><input type="checkbox" id="Government" value="">Government</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="mbox" value="">Multinational</label>
+              <label><input type="checkbox" id="Multinational" value="">Multinational</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="cbox" value="">Commercial</label>
+              <label><input type="checkbox" id="Commercial" value="">Commercial</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="ebox" value="">Educational</label>
+              <label><input type="checkbox" id="Educational" value="">Educational</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="pbox" value="">Private</label>
+              <label><input type="checkbox" id="Private" value="">Private</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="ubox" value="">Unknown</label>
+              <label><input type="checkbox" id="Unknown" value="">Unknown</label>
             </div>
           </form>
-          <button type="button" id="filter">Filter</button>
+          <button type="button" id="filter_button">Filter</button>
         </li>
       </ul>
     </div>
     <div class="col-sm-9">
       <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
+        <button id="filter_button" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
           <span class="caret"></span></button>
         <ul class="dropdown-menu">
           <li><a href="#" onclick="return false" id="namea">Name (A-Z)</a></li>
@@ -131,6 +131,10 @@ var App = React.createClass({
     if(!order){
       order = "asc";
     }
+    var type = getParameterByName('agencyType');
+    if(!type){
+      //order = "asc";
+    }
     _this.serverRequest =
       axios
         .get("/api/agencies?page=" + pageNum +"%26orderBy=" + orderName + "%26order="+ order)
@@ -141,8 +145,6 @@ var App = React.createClass({
           _this.setState({names: agc});
           _this.setState({images: img});
           _this.setState({ids: id})
-          console.log(id)
-
         })
   },
 
@@ -235,7 +237,6 @@ function getNextPage() {
       order = "asc";
     }
     ++pageNum;
-    console.log(pageNum);
     var currentLink = window.location.href;
     if(pageNum <= totalPageNum()){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
@@ -279,6 +280,31 @@ function removeParameter(url, parameter)
   return url;
 }
 
+function filterPage(){
+  var allBoxes = document.getElementById('checkboxes');
+  var checkedBoxes=[];
+  for (var i=0, n=allBoxes.length; i<n; i++){
+    if(allBoxes[i].checked){
+      checkedBoxes.push(allBoxes[i].id);
+    }
+  }
+  console.log(checkedBoxes.lenth);
+  if(checkedBoxes.length == allBoxes.length || checkedBoxes.lenth == null){
+    window.location.href = removeParameter(window.location.href, "agencyType")
+  }else{
+    window.location.href = updateURLParameter(window.location.href, "agencyType", checkedBoxes.join("+"));
+  }
+}
+
+function loadCheckboxState(){
+
+  if(getParameterByName("agencyType")){
+    var boxesToCheck = getParameterByName("agencyType").split(" ");
+    for (var i = 0; i < boxesToCheck.length; i++){
+      document.getElementById(boxesToCheck[i]).checked = true;
+    }
+  }
+}
 
 function sortPage(value, order){
   var currentLink = window.location.href;
@@ -292,7 +318,10 @@ function sortPage(value, order){
 
   window.location.href = newLink;
 }
+loadCheckboxState();
 
+var filter_button = document.getElementById("filter_button");
+filter_button.addEventListener("click", filterPage);
 
 var next = document.getElementById("nextButton");
 next.addEventListener("click", getNextPage);
