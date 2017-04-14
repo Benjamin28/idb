@@ -22,6 +22,7 @@ var App = React.createClass({
 			abbrev: "",
 			cc: "",
       wiki: "",
+      tt:"",
       launches: [],
       missions: []
 		}
@@ -38,6 +39,7 @@ var App = React.createClass({
 					const abbrev = result.data[0].abbrev;
 					const cc = result.data[0].countryCode;
           const wiki = result.data[0].wikiUrl
+          const tt = result.data[0].agencyType;
 
           const launches = result.data[0].launches;
           const missions = result.data[0].missions;
@@ -46,6 +48,7 @@ var App = React.createClass({
 					_this.setState({abbrev: abbrev})
 					_this.setState({cc: cc})
           _this.setState({wiki: wiki})
+          _this.setState({tt: tt})
 
           _this.setState({launches: launches})
           _this.setState({missions: missions})
@@ -69,7 +72,7 @@ var App = React.createClass({
 		<h1>{this.state.name}</h1>
 			<hr></hr>
 			<h3>Country Code: {this.state.cc}</h3>
-			<h3>Type: Government</h3>
+			<h3>Type: {this.state.tt}</h3>
 			<h3>Abbreviation: {this.state.abbrev}</h3>
 			<h3 className="inline-dropdown">Launches:</h3>
 			<div className="dropdown dropdown-text">
