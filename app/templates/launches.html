@@ -1,6 +1,9 @@
 
 {% extends "base.html" %}
 {% block styles %}
+<script src="{{ url_for('static', filename='bower_components/react/react.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/react/react-dom.min.js') }}"></script>
+
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
 {% endblock %}
 {% block content %}
@@ -13,19 +16,19 @@
           <p>Status</p>
           <form>
             <div class="checkbox">
-              <label><input type="checkbox" id="sbox" value="">Success</label>
+              <label><input type="checkbox" id="sbox" value="SUCCESS">Success</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="fbox" value="">Failed</label>
+              <label><input type="checkbox" id="fbox" value="FAIL">Fail</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="gbox" value="">Green</label>
+              <label><input type="checkbox" id="gbox" value="GREEN">Green</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="rbox" value="">Red</label>
+              <label><input type="checkbox" id="rbox" value="RED">Red</label>
             </div>
           </form>
-          <button type="button" id="filter">Filter</button>
+          <button type="button" id="filter" onclick="doFilter()">Filter</button>
         </li>
       </ul>
     </div>
@@ -112,6 +115,7 @@ var App = React.createClass({
     return {
       names: [],
       images: [],
+      launch_status: [],
       ids: []
     }
   },
@@ -126,27 +130,38 @@ var App = React.createClass({
     if(orderName == null){
       orderName = 'name'; //default
     }
+
+    var statuses = getParameterByName('status');
+    if(statuses == null || statuses ==''){
+      statuses = "SUCCESS+FAIL+GREEN+RED";
+    }
+
     var order = getParameterByName('order');
     if(!order){
       order = "asc";
     }
 
-    var status = getParameterByName('countryCode');
-    if(status == null || status ==''){
-      status = "DZA+GUF+IND+IRN+ISR+JPN+KAZ+KEN+KOR+NZL+PRK+RUS+UNK+USA+rmi";
-    }
-
+    var request = "/api/launches?page=" + pageNum
+                  +"%26orderBy=" + orderName
+                  +"%26status="+statuses
+                  +"%26order="+order;
+    console.log(request);
     this.serverRequest =
       axios
-        .get("/api/launches?page=" + pageNum +"%26orderBy=" + orderName+ "%26order="+ order)
+        .get(request)
         .then(function(result) {
           const lch = result.data.map(function(obj){return obj.name});
           const img = result.data.map(function(obj){return obj.rocketLink});
+          const cc  = result.data.map(function(obj){return obj.launch_status});
+          //console.log(cc)
           const id = result.data.map(function(obj){return obj.id});
           _this.setState({names: lch});
-          _this.setState({images: img})
-          _this.setState({ids: id});
+          _this.setState({images: img});
+          _this.setState({launch_status: cc});
+          _this.setState({ids: id})
+
         })
+
   },
 
   componentWillUnmount: function() {
@@ -199,7 +214,8 @@ function getParameterByName(name, url) {
         results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+    // return decodeURIComponent(results[2].replace(/\+/g, " "));
+    return decodeURIComponent(results[2]);
 }
 
 function updateURLParameter(url, param, paramVal){
@@ -222,9 +238,18 @@ function updateURLParameter(url, param, paramVal){
     return baseURL + "?" + newAdditionalURL + rows_txt;
 }
 
+function doFilter(){
+  $inputs = $(":checkbox:checked");
+  var stringInputs = "";
+  $inputs.each(function(index){
+    stringInputs += $(this).attr("value") + "+";
+  });
+
+  getNextPage(stringInputs, true);
+}
 
 
-function getNextPage() {
+function getNextPage(ccString, filter) {
     var pageNum = getParameterByName('page');
     if(pageNum == null){
       pageNum = 1;
@@ -237,15 +262,24 @@ function getNextPage() {
     if(order == null){
       order = "asc";
     }
-    ++pageNum;
+    var stringInputs = getParameterByName('status');
+    if(stringInputs == null || filter){
+      stringInputs = ccString;
+    }
+
+    if(!filter){
+      ++pageNum;
+    }    
     console.log(pageNum);
     var currentLink = window.location.href;
     if(pageNum <= totalPageNum()){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
       newLink = updateURLParameter(newLink, 'orderBy', orderName);
       newLink = updateURLParameter(newLink, 'order', order);
+      if(stringInputs != null){
+        newLink = updateURLParameter(newLink, 'status', stringInputs);
+      }      
     }else{
-
       var newLink = currentLink;
     }
     window.location.href = newLink;
