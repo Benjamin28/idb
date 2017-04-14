@@ -271,8 +271,8 @@ function doFilter(){
   $inputs.each(function(index){
     stringInputs += $(this).attr("value") + "+";
   });
-
-  getNextPage(stringInputs, true);
+  finalString = stringInputs.substring(0, stringInputs.length-1)
+  getNextPage(finalString, true);
 }
 
 function getNextPage(ccString, filter) {
