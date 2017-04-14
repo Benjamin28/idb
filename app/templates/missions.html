@@ -13,50 +13,50 @@
           <p>Mission Type</p>
           <form>
             <div class="checkbox">
-              <label><input type="checkbox" id="ESbox" value="">Earth Science</label>
+              <label><input type="checkbox" id="ESbox" value="Earth Science">Earth Science</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="PSbox" value="">Planetary Science</label>
+              <label><input type="checkbox" id="PSbox" value="Planetary Science">Planetary Science</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Abox" value="">Astrophysics</label>
+              <label><input type="checkbox" id="Abox" value="Astrophysics">Astrophysics</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Hbox" value="">Heliophysics</label>
+              <label><input type="checkbox" id="Hbox" value="Heliophysics">Heliophysics</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="HEbox" value="">Human Exploration</label>
+              <label><input type="checkbox" id="HEbox" value="Human Exploration">Human Exploration</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="REbox" value="">Robotic Exploration</label>
+              <label><input type="checkbox" id="REbox" value="Robotic Exploration">Robotic Exploration</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="GTSbox" value="">Government/Top Secret</label>
+              <label><input type="checkbox" id="GTSbox" value="Government/Top Secret">Government/Top Secret</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Tbox" value="">Tourism</label>
+              <label><input type="checkbox" id="Tbox" value="Tourism">Tourism</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Ubox" value="">Unknown</label>
+              <label><input type="checkbox" id="Ubox" value="Unknown">Unknown</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Cbox" value="">Communications</label>
+              <label><input type="checkbox" id="Cbox" value="Communications">Communications</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Rbox" value="">Resupply</label>
+              <label><input type="checkbox" id="Rbox" value="Resupply">Resupply</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Sbox" value="">Suborbital</label>
+              <label><input type="checkbox" id="Sbox" value="Suborbital">Suborbital</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="TFbox" value="">Test Flight</label>
+              <label><input type="checkbox" id="TFbox" value="Test Flight">Test Flight</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="DRbox" value="">Dedicated Rideshare</label>
+              <label><input type="checkbox" id="DRbox" value="Dedicated Rideshare">Dedicated Rideshare</label>
             </div>
 
           </form>
-          <button type="button" id="filter">Filter</button>
+          <button type="button" id="filter" onclick="doFilter()">Filter</button>
         </li>
     </div>
     <div class="col-sm-9">
@@ -155,30 +155,39 @@ var App = React.createClass({
     if(orderName == null){
       orderName = 'name';
     }
+
+    var types = getParameterByName('typeName');
+    if(types == null){
+      types = 'Earth Science+Planetary Science+Astrophysics+Heliophysics+Human Exploration+Robotic Exploration+Government/Top Secret+Tourism+Unknown+Communications+Resupply+Suborbital+Test Flight+Dedicated Rideshare';
+    }
+
     var order = getParameterByName('order');
     if(!order){
       order = "asc";
     }
     _this.serverRequest =
       axios
-        .get("/api/missions?page=" + pageNum +"%26orderBy=" + orderName + "%26order="+ order)
+        .get("/api/missions?page=" + pageNum +"%26orderBy=" + orderName +"%26typeName="+types+ "%26order="+ order)
         .then(function(result) {
           const mis = result.data.map(function(obj){return obj.name});
-          const type = result.data.map(function(obj){return obj.typeName});
+          const tt = result.data.map(function(obj){return obj.typeName});
           const id = result.data.map(function(obj){return obj.id});
           var img = "";
-          if(type != undefined){
+          if(tt != undefined){
               img = result.data.map(function(obj){
                 if(obj.typeName == "Government/Top Secret"){
                   return "..static/images/missionTypes/Government.png"
                 }
-                return "../static/images/missionTypes/"+obj.typeName+".png"
+                if(obj.typeName)
+                  return "../static/images/missionTypes/"+obj.typeName+".png"
+                return "../static/images/missionTypes/none.png"
               });
           }else{
             img = result.data.map(function(obj){return "../static/images/missionTypes/Unknown.png"});
           }
           _this.setState({names: mis});
           _this.setState({images: img});
+          _this.setState({type: tt});
           _this.setState({ids: id})
         })
   },
@@ -232,7 +241,8 @@ function getParameterByName(name, url) {
         results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+    // return decodeURIComponent(results[2].replace(/\+/g, " "));
+    return decodeURIComponent(results[2]);
 }
 
 function updateURLParameter(url, param, paramVal){
@@ -255,7 +265,17 @@ function updateURLParameter(url, param, paramVal){
     return baseURL + "?" + newAdditionalURL + rows_txt;
 }
 
-function getNextPage() {
+function doFilter(){
+  $inputs = $(":checkbox:checked");
+  var stringInputs = "";
+  $inputs.each(function(index){
+    stringInputs += $(this).attr("value") + "+";
+  });
+
+  getNextPage(stringInputs, true);
+}
+
+function getNextPage(ccString, filter) {
     var pageNum = getParameterByName('page');
     if(pageNum == null){
       pageNum = 1;
@@ -268,13 +288,23 @@ function getNextPage() {
     if(order == null){
       order = "asc";
     }
-    ++pageNum;
+    var stringInputs = getParameterByName('typeName');
+    if(stringInputs == null || filter){
+      stringInputs = ccString;
+    }
+    if(!filter){
+      ++pageNum;
+    }
     console.log(pageNum);
     var currentLink = window.location.href;
     if(pageNum <= totalPageNum()){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
       newLink = updateURLParameter(newLink, 'orderBy', orderName);
       newLink = updateURLParameter(newLink, 'order', order);
+      if(stringInputs != null){
+        newLink = updateURLParameter(newLink, 'typeName', stringInputs);
+        // newLink += '&countryCode=' + stringInputs;
+      }
     }else{
 
       var newLink = currentLink;
