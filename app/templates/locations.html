@@ -299,7 +299,7 @@ function getNextPage(ccString, filter) {
       order = "asc";
     }
     var stringInputs = getParameterByName('countryCode');
-    if(stringInputs == null && filter){
+    if(stringInputs == null || filter){
       stringInputs = ccString;
     }
 
