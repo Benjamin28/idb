@@ -277,7 +277,7 @@ function doFilter(){
 
 function getNextPage(ccString, filter) {
     var pageNum = getParameterByName('page');
-    if(pageNum == null){
+    if(pageNum == null || filter){
       pageNum = 1;
     }
     var orderName = getParameterByName('orderBy');

@@ -133,7 +133,7 @@ var App = React.createClass({
       order = "asc";
     }
     var types = getParameterByName('agencyType');
-    if(types == null){
+    if(types == null || types ==''){
       types = "Government+Multinational+Commercial+Educational+Private+Unknown";
     }
     _this.serverRequest =
@@ -238,7 +238,7 @@ function doFilter(){
 
 function getNextPage(ccString, filter) {
     var pageNum = getParameterByName('page');
-    if(pageNum == null){
+    if(pageNum == null || filter){
       pageNum = 1;
     }
     var orderName = getParameterByName('orderBy');
