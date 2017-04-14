@@ -11,33 +11,33 @@
       <ul class="list-unstyled">
         <li>
           <p>Agency Type</p>
-          <form id=checkboxes>
+          <form>
             <div class="checkbox">
-              <label><input type="checkbox" id="Government" value="">Government</label>
+              <label><input type="checkbox" id="Government" value="Government">Government</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Multinational" value="">Multinational</label>
+              <label><input type="checkbox" id="Multinational" value="Multinational">Multinational</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Commercial" value="">Commercial</label>
+              <label><input type="checkbox" id="Commercial" value="Commercial">Commercial</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Educational" value="">Educational</label>
+              <label><input type="checkbox" id="Educational" value="Educational">Educational</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Private" value="">Private</label>
+              <label><input type="checkbox" id="Private" value="Private">Private</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Unknown" value="">Unknown</label>
+              <label><input type="checkbox" id="Unknown" value="Unknown">Unknown</label>
             </div>
           </form>
-          <button type="button" id="filter_button">Filter</button>
+          <button type="button" id="filter_button" onclick="doFilter()">Filter</button>
         </li>
       </ul>
     </div>
     <div class="col-sm-9">
       <div class="dropdown">
-        <button id="filter_button" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
           <span class="caret"></span></button>
         <ul class="dropdown-menu">
           <li><a href="#" onclick="return false" id="namea">Name (A-Z)</a></li>
@@ -112,6 +112,7 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       names: [],
+      type: [],
       images: [],
       ids: []
     }
@@ -121,29 +122,31 @@ var App = React.createClass({
     var _this = this;
     var pageNum = getParameterByName('page');
     if(pageNum == null){
-    	pageNum = 1;
+      pageNum = 1;
     }
     var orderName = getParameterByName('orderBy');
     if(orderName == null){
-    	orderName = 'name'; //default
+      orderName = 'name'; //default
     }
     var order = getParameterByName('order');
     if(!order){
       order = "asc";
     }
-    var type = getParameterByName('agencyType');
-    if(!type){
-      //order = "asc";
+    var types = getParameterByName('agencyType');
+    if(types == null || types ==''){
+      types = "Government+Multinational+Commercial+Educational+Private+Unknown";
     }
     _this.serverRequest =
       axios
-        .get("/api/agencies?page=" + pageNum +"%26orderBy=" + orderName + "%26order="+ order)
+        .get("/api/agencies?page=" + pageNum +"%26orderBy=" + orderName + "%26agencyType=" + types +"%26order="+ order)
         .then(function(result) {
           const agc = result.data.map(function(obj){return obj.name});
           const img = result.data.map(function(obj){return "../static/images/agencyTypes/"+obj.agencyType+".png"});
+          const tt = result.data.map(function(obj){return obj.agencyType});
           const id = result.data.map(function(obj){return obj.id});
           _this.setState({names: agc});
           _this.setState({images: img});
+          _this.setState({type: tt});
           _this.setState({ids: id})
         })
   },
@@ -199,7 +202,8 @@ function getParameterByName(name, url) {
         results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+    // return decodeURIComponent(results[2].replace(/\+/g, " "));
+    return decodeURIComponent(results[2]); 
 }
 
 function updateURLParameter(url, param, paramVal){
@@ -222,10 +226,19 @@ function updateURLParameter(url, param, paramVal){
     return baseURL + "?" + newAdditionalURL + rows_txt;
 }
 
+function doFilter(){
+  $inputs = $(":checkbox:checked");
+  var stringInputs = "";
+  $inputs.each(function(index){
+    stringInputs += $(this).attr("value") + "+";
+  });
+  finalString = stringInputs.substring(0, stringInputs.length-1)
+  getNextPage(finalString, true);
+}
 
-function getNextPage() {
+function getNextPage(ccString, filter) {
     var pageNum = getParameterByName('page');
-    if(pageNum == null){
+    if(pageNum == null || filter){
       pageNum = 1;
     }
     var orderName = getParameterByName('orderBy');
@@ -236,14 +249,25 @@ function getNextPage() {
     if(order == null){
       order = "asc";
     }
-    ++pageNum;
+    var stringInputs = getParameterByName('agencyType');
+    if(stringInputs == null || !(filter === undefined)){
+      stringInputs = ccString;
+    }
+    if(filter === undefined){
+      stringInputs = null;
+    }
+    if(!filter){
+      ++pageNum;
+    }  
     var currentLink = window.location.href;
     if(pageNum <= totalPageNum()){
       var newLink = updateURLParameter(currentLink, 'page', pageNum);
       newLink = updateURLParameter(newLink, 'orderBy', orderName);
       newLink = updateURLParameter(newLink, 'order', order);
+      if(stringInputs != null){
+        newLink = updateURLParameter(newLink, 'agencyType', stringInputs);
+      }         
     }else{
-
       var newLink = currentLink;
     }
     window.location.href = newLink;
@@ -280,32 +304,6 @@ function removeParameter(url, parameter)
   return url;
 }
 
-function filterPage(){
-  var allBoxes = document.getElementById('checkboxes');
-  var checkedBoxes=[];
-  for (var i=0, n=allBoxes.length; i<n; i++){
-    if(allBoxes[i].checked){
-      checkedBoxes.push(allBoxes[i].id);
-    }
-  }
-  console.log(checkedBoxes.lenth);
-  if(checkedBoxes.length == allBoxes.length || checkedBoxes.lenth == null){
-    window.location.href = removeParameter(window.location.href, "agencyType")
-  }else{
-    window.location.href = updateURLParameter(window.location.href, "agencyType", checkedBoxes.join("+"));
-  }
-}
-
-function loadCheckboxState(){
-
-  if(getParameterByName("agencyType")){
-    var boxesToCheck = getParameterByName("agencyType").split(" ");
-    for (var i = 0; i < boxesToCheck.length; i++){
-      document.getElementById(boxesToCheck[i]).checked = true;
-    }
-  }
-}
-
 function sortPage(value, order){
   var currentLink = window.location.href;
     var newLink = updateURLParameter(currentLink, 'orderBy', value);
@@ -318,10 +316,6 @@ function sortPage(value, order){
 
   window.location.href = newLink;
 }
-loadCheckboxState();
-
-var filter_button = document.getElementById("filter_button");
-filter_button.addEventListener("click", filterPage);
 
 var next = document.getElementById("nextButton");
 next.addEventListener("click", getNextPage);

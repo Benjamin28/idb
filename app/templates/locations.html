@@ -280,8 +280,8 @@ function doFilter(){
   $inputs.each(function(index){
     stringInputs += $(this).attr("value") + "+";
   });
-
-  getNextPage(stringInputs, true);
+  finalString = stringInputs.substring(0, stringInputs.length-1)
+  getNextPage(finalString, true);
 }
 
 
@@ -299,8 +299,11 @@ function getNextPage(ccString, filter) {
       order = "asc";
     }
     var stringInputs = getParameterByName('countryCode');
-    if(stringInputs == null || filter){
+    if(stringInputs == null || !(filter === undefined)){
       stringInputs = ccString;
+    }
+    if(filter === undefined){
+      stringInputs = null;
     }
 
     if(!filter){
