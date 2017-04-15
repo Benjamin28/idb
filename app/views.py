@@ -33,6 +33,10 @@ def location_instance():
 def mission_instance():
 	return render_template("mission-instance.html")
 
+@app.route('/search')
+def search():
+	return render_template("search.html")
+
 @app.route('/about/testResults', methods=['GET'])
 def getTestResults():
 	path = os.path.dirname(os.path.realpath(__file__))
@@ -59,7 +63,31 @@ def getTestResults():
 	l = [{"testResults" : s}]
 	return jsonify(l)
 
-#API
+@app.route('/<model>')
+def models(model):
+	info = getModel(model)
+	m = info[0]
+	if m == -1:
+		return "<h1>Error 404: Page not found</h1>"
+	req_str = urllib.parse.unquote(str(request.query_string)[2:-1])
+
+	if "id" in req_str:
+		id = req_str.replace("id=", "")
+		if info[1] == "agencies":
+			return render_template('agency-instance.html')
+		elif info[1] == "launches":
+			return render_template('launch-instance.html')
+		elif info[1] == "locations":
+			return render_template('location-instance.html')
+		elif info[1] == "missions":
+			return render_template('mission-instance.html')
+
+	return render_template(info[1] + ".html")
+
+#--------------------------------------------------
+#------------ API routes start here ---------------
+#--------------------------------------------------
+
 @app.route('/api/<model>')
 def api_model(model):
 	NUM_PER_PAGE = 12
@@ -140,30 +168,9 @@ def api_model(model):
 		l.append(d)
 	return jsonify(l)
 
-@app.route('/<model>')
-def models(model):
-	info = getModel(model)
-	m = info[0]
-	if m == -1:
-		return "<h1>Error 404: Page not found</h1>"
-	req_str = urllib.parse.unquote(str(request.query_string)[2:-1])
-
-	if "id" in req_str:
-		id = req_str.replace("id=", "")
-		if info[1] == "agencies":
-			return render_template('agency-instance.html')
-		elif info[1] == "launches":
-			return render_template('launch-instance.html')
-		elif info[1] == "locations":
-			return render_template('location-instance.html')
-		elif info[1] == "missions":
-			return render_template('mission-instance.html')
-
-	return render_template(info[1] + ".html")
-
 #search, don't allow search for ID
-@app.route('/search')
-def search():
+@app.route('/api/search')
+def api_search():
 	req_str = urllib.parse.unquote(str(request.query_string)[2:-1])
 
 	# Model list
