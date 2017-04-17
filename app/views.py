@@ -176,7 +176,8 @@ def api_search():
 	# Model list
 	MODELS = [[Agency, "agencies"], [Launch, "launches"], [Location, "locations"], [Mission, "missions"]]
 
-	return_dict = {"and_search":{}, "or_search":{}}
+	# return_dict = {"and_search":{}, "or_search":{}}
+	return_dict = {"search_results":{}}
 
 	for modl in MODELS:
 		m = modl[0]
@@ -188,17 +189,16 @@ def api_search():
 			search_terms_list = search_terms.split(" ")
 			and_str = "and_" + m_str
 			or_str = "or_" + m_str
-			return_dict["and_search"][and_str] = search_and(m, search_terms)
-			return_dict["or_search"][or_str] = search_or(m, search_terms_list)
-			
-			# return_dict["and_search"][m_str] = search_and(m, search_terms)
-			# return_dict["or_search"][m_str] = search_or(m, search_terms_list)
+			# return_dict["and_search"][and_str] = search_and(m, search_terms)
+			# return_dict["or_search"][or_str] = search_or(m, search_terms_list)
+			return_dict["search_results"][m_str] = search(m, search_terms)
 		else:
 			return {}
 
 
 	# return json.dumps(return_dict, ensure_ascii=False) #json dump version
 	return jsonify(return_dict)
+
 
 def search_and(relation, term):
 	"""
@@ -233,6 +233,69 @@ def search_and(relation, term):
 					else:
 						highlight_list.append(key + " : " + highlight_word(key, term))
 					counter = counter + 1
+			if is_here:
+				t["highlight_list"] = highlight_list
+				results_list += [t]
+				is_here = False
+	return results_list
+
+def search(relation, term):
+	"""
+	relation: the Model, ex: Agency
+	term: the search term to search for
+	"""
+	if not term:
+		return []
+
+	terms_list = term.split(" ")
+	results_list = []
+	results = relation.query.all()
+
+	if results:
+		is_here = False
+		l_term = term.lower()
+		for item in results:
+			t = {}
+			highlight_list = []
+			counter_and = 0
+			for key, value in item.__dict__.items():
+				key = str(key)
+				value = str(value)
+				t[key] = value
+				l_key = key.lower()
+				l_value = value.lower()
+
+				#_sa_instance_state is the key for relationship attributes
+				if not "_sa_instance_state" in l_key and l_key != "id" and (l_term in l_key or l_term in l_value):
+					is_here = True
+					if l_term in l_value:
+						highlight_list.append(key + " : " + highlight_word(value, term))
+					else:
+						highlight_list.append(key + " : " + highlight_word(key, term))
+					counter_and = counter_and + 1
+			if is_here:
+				t["highlight_list"] = highlight_list
+				results_list += [t]
+				is_here = False
+				
+		is_here = False
+		for item in results:
+			t = {}
+			counter_or = 0
+			highlight_list = []
+			for key, value in item.__dict__.items():
+				key = str(key)
+				value = str(value)
+				l_key = key.lower()
+				l_value = value.lower()
+				t[key] = value		
+				for word in terms_list:
+					l_word = word.lower()
+					#_sa_instance_state is the key for relationship attributes
+					if not "_sa_instance_state" in l_key and l_key != "id" and (l_word in l_key or l_word in l_value):
+						is_here = True
+						highlight_list.append(highlight_words((key, value), word))
+						counter_or = counter_or + 1
 			if is_here:
 				t["highlight_list"] = highlight_list
 				results_list += [t]
