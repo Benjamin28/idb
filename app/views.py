@@ -199,46 +199,6 @@ def api_search():
 	# return json.dumps(return_dict, ensure_ascii=False) #json dump version
 	return jsonify(return_dict)
 
-
-def search_and(relation, term):
-	"""
-	relation: the Model, ex: Agency
-	term: the search term to AND search for
-	"""
-	if not term:
-		return []
-
-	results_list = []
-	results = relation.query.all()
-
-	if results:
-		is_here = False
-		l_term = term.lower()
-		for item in results:
-			t = {}
-			highlight_list = []
-			counter = 0
-			for key, value in item.__dict__.items():
-				key = str(key)
-				value = str(value)
-				t[key] = value
-				l_key = key.lower()
-				l_value = value.lower()
-
-				#_sa_instance_state is the key for relationship attributes
-				if not "_sa_instance_state" in l_key and l_key != "id" and (l_term in l_key or l_term in l_value):
-					is_here = True
-					if l_term in l_value:
-						highlight_list.append(key + " : " + highlight_word(value, term))
-					else:
-						highlight_list.append(key + " : " + highlight_word(key, term))
-					counter = counter + 1
-			if is_here:
-				t["highlight_list"] = highlight_list
-				results_list += [t]
-				is_here = False
-	return results_list
-
 def search(relation, term):
 	"""
 	relation: the Model, ex: Agency
@@ -300,48 +260,6 @@ def search(relation, term):
 				t["highlight_list"] = highlight_list
 				results_list += [t]
 				is_here = False
-	return results_list
-
-def search_or(relation, terms_list):
-	"""
-	relation: the Model, ex: Agency
-	terms: the list of search terms to perform OR search on
-	"""
-	if not terms_list or len(terms_list) == 0:
-		return []
-
-	results_list = []
-
-	result = relation.query.all()
-
-	if result:
-
-		exists = False
-		for item in result:
-
-			t = {}
-			counter = 0
-			highlight_list = []
-			for key, value in item.__dict__.items():
-
-				key = str(key)
-				value = str(value)
-
-				l_key = key.lower()
-				l_value = value.lower()
-				t[key] = value
-
-				for word in terms_list:
-					l_word = word.lower()
-					#_sa_instance_state is the key for relationship attributes
-					if not "_sa_instance_state" in l_key and l_key != "id" and (l_word in l_key or l_word in l_value):
-						exists = True
-						highlight_list.append(highlight_words((key, value), word))
-						counter = counter + 1
-			if exists:
-				t["highlight_list"] = highlight_list
-				results_list += [t]
-				exists = False
 	return results_list
 
 #UTILITY METHODS
