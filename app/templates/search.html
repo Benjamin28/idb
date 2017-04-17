@@ -1,50 +1,176 @@
-{% extends "base.html" %}
 
+{% extends "base.html" %}
 {% block styles %}
 <script src="{{ url_for('static', filename='bower_components/react/react.min.js') }}"></script>
 <script src="{{ url_for('static', filename='bower_components/react/react-dom.min.js') }}"></script>
 
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
-<style> 
-input[type=text] {
-    width: 130px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: white;
-    background-image: url('searchicon.png');
-    background-position: 10px 10px; 
-    background-repeat: no-repeat;
-    padding: 12px 20px 12px 40px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-}
-
-input[type=text]:focus {
-    width: 100%;
-}
-</style>
 {% endblock %}
 {% block content %}
 
-<div id="root"></div>
+<div class="container">
+    <h2>Launches</h2>
+   
+    <div class="col-sm-9">
+      
+      <div class="item col-xs-6 col-sm-4" id="col1">
+        <div class="thumbnail" id="thumb1">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col2">
+        <div class="thumbnail" id="thumb2">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col3">
+        <div class="thumbnail" id="thumb3">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col4">
+        <div class="thumbnail" id="thumb4">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col5">
+        <div class="thumbnail" id="thumb5">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col6">
+        <div class="thumbnail" id="thumb6">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col7">
+        <div class="thumbnail" id="thumb7">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col8">
+        <div class="thumbnail" id="thumb8">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col9">
+        <div class="thumbnail" id="thumb9">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col10">
+        <div class="thumbnail" id="thumb10">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col11">
+        <div class="thumbnail" id="thumb10">
+        </div>
+      </div>
+      <div class="item col-xs-6 col-sm-4" id="col12">
+        <div class="thumbnail" id="thumb10">
+        </div>
+      </div>
+
+    </div>
+    <div>
+      <button type="button" class="btn pull-right" id="nextButton">Next</button>
+      <button type="button" class="btn pull-right" id="prevButton">Previous</button>
+    </div>
+  </div>
 
 
-<form id="searchbar">
-  <input type="text" name="search" placeholder="Search..">
-</form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/jsx">
+/** @jsx React.DOM */
+
+var App = React.createClass({
+
+  getInitialState: function() {
+    return {
+      agencies: [],
+      launches: [],
+      locations: [],
+      missions: []
+    }
+  },
+
+  componentDidMount: function() {
+    var _this = this;
+   
+
+    var request = "http://127.0.0.1:5000/api/search?term=government";
+
+    console.log(request);
+    this.serverRequest =
+      axios
+        .get(request)
+        .then(function(result) {
+          
+          var agency = result.data.search_results.agencies.map(function(obj){
+            var rObj = {};
+            rObj[obj.id] = obj.name;
+            return rObj;
+          });
+    
+          var launch = result.data.search_results.launches.map(function(obj){
+            var rObj = {};
+            rObj[obj.id] = obj.name;
+            return rObj;
+          });
+
+          var location = result.data.search_results.locations.map(function(obj){
+            var rObj = {};
+            rObj[obj.id] = obj.name;
+            return rObj;
+          });
+
+          var mission = result.data.search_results.missions.map(function(obj){
+            var rObj = {};
+            rObj[obj.id] = obj.name;
+            return rObj;
+          });
+
+          _this.setState({launches: launch});
+          _this.setState({locations: location});
+          _this.setState({missions: mission});
+          _this.setState({agencies: agency});
 
 
-<div class="col-md-10 col-md-offset-1">
-</div>
+        })
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  },
+
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+  render: function() {
+    var index = this.props.items
+    var url = "/launches?id="+this.state.ids[index];
+    return <div class="thumbnail">
+             <img className="pic" src={this.state.images[index]} ></img>
+             <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
+           </div>
+
+  }
+});
+function drawTables(numTables){
+
+  var i;
+  for(i=0; i<numTables; i++){
+
+    ReactDOM.render(
+      React.createElement(App, {items: i}),
+      document.getElementById('col'+(i+1))
+    );
+    document.getElementById('col'+(i+1)).childNodes[0].className+= " thumbnail";
+
+  }
+}
+drawTables(12);
+
+</script>
 
 
+
+<!-- Above lines of code says that this html file will take all the HTML from base.html. -->
+<!-- In base.html, I've written where the content will be put in for the html files that extend base.html. Look at index.html for an example-->
+
+<!-- Put any html that this page will display between block content and end block -->
 
 
 {% endblock %}
