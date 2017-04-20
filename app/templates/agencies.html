@@ -6,28 +6,28 @@
 {% block content %}
 
 <div class="container">
-    <h2>Agencies</h2>
+    <h1>AGENCIES</h1>
     <div class="col-sm-3">
       <ul class="list-unstyled">
         <li>
-          <p>Agency Type</p>
+          <h3>Agency Type</h3>
           <form>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="Government" value="Government">Government</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="Multinational" value="Multinational">Multinational</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="Commercial" value="Commercial">Commercial</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="Educational" value="Educational">Educational</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="Private" value="Private">Private</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="Unknown" value="Unknown">Unknown</label>
             </div>
           </form>
@@ -36,8 +36,8 @@
       </ul>
     </div>
     <div class="col-sm-9">
-      <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle waves-attach" type="button" data-toggle="dropdown">Sort:</button>
+      <div class="btn-group">
+        <button class="btn btn-raised dropdown-toggle" id="sort" type="btn btn-raised dropdown-toggle" data-toggle="dropdown">Sort<span class="caret"></span></button>
         <ul class="dropdown-menu">
           <li><a href="#" onclick="return false" id="namea">Name (A-Z)</a></li>
           <li><a href="#" onclick="return false" id="named">Name (Z-A)</a></li>
@@ -45,6 +45,7 @@
           <li><a href="#" onclick="return false" id="ccd">Country Code (Z-A)</a></li>
         </ul>
       </div>
+      <br>
       <div class="item col-xs-6 col-sm-4" id="col1">
         <div class="thumbnail" id="thumb1">
         </div>
@@ -93,10 +94,10 @@
         <div class="thumbnail" id="thumb10">
         </div>
       </div>
-    </div>
-    <div>
-      <button type="button" class="btn pull-right" id="nextButton">Next</button>
-      <button type="button" class="btn pull-right" id="prevButton">Previous</button>
+      <div class="btn-group pull-right">
+        <button type="button" class="btn btn-raised navbutton" id="prevButton">Previous</button>
+        <button type="button" class="btn btn-raised navbutton" id="nextButton">Next</button>
+      </div>
     </div>
   </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
@@ -159,10 +160,12 @@ var App = React.createClass({
   render: function() {
     var index = this.props.items
     var url = "/agencies?id="+this.state.ids[index];
-    return <div class="thumbnail">
+    return <a href={url}>
+          <div className="thumbnail">
             <img className="pic" src={this.state.images[index]}></img>
-            <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
+            <div className="caption">{this.state.names[index]}</div>
            </div>
+           </a>
 
   }
 });
@@ -176,7 +179,6 @@ function drawTables(numTables){
       React.createElement(App, {items: i}),
       document.getElementById('col'+(i+1))
     );
-    document.getElementById('col'+(i+1)).childNodes[0].className+= " thumbnail";
 
   }
 }

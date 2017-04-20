@@ -64,7 +64,6 @@
  <form id="searchbar">
    <input type="text" name="term" placeholder="Search..">
  </form>
-  <h1> Search Results </h1>
   <div id="table"></div>
 </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
@@ -155,6 +154,7 @@ var App = React.createClass({
     var or_missions = this.state.or_missions;
     var name = "name";
     var highlight_list = "highlight_list";
+    var search = "Search Results for \'" + getParameterByName("term") + "\'"
     var Table = Reactable.Table,
       Thead = Reactable.Thead,
       Th = Reactable.Th,
@@ -163,9 +163,16 @@ var App = React.createClass({
       unsafe = Reactable.unsafe;
 
     return <div className="col-md-10 col-md-offset-1">
+          <h1 className="header">{search}</h1>
           <h3>AND result</h3>
+<<<<<<< HEAD
           <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5} >
           <Thead>
+=======
+
+          <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>   
+>>>>>>> 7c0262f1a6d5109d1bcc52f6f5d5439c82540bab
             <Th column="name">
               <strong className="name-header">Agency</strong>
             </Th>

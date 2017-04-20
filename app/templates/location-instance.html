@@ -56,12 +56,12 @@ var App = React.createClass({
 	var img = "https://restcountries.eu/data/"+(this.state.cc.toLowerCase())+".svg"
     return(
 		<div className="col-md-10 col-md-offset-1">
-			<h1>{this.state.name}</h1>
+			<h1 className="header">{this.state.name}</h1>
 			<hr></hr>
 			<h3>Country Code: {this.state.cc}</h3>
 			<h3 className="inline-dropdown">Launches:</h3>
 			<div className="dropdown dropdown-text">
-		        <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+		        <button className="btn btn-raised dropdown-toggle" type="button" data-toggle="dropdown">Choose One
 		          <span className="caret"></span></button>
 		        <ul className="dropdown-menu">
 		          {launch_keys.map(function(key) {

@@ -69,14 +69,14 @@ var App = React.createClass({
     var mission_keys = Object.keys(this.state.missions)
     return(
 		<div className="col-md-10 col-md-offset-1">
-		<h1>{this.state.name}</h1>
+		<h1 className="header">{this.state.name}</h1>
 			<hr></hr>
 			<h3>Country Code: {this.state.cc}</h3>
 			<h3>Type: {this.state.tt}</h3>
 			<h3>Abbreviation: {this.state.abbrev}</h3>
 			<h3 className="inline-dropdown">Launches:</h3>
 			<div className="dropdown dropdown-text">
-        	<button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+        	<button className="btn btn-raised dropdown-toggle" type="button" data-toggle="dropdown">Choose One
           	<span className="caret"></span></button>
 					<ul className="dropdown-menu">
             {launch_keys.map(function(key) {
@@ -87,14 +87,14 @@ var App = React.createClass({
 			<br></br>
 			<h3 className="inline-dropdown">Missions:</h3>
 			<div className="dropdown dropdown-text">
-        <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose One
+        <button className="btn btn-raised dropdown-toggle" type="button" data-toggle="dropdown">Choose One
           <span className="caret"></span></button>
         <ul className="dropdown-menu">
           {mission_keys.map(function(key) {
               return <li><a href={"/missions?id=" + key}>{mission_dict[key]}</a></li>;
             })}
         </ul>
-    </div>
+      </div>
 		<hr></hr>
     <iframe className="iframe" height="500" width="100%" src={this.state.wiki}></iframe>
     {/*<h3><a href={this.state.wiki}>Wikipedia</a></h3>*/}
