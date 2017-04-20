@@ -5,78 +5,17 @@
 <script src="{{ url_for('static', filename='bower_components/react/react-dom.min.js') }}"></script>
 
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
+<link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css">
 {% endblock %}
 {% block content %}
 
-<div class="container">
-    <h2>Launches</h2>
-   
-    <div class="col-sm-9">
-      
-      <div class="item col-xs-6 col-sm-4" id="col1">
-        <div class="thumbnail" id="thumb1">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col2">
-        <div class="thumbnail" id="thumb2">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col3">
-        <div class="thumbnail" id="thumb3">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col4">
-        <div class="thumbnail" id="thumb4">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col5">
-        <div class="thumbnail" id="thumb5">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col6">
-        <div class="thumbnail" id="thumb6">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col7">
-        <div class="thumbnail" id="thumb7">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col8">
-        <div class="thumbnail" id="thumb8">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col9">
-        <div class="thumbnail" id="thumb9">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col10">
-        <div class="thumbnail" id="thumb10">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col11">
-        <div class="thumbnail" id="thumb10">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col12">
-        <div class="thumbnail" id="thumb10">
-        </div>
-      </div>
-
-    </div>
-    <div>
-      <button type="button" class="btn pull-right" id="nextButton">Next</button>
-      <button type="button" class="btn pull-right" id="prevButton">Previous</button>
-    </div>
-  </div>
-
-
+<div id="root"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/jsx">
 /** @jsx React.DOM */
-
 var App = React.createClass({
 
   getInitialState: function() {
@@ -100,34 +39,18 @@ var App = React.createClass({
         .get(request)
         .then(function(result) {
           
-          var agency = result.data.search_results.agencies.map(function(obj){
-            var rObj = {};
-            rObj[obj.id] = obj.name;
-            return rObj;
-          });
+          const agencies = result.data.search_results.agencies;
     
-          var launch = result.data.search_results.launches.map(function(obj){
-            var rObj = {};
-            rObj[obj.id] = obj.name;
-            return rObj;
-          });
+          const launches = result.data.search_results.launches;
 
-          var location = result.data.search_results.locations.map(function(obj){
-            var rObj = {};
-            rObj[obj.id] = obj.name;
-            return rObj;
-          });
+          const locations = result.data.search_results.locations;
 
-          var mission = result.data.search_results.missions.map(function(obj){
-            var rObj = {};
-            rObj[obj.id] = obj.name;
-            return rObj;
-          });
+          const missions = result.data.search_results.missions;
 
-          _this.setState({launches: launch});
-          _this.setState({locations: location});
-          _this.setState({missions: mission});
-          _this.setState({agencies: agency});
+          _this.setState({launches: launches});
+          _this.setState({locations: locations});
+          _this.setState({missions: missions});
+          _this.setState({agencies: agencies});
 
 
         })
@@ -139,32 +62,52 @@ var App = React.createClass({
   },
 
   render: function() {
-    var index = this.props.items
-    var url = "/launches?id="+this.state.ids[index];
-    return <div class="thumbnail">
-             <img className="pic" src={this.state.images[index]} ></img>
-             <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
-           </div>
+    var agencies = this.state.agencies;
+    const ReactTable = window.ReactTable.default;
 
+    const columns = [{
+      header: 'Agencies',
+      columns: [{
+        header: 'Name',
+        accessor: 'name'
+      }, {
+        header: 'Context',
+        id: 'context',
+        accessor: 'highlight_list'
+      }]
+    }]
+
+    return <div>
+      <ReactTable getTdProps={(state, rowInfo, column, instance) => {
+    return {
+      onClick: e => {
+        console.log('A Td Element was clicked!')
+        console.log('it produced this event:', e)
+        console.log('It was in this column:', column)
+        console.log('It was in this row:', rowInfo)
+        console.log('It was in this table instance:', instance)
+      }
+    }
+  }} pageSize={10} className="-striped -highlight"
+        data={agencies}
+        columns={columns}
+      ></ReactTable>
+    </div>
   }
 });
-function drawTables(numTables){
-
-  var i;
-  for(i=0; i<numTables; i++){
-
-    ReactDOM.render(
-      React.createElement(App, {items: i}),
-      document.getElementById('col'+(i+1))
-    );
-    document.getElementById('col'+(i+1)).childNodes[0].className+= " thumbnail";
-
-  }
+function drawInstance(){
+  console.log('want to draw')
+  ReactDOM.render(
+    React.createElement(App, {items: 0}),
+    document.getElementById('root')
+  );
 }
-drawTables(12);
+drawInstance();
 
 </script>
-
+<script>
+    var ReactTable = window.ReactTable.default
+  </script>
 
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->

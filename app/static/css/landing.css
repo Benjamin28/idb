@@ -1,6 +1,5 @@
 html,
 body {
-	background-color: black;
 	height: 100%;
 	-webkit-animation: fadein .55s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein .55s; /* Firefox < 16 */
@@ -21,6 +20,7 @@ body {
 .container {
 	height: 100%;
 	width: 100%;
+	max-width: none;
 }
 
 .container {
@@ -34,9 +34,6 @@ body {
   width: 100%;
   height: 100%;
 }
-.navbar-header {
-	padding-left: 20px;
-}
 
 .navbar {
 	margin: 0;
@@ -44,13 +41,17 @@ body {
 	background: none;
 	border: none;
 	font-family: "Montserrat";
+	box-shadow: none;
+}
+.navbar.navbar-inverse {
+    background-color: transparent;
 }
 .navbar .container {
 	width: 95%;
 	padding: 0px 15px;
 }
-.navbar-brand,
-.navbar-nav li a {
+
+.navbar .navbar-nav li a {
     padding: 2em 1.5em;
 }
 .navbar-inverse .navbar-brand,

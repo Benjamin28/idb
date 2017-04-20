@@ -1,5 +1,5 @@
 body {
-  padding-top: 76px;
+  padding-top: 120px;
   font-family: "Open Sans";
 }
 html,
@@ -8,7 +8,7 @@ body {
 }
 
 .navbar-header {
-	padding-left: 20px;
+
 }
 
 .navbar {
@@ -23,6 +23,9 @@ body {
 .navbar .container {
 	width: 95%;
 }
+.navbar.navbar-inverse {
+    background-color: white;
+}
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-nav li a,
 .navbar-inverse .navbar-nav li a:hover{
@@ -32,14 +35,20 @@ body {
 .navbar-inverse .navbar-nav li a:focus {
 	color: black;
 	}
-.navbar-brand,
-.navbar-nav li a {
+
+.navbar .navbar-nav li a {
     padding: 2em 1.5em;
 }
+
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-nav li a {
     text-shadow: none;
     color: black;
+    padding: none;
+}
+
+.container {
+	max-width: none;
 }
 .featurette-divider {
 	margin: 80px 0;
