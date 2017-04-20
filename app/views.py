@@ -37,9 +37,15 @@ def mission_instance():
 def search():
 	return render_template("search.html")
 
-@app.route('/data_visualization')
-def data_visualization():
-	return render_template("test.html")
+# <<<<<<< HEAD
+# @app.route('/data_visualization')
+# def data_visualization():
+# 	return render_template("test.html")
+# =======
+@app.route('/visualization')
+def visualization():
+	return render_template("visualization.html")
+#>>>>>>> 2b0ed2c6cd7388e50504d8a1ce97317e4e9db993
 
 @app.route('/about/testResults', methods=['GET'])
 def getTestResults():

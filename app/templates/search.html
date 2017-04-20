@@ -1,82 +1,21 @@
 
 {% extends "base.html" %}
 {% block styles %}
-<script src="{{ url_for('static', filename='bower_components/react/react.min.js') }}"></script>
-<script src="{{ url_for('static', filename='bower_components/react/react-dom.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/react/react.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/react/react-dom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/reactable.js') }}"></script>
 
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
 {% endblock %}
 {% block content %}
 
-<div class="container">
-    <h2>Launches</h2>
-   
-    <div class="col-sm-9">
-      
-      <div class="item col-xs-6 col-sm-4" id="col1">
-        <div class="thumbnail" id="thumb1">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col2">
-        <div class="thumbnail" id="thumb2">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col3">
-        <div class="thumbnail" id="thumb3">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col4">
-        <div class="thumbnail" id="thumb4">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col5">
-        <div class="thumbnail" id="thumb5">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col6">
-        <div class="thumbnail" id="thumb6">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col7">
-        <div class="thumbnail" id="thumb7">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col8">
-        <div class="thumbnail" id="thumb8">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col9">
-        <div class="thumbnail" id="thumb9">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col10">
-        <div class="thumbnail" id="thumb10">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col11">
-        <div class="thumbnail" id="thumb10">
-        </div>
-      </div>
-      <div class="item col-xs-6 col-sm-4" id="col12">
-        <div class="thumbnail" id="thumb10">
-        </div>
-      </div>
-
-    </div>
-    <div>
-      <button type="button" class="btn pull-right" id="nextButton">Next</button>
-      <button type="button" class="btn pull-right" id="prevButton">Previous</button>
-    </div>
-  </div>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+<div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/jsx">
 /** @jsx React.DOM */
-
 var App = React.createClass({
 
   getInitialState: function() {
@@ -92,7 +31,7 @@ var App = React.createClass({
     var _this = this;
    
 
-    var request = "http://127.0.0.1:5000/api/search?term=government";
+    var request = "/api/search?term="+getParameterByName("term");
 
     console.log(request);
     this.serverRequest =
@@ -100,36 +39,18 @@ var App = React.createClass({
         .get(request)
         .then(function(result) {
           
-          var agency = result.data.search_results.agencies.map(function(obj){
-            var rObj = {};
-            rObj[obj.id] = obj.name;
-            return rObj;
-          });
+          const agencies = result.data.search_results.agencies;
     
-          var launch = result.data.search_results.launches.map(function(obj){
-            var rObj = {};
-            rObj[obj.id] = obj.name;
-            return rObj;
-          });
+          const launches = result.data.search_results.launches;
 
-          var location = result.data.search_results.locations.map(function(obj){
-            var rObj = {};
-            rObj[obj.id] = obj.name;
-            return rObj;
-          });
+          const locations = result.data.search_results.locations;
 
-          var mission = result.data.search_results.missions.map(function(obj){
-            var rObj = {};
-            rObj[obj.id] = obj.name;
-            return rObj;
-          });
+          const missions = result.data.search_results.missions;
 
-          _this.setState({launches: launch});
-          _this.setState({locations: location});
-          _this.setState({missions: mission});
-          _this.setState({agencies: agency});
-
-
+          _this.setState({launches: launches});
+          _this.setState({locations: locations});
+          _this.setState({missions: missions});
+          _this.setState({agencies: agencies});
         })
 
   },
@@ -139,34 +60,119 @@ var App = React.createClass({
   },
 
   render: function() {
-    var index = this.props.items
-    var url = "/launches?id="+this.state.ids[index];
-    return <div class="thumbnail">
-             <img className="pic" src={this.state.images[index]} ></img>
-             <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
-           </div>
+    var agencies = this.state.agencies;
+    var launches = this.state.launches;
+    var locations = this.state.locations;
+    var missions = this.state.missions;
+    var name = "name";
+    var highlight_list = "highlight_list";
+    var Table = Reactable.Table,
+      Thead = Reactable.Thead,
+      Th = Reactable.Th,
+      Tr = Reactable.Tr,
+      Td = Reactable.Td;
+      unsafe = Reactable.unsafe;
 
+    return <div className="col-md-10 col-md-offset-1">
+          <h1> Search Results </h1>
+          <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Agency</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {agencies.map(function(obj) {
+            return <Tr>
+                <Td column="name" >
+                   <a href={"/agencies?id=" + obj["id"]}>{obj[name]}</a>
+                </Td>
+                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+            </Tr>
+          })}
+      </Table>
+      <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Launch</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {launches.map(function(obj) {
+            return <Tr>
+                <Td column="name">
+                   <a href={"/launches?id=" + obj["id"]}>{obj[name]}</a>
+                </Td>
+                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+            </Tr>
+          })}
+      </Table>
+      <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Location</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {locations.map(function(obj) {
+            return <Tr>
+                <Td column="name">
+                   <a href={"/locations?id=" + obj["id"]}>{obj[name]}</a>
+                </Td>
+                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+            </Tr>
+          })}
+      </Table>
+      <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Mission</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {missions.map(function(obj) {
+            return <Tr>
+                <Td column="name">
+                   <a href={"/missions?id=" + obj["id"]}>{obj[name]}</a>
+                </Td>
+                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+            </Tr>
+          })}
+      </Table>
+    </div>
   }
 });
-function drawTables(numTables){
-
-  var i;
-  for(i=0; i<numTables; i++){
-
-    ReactDOM.render(
-      React.createElement(App, {items: i}),
-      document.getElementById('col'+(i+1))
-    );
-    document.getElementById('col'+(i+1)).childNodes[0].className+= " thumbnail";
-
-  }
+function drawInstance(){
+  console.log('want to draw')
+  ReactDOM.render(
+    React.createElement(App, {items: 0}),
+    document.getElementById('root')
+  );
 }
-drawTables(12);
+drawInstance();
 
 </script>
-
-
-
+<script>
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+</script>
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
 <!-- In base.html, I've written where the content will be put in for the html files that extend base.html. Look at index.html for an example-->
 
