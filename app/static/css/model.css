@@ -166,3 +166,28 @@ tr.reactable-filterer td {
   margin-right: 20px;
   padding: 5px;
 }
+
+path:hover {
+  fill-opacity: .7;
+}
+
+/* Style for Custom Tooltip */
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 60px;                  
+  height: 45px;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: white;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
+}
+        
+/* Legend Position Style */
+.legend {
+  position:absolute;
+  left:1000px;
+  top:350px;
+}
