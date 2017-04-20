@@ -195,7 +195,7 @@ def api_search():
 		query_list = m.query
 		if 'term' in req_str:
 			search_terms = req_str.replace("term=", "")
-			search_terms_list = search_terms.split(" ")
+			search_terms_list = search_terms.split("+")
 			and_str = "and_" + m_str
 			or_str = "or_" + m_str
 			return_dict["and_search"][and_str] = search_and(m, search_terms)
