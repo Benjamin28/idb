@@ -9,7 +9,10 @@
 {% endblock %}
 {% block content %}
 
-<div id="root"></div>
+<div id="root">
+  <h1> Search Results </h1>
+  <div id="table"></div>
+</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
@@ -20,6 +23,14 @@ var App = React.createClass({
 
   getInitialState: function() {
     return {
+      and_agencies: [],
+      and_launches: [],
+      and_locations: [],
+      and_missions: [],
+      or_agencies: [],
+      or_launches: [],
+      or_locations: [],
+      or_missions: [],
       agencies: [],
       launches: [],
       locations: [],
@@ -39,18 +50,37 @@ var App = React.createClass({
         .get(request)
         .then(function(result) {
           
-          const agencies = result.data.search_results.agencies;
+          const and_agencies = result.data.and_search.and_agencies;
     
-          const launches = result.data.search_results.launches;
+          const and_launches = result.data.and_search.and_launches;
 
-          const locations = result.data.search_results.locations;
+          const and_locations = result.data.and_search.and_locations;
 
-          const missions = result.data.search_results.missions;
+          const and_missions = result.data.and_search.and_missions;
 
-          _this.setState({launches: launches});
-          _this.setState({locations: locations});
-          _this.setState({missions: missions});
-          _this.setState({agencies: agencies});
+          _this.setState({and_launches: and_launches});
+          _this.setState({and_locations: and_locations});
+          _this.setState({and_missions: and_missions});
+          _this.setState({and_agencies: and_agencies});
+
+          const or_agencies = result.data.or_search.or_agencies;
+    
+          const or_launches = result.data.or_search.or_launches;
+
+          const or_locations = result.data.or_search.or_locations;
+
+          const or_missions = result.data.or_search.or_missions;
+
+          _this.setState({or_launches: or_launches});
+          _this.setState({or_locations: or_locations});
+          _this.setState({or_missions: or_missions});
+          _this.setState({or_agencies: or_agencies});
+
+          _this.setState({agencies: and_agencies});
+          _this.setState({locations: and_locations});
+          _this.setState({missions: and_missions});
+          _this.setState({launches: and_launches});
+
         })
 
   },
@@ -60,10 +90,15 @@ var App = React.createClass({
   },
 
   render: function() {
-    var agencies = this.state.agencies;
-    var launches = this.state.launches;
-    var locations = this.state.locations;
-    var missions = this.state.missions;
+    var and_agencies = this.state.and_agencies;
+    var and_launches = this.state.and_launches;
+    var and_locations = this.state.and_locations;
+    var and_missions = this.state.and_missions;
+
+    var or_agencies = this.state.or_agencies;
+    var or_launches = this.state.or_launches;
+    var or_locations = this.state.or_locations;
+    var or_missions = this.state.or_missions;
     var name = "name";
     var highlight_list = "highlight_list";
     var Table = Reactable.Table,
@@ -74,7 +109,7 @@ var App = React.createClass({
       unsafe = Reactable.unsafe;
 
     return <div className="col-md-10 col-md-offset-1">
-          <h1> Search Results </h1>
+          <h3>AND result</h3>
           <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
           <Thead>
             <Th column="name">
@@ -84,15 +119,15 @@ var App = React.createClass({
               <strong className="age-header">Context</strong>
             </Th>
           </Thead>
-          {agencies.map(function(obj) {
+          {and_agencies.map(function(obj) {
             return <Tr>
                 <Td column="name" >
-                   <a href={"/agencies?id=" + obj["id"]}>{obj[name]}</a>
+                   <a href={"/agencies?id=" + obj.id}>{obj.name}</a>
                 </Td>
-                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+                <Td column="age">{unsafe(obj.highlight_list)}</Td>
             </Tr>
           })}
-      </Table>
+          </Table>
       <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
           <Thead>
             <Th column="name">
@@ -102,12 +137,12 @@ var App = React.createClass({
               <strong className="age-header">Context</strong>
             </Th>
           </Thead>
-          {launches.map(function(obj) {
+          {and_launches.map(function(obj) {
             return <Tr>
                 <Td column="name">
-                   <a href={"/launches?id=" + obj["id"]}>{obj[name]}</a>
+                   <a href={"/launches?id=" + obj.id}>{obj.name}</a>
                 </Td>
-                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+                <Td column="age">{unsafe(obj.highlight_list)}</Td>
             </Tr>
           })}
       </Table>
@@ -120,12 +155,12 @@ var App = React.createClass({
               <strong className="age-header">Context</strong>
             </Th>
           </Thead>
-          {locations.map(function(obj) {
+          {and_locations.map(function(obj) {
             return <Tr>
                 <Td column="name">
-                   <a href={"/locations?id=" + obj["id"]}>{obj[name]}</a>
+                   <a href={"/locations?id=" + obj.id}>{obj.name}</a>
                 </Td>
-                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+                <Td column="age">{unsafe(obj.highlight_list)}</Td>
             </Tr>
           })}
       </Table>
@@ -138,23 +173,98 @@ var App = React.createClass({
               <strong className="age-header">Context</strong>
             </Th>
           </Thead>
-          {missions.map(function(obj) {
+          {and_missions.map(function(obj) {
             return <Tr>
                 <Td column="name">
-                   <a href={"/missions?id=" + obj["id"]}>{obj[name]}</a>
+                   <a href={"/missions?id=" + obj.id}>{obj.name}</a>
                 </Td>
-                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+                <Td column="age">{unsafe(obj.highlight_list)}</Td>
+            </Tr>
+          })}
+      </Table>
+
+      <h3>OR result</h3>
+          <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Agency</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {or_agencies.map(function(obj) {
+            return <Tr>
+                <Td column="name" >
+                   <a href={"/agencies?id=" + obj.id}>{obj.name}</a>
+                </Td>
+                <Td column="age">{unsafe(obj.highlight_list)}</Td>
+            </Tr>
+          })}
+          </Table>
+      <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Launch</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {or_launches.map(function(obj) {
+            return <Tr>
+                <Td column="name">
+                   <a href={"/launches?id=" + obj.id}>{obj.name}</a>
+                </Td>
+                <Td column="age">{unsafe(obj.highlight_list)}</Td>
+            </Tr>
+          })}
+      </Table>
+      <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Location</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {or_locations.map(function(obj) {
+            return <Tr>
+                <Td column="name">
+                   <a href={"/locations?id=" + obj.id}>{obj.name}</a>
+                </Td>
+                <Td column="age">{unsafe(obj.highlight_list)}</Td>
+            </Tr>
+          })}
+      </Table>
+      <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Mission</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {or_missions.map(function(obj) {
+            return <Tr>
+                <Td column="name">
+                   <a href={"/missions?id=" + obj.id}>{obj.name}</a>
+                </Td>
+                <Td column="age">{unsafe(obj.highlight_list)}</Td>
             </Tr>
           })}
       </Table>
     </div>
   }
 });
+
 function drawInstance(){
   console.log('want to draw')
   ReactDOM.render(
     React.createElement(App, {items: 0}),
-    document.getElementById('root')
+    document.getElementById('table')
   );
 }
 drawInstance();
@@ -171,6 +281,16 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+</script>
+<script type="text/javascript">
+function onoff(){
+  currentvalue = document.getElementById('onoff').value;
+  if(currentvalue == "Off"){
+    document.getElementById("onoff").value="On";
+  }else{
+    document.getElementById("onoff").value="Off";
+  }
 }
 </script>
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
