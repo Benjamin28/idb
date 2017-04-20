@@ -9,67 +9,67 @@
 {% block content %}
 
 <div class="container">
-    <h2>Locations</h2>
+    <h1>LOCATIONS</h1>
     <div class="col-sm-3">
       <ul class="list-unstyled">
         <li>
-          <p>Country Code</p>
+          <h3>Country Code</h3>
           <form>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="chnbox" value="CHN">CHN</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="dzabox" value="DZA">DZA</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="gufbox" value="GUF">GUF</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="indbox" value="IND">IND</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="irnbox" value="IRN">IRN</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="isrbox" value="ISR">ISR</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="jpnbox" value="JPN">JPN</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="kazbox" value="KAZ">KAZ</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="kenbox" value="KEN">KEN</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="korbox" value="KOR">KOR</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="nzlbox" value="NZL">NZL</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="prkbox" value="PRK">PRK</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="rusbox" value="RUS">RUS</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="unkbox" value="UNK">UNK</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="usabox" value="USA">USA</label>
             </div>
-            <div class="checkbox">
-              <label><input type="checkbox" id="rmibox" value="rmi">rmi</label>
+            <div>
+              <label><input type="checkbox" id="rmibox" value="rmi">RMI</label>
             </div>
           </form>
-          <button type="button" id="filter" onclick="doFilter()">Filter</button>
+          <button type="button" id="filter" onclick="doFilter()" class="btn btn-raised btn-default">Filter</button>
         </li>
     </div>
     <div class="col-sm-9">
       <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
+        <button class="btn btn-raised dropdown-toggle" id="sort" type="button" data-toggle="dropdown">Sort:
           <span class="caret"></span></button>
         <ul class="dropdown-menu">
           <li><a href="#" onclick="return false" id="namea">Name (A-Z)</a></li>
@@ -127,12 +127,12 @@
         <div class="thumbnail" id="thumb12">
         </div>
       </div>
+      <div class="btn-group pull-right">
+        <button type="button" class="btn btn-raised navbutton" id="prevButton">Previous</button>
+        <button type="button" class="btn btn-raised navbutton" id="nextButton">Next</button>
+      </div>
+    </div>
 
-    </div>
-    <div>
-      <button type="button" class="btn pull-right" id="nextButton">Next</button>
-      <button type="button" class="btn pull-right" id="prevButton">Previous</button>
-    </div>
   </div>
 
 
@@ -209,10 +209,12 @@ var App = React.createClass({
     } else {
       img = "https://restcountries.eu/data/"+((this.state.country[index].substring(0, 3)).toLowerCase())+".svg"
     }
-    return <div className="thumbnail">
-             <img className="picflags" src={img}></img>
-            <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
-            </div>
+    return <a href={url}>
+          <div className="thumbnail">
+            <img className="picflags" src={img}></img>
+            <div className="caption">{this.state.names[index]}</div>
+           </div>
+           </a>
   }
 });
 function drawTables(numTables){

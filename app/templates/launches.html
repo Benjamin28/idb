@@ -9,32 +9,32 @@
 {% block content %}
 
 <div class="container">
-    <h2>Launches</h2>
+    <h1>LAUNCHES</h1>
     <div class="col-sm-3">
       <ul class="list-unstyled">
         <li>
-          <p>Status</p>
+          <h3>Status</h3>
           <form>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="sbox" value="SUCCESS">Success</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="fbox" value="FAIL">Fail</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="gbox" value="GREEN">Green</label>
             </div>
-            <div class="checkbox">
+            <div>
               <label><input type="checkbox" id="rbox" value="RED">Red</label>
             </div>
           </form>
-          <button type="button" id="filter" onclick="doFilter()">Filter</button>
+          <button type="button" id="filter" onclick="doFilter()" class="btn btn-raised btn-default">Filter</button>
         </li>
       </ul>
     </div>
     <div class="col-sm-9">
       <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort:
+        <button class="btn btn-raised dropdown-toggle" id="sort" type="button" data-toggle="dropdown">Sort:
           <span class="caret"></span></button>
         <ul class="dropdown-menu">
           <li><a href="#" onclick="return false" id="namea">Name (A-Z)</a></li>
@@ -93,11 +93,10 @@
         <div class="thumbnail" id="thumb10">
         </div>
       </div>
-
-    </div>
-    <div>
-      <button type="button" class="btn pull-right" id="nextButton">Next</button>
-      <button type="button" class="btn pull-right" id="prevButton">Previous</button>
+      <div class="btn-group pull-right">
+        <button type="button" class="btn btn-raised navbutton" id="prevButton">Previous</button>
+        <button type="button" class="btn btn-raised navbutton" id="nextButton">Next</button>
+      </div>
     </div>
   </div>
 
@@ -171,11 +170,12 @@ var App = React.createClass({
   render: function() {
     var index = this.props.items
     var url = "/launches?id="+this.state.ids[index];
-    return <div class="thumbnail">
-             <img className="pic" src={this.state.images[index]} ></img>
-             <div className="caption"><a href={url}>{this.state.names[index]}</a></div>
+    return <a href={url}>
+          <div className="thumbnail">
+            <img className="pic" src={this.state.images[index]}></img>
+            <div className="caption">{this.state.names[index]}</div>
            </div>
-
+           </a>
   }
 });
 function drawTables(numTables){
@@ -187,8 +187,6 @@ function drawTables(numTables){
       React.createElement(App, {items: i}),
       document.getElementById('col'+(i+1))
     );
-    document.getElementById('col'+(i+1)).childNodes[0].className+= " thumbnail";
-
   }
 }
 drawTables(12);
