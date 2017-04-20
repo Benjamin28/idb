@@ -186,8 +186,7 @@ def api_search():
 	# Model list
 	MODELS = [[Agency, "agencies"], [Launch, "launches"], [Location, "locations"], [Mission, "missions"]]
 
-	# return_dict = {"and_search":{}, "or_search":{}}
-	return_dict = {"search_results":{}}
+	return_dict = {"and_search":{}, "or_search":{}}
 
 	for modl in MODELS:
 		m = modl[0]
@@ -199,9 +198,11 @@ def api_search():
 			search_terms_list = search_terms.split(" ")
 			and_str = "and_" + m_str
 			or_str = "or_" + m_str
-			# return_dict["and_search"][and_str] = search_and(m, search_terms)
-			# return_dict["or_search"][or_str] = search_or(m, search_terms_list)
-			return_dict["search_results"][m_str] = search(m, search_terms)
+			return_dict["and_search"][and_str] = search_and(m, search_terms)
+			return_dict["or_search"][or_str] = search_or(m, search_terms_list)
+			
+			# return_dict["and_search"][m_str] = search_and(m, search_terms)
+			# return_dict["or_search"][m_str] = search_or(m, search_terms_list)
 		else:
 			return {}
 
@@ -209,15 +210,14 @@ def api_search():
 	# return json.dumps(return_dict, ensure_ascii=False) #json dump version
 	return jsonify(return_dict)
 
-def search(relation, term):
+def search_and(relation, term):
 	"""
 	relation: the Model, ex: Agency
-	term: the search term to search for
+	term: the search term to AND search for
 	"""
 	if not term:
 		return []
 
-	terms_list = term.split(" ")
 	results_list = []
 	results = relation.query.all()
 
@@ -227,7 +227,7 @@ def search(relation, term):
 		for item in results:
 			t = {}
 			highlight_list = []
-			counter_and = 0
+			counter = 0
 			for key, value in item.__dict__.items():
 				key = str(key)
 				value = str(value)
@@ -242,34 +242,53 @@ def search(relation, term):
 						highlight_list.append(key + " : " + highlight_word(value, term))
 					else:
 						highlight_list.append(key + " : " + highlight_word(key, term))
-					counter_and = counter_and + 1
+					counter = counter + 1
 			if is_here:
 				t["highlight_list"] = highlight_list
 				results_list += [t]
 				is_here = False
-				
-		is_here = False
-		for item in results:
+	return results_list
+
+def search_or(relation, terms_list):
+	"""
+	relation: the Model, ex: Agency
+	terms: the list of search terms to perform OR search on
+	"""
+	if not terms_list or len(terms_list) == 0:
+		return []
+
+	results_list = []
+
+	result = relation.query.all()
+
+	if result:
+
+		exists = False
+		for item in result:
+
 			t = {}
-			counter_or = 0
+			counter = 0
 			highlight_list = []
 			for key, value in item.__dict__.items():
+
 				key = str(key)
 				value = str(value)
+
 				l_key = key.lower()
 				l_value = value.lower()
-				t[key] = value		
+				t[key] = value
+
 				for word in terms_list:
 					l_word = word.lower()
 					#_sa_instance_state is the key for relationship attributes
 					if not "_sa_instance_state" in l_key and l_key != "id" and (l_word in l_key or l_word in l_value):
-						is_here = True
+						exists = True
 						highlight_list.append(highlight_words((key, value), word))
-						counter_or = counter_or + 1
-			if is_here:
+						counter = counter + 1
+			if exists:
 				t["highlight_list"] = highlight_list
 				results_list += [t]
-				is_here = False
+				exists = False
 	return results_list
 
 #UTILITY METHODS
