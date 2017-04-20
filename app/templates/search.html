@@ -1,17 +1,17 @@
 
 {% extends "base.html" %}
 {% block styles %}
-<script src="{{ url_for('static', filename='bower_components/react/react.min.js') }}"></script>
-<script src="{{ url_for('static', filename='bower_components/react/react-dom.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/react/react.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/react/react-dom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/reactable.js') }}"></script>
 
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
-<link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css">
 {% endblock %}
 {% block content %}
 
 <div id="root"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/jsx">
@@ -31,7 +31,7 @@ var App = React.createClass({
     var _this = this;
    
 
-    var request = "http://127.0.0.1:5000/api/search?term=government";
+    var request = "/api/search?term="+getParameterByName("term");
 
     console.log(request);
     this.serverRequest =
@@ -51,8 +51,6 @@ var App = React.createClass({
           _this.setState({locations: locations});
           _this.setState({missions: missions});
           _this.setState({agencies: agencies});
-
-
         })
 
   },
@@ -63,35 +61,92 @@ var App = React.createClass({
 
   render: function() {
     var agencies = this.state.agencies;
-    const ReactTable = window.ReactTable.default;
+    var launches = this.state.launches;
+    var locations = this.state.locations;
+    var missions = this.state.missions;
+    var name = "name";
+    var highlight_list = "highlight_list";
+    var Table = Reactable.Table,
+      Thead = Reactable.Thead,
+      Th = Reactable.Th,
+      Tr = Reactable.Tr,
+      Td = Reactable.Td;
+      unsafe = Reactable.unsafe;
 
-    const columns = [{
-      header: 'Agencies',
-      columns: [{
-        header: 'Name',
-        accessor: 'name'
-      }, {
-        header: 'Context',
-        id: 'context',
-        accessor: 'highlight_list'
-      }]
-    }]
-
-    return <div>
-      <ReactTable getTdProps={(state, rowInfo, column, instance) => {
-    return {
-      onClick: e => {
-        console.log('A Td Element was clicked!')
-        console.log('it produced this event:', e)
-        console.log('It was in this column:', column)
-        console.log('It was in this row:', rowInfo)
-        console.log('It was in this table instance:', instance)
-      }
-    }
-  }} pageSize={10} className="-striped -highlight"
-        data={agencies}
-        columns={columns}
-      ></ReactTable>
+    return <div className="col-md-10 col-md-offset-1">
+          <h1> Search Results </h1>
+          <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Agency</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {agencies.map(function(obj) {
+            return <Tr>
+                <Td column="name" >
+                   <a href={"/agencies?id=" + obj["id"]}>{obj[name]}</a>
+                </Td>
+                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+            </Tr>
+          })}
+      </Table>
+      <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Launch</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {launches.map(function(obj) {
+            return <Tr>
+                <Td column="name">
+                   <a href={"/launches?id=" + obj["id"]}>{obj[name]}</a>
+                </Td>
+                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+            </Tr>
+          })}
+      </Table>
+      <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Location</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {locations.map(function(obj) {
+            return <Tr>
+                <Td column="name">
+                   <a href={"/locations?id=" + obj["id"]}>{obj[name]}</a>
+                </Td>
+                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+            </Tr>
+          })}
+      </Table>
+      <Table className="table" id="table" itemsPerPage={10} pageButtonLimit={5}>
+          <Thead>
+            <Th column="name">
+              <strong className="name-header">Mission</strong>
+            </Th>
+            <Th column="age">
+              <strong className="age-header">Context</strong>
+            </Th>
+          </Thead>
+          {missions.map(function(obj) {
+            return <Tr>
+                <Td column="name">
+                   <a href={"/missions?id=" + obj["id"]}>{obj[name]}</a>
+                </Td>
+                <Td column="age">{unsafe(obj[highlight_list][0])}</Td>
+            </Tr>
+          })}
+      </Table>
     </div>
   }
 });
@@ -106,10 +161,18 @@ drawInstance();
 
 </script>
 <script>
-    var ReactTable = window.ReactTable.default
-  </script>
-
-
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+</script>
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
 <!-- In base.html, I've written where the content will be put in for the html files that extend base.html. Look at index.html for an example-->
 
