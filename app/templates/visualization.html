@@ -64,7 +64,7 @@ var div = d3.select("body")
           var key = "&key=AIzaSyCJVhsaBADZP4pLfPiKOQlO7Tj9LfcCAzQ"
           var beerSon = JSON.parse(beerInfo.response);
           d3.json("../static/json/us-states-abbrev.json", function(json) {
-	        for(var i = 0; i < 40; i++) {//beerSon.result.length; i++) {
+	        for(var i = 0; i < beerSon.result.length; i++) {
 	            var result = beerSon.result[i].address;
 	            var replaced = result.split(' ').join('+');
 	            var specificAddress = httpAddress + replaced + key;
