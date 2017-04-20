@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="../static/images/favicon.png">
 
     <title>It's Launch Time!</title>
 
@@ -51,17 +51,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{url_for('index')}}">itslaunchti.me</a>
         </div>
+        <a class="home" href="{{url_for('index')}}">itslaunchti.me</a>
         <div id="navbar" class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li><a href="{{url_for('models', model='/agencies')}}">AGENCIES</a></li>
-            <li><a href="{{url_for('models',model='/launches')}}">LAUNCHES</a></li>
-            <li><a href="{{url_for('models',model='/locations')}}">LOCATIONS</a></li>
-            <li><a href="{{url_for('models',model='/missions')}}">MISSIONS</a></li>
-            <li><a href="{{url_for('about')}}">ABOUT</a></li>
-            <li><a href="{{url_for('visualization')}}">VISUALIZATION</a>
+            <li><a class="links" href="{{url_for('models', model='/agencies')}}">AGENCIES</a></li>
+            <li><a class="links" href="{{url_for('models',model='/launches')}}">LAUNCHES</a></li>
+            <li><a class="links" href="{{url_for('models',model='/locations')}}">LOCATIONS</a></li>
+            <li><a class="links" href="{{url_for('models',model='/missions')}}">MISSIONS</a></li>
+            <li><a class="links" href="{{url_for('visualization')}}">VISUALIZATION</a></li>
             <li><a href="{{url_for('search')}}">SEARCH</a></li>
+            <li><a class="links" href="{{url_for('about')}}">ABOUT</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

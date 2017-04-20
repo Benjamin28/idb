@@ -22,7 +22,17 @@ body {
 	width: 100%;
 	max-width: none;
 }
+.home {
+	vertical-align: middle;
+	line-height: 76px;
+	font-size: 23px;
+	color: white;
+}
 
+.home:hover {
+	color: white;
+	text-decoration: none;
+}
 .container {
 	padding: 0;
 }
