@@ -37,6 +37,10 @@ def mission_instance():
 def search():
 	return render_template("search.html")
 
+@app.route('/data_visualization')
+def data_visualization():
+	return render_template("test.html")
+
 @app.route('/about/testResults', methods=['GET'])
 def getTestResults():
 	path = os.path.dirname(os.path.realpath(__file__))

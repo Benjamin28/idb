@@ -35,7 +35,7 @@ versions:
 	# this does nothing right now
 
 log:
-	git log > IDB.log
+	git log > IDB3.log
 
 restart:
 	service apache2 reload
