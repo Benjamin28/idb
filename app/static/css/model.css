@@ -239,23 +239,22 @@ div.tooltip {
 
 input[type=text] {
      width:200px;
-      margin:50px; 
+     margin:5px;
+     margin-top: 15px; 
      box-sizing: border-box;
-     border: 2px solid #ccc;
-     border-radius: 4px;
+     border: 0px solid #ccc;
+     border-radius: 2px;
      font-size: 16px;
      background-color: white;
      background-image: url('searchicon.png');
      background-position: 10px 10px; 
      background-repeat: no-repeat;
-     padding: 12px 20px 12px 40px;
+     padding: 12px 20px 12px 12px;
      -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
  }
 
- .highlight {
-    color:blue;
- }
 
  .custom-pagination > .reactable-current-page {
     color: #fff;
