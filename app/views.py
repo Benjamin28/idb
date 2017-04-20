@@ -198,7 +198,7 @@ def api_search():
 			search_terms_list = search_terms.split("+")
 			and_str = "and_" + m_str
 			or_str = "or_" + m_str
-			return_dict["and_search"][and_str] = search_and(m, search_terms)
+			return_dict["and_search"][and_str] = search_and(m, search_terms.replace("+", " "))
 			return_dict["or_search"][or_str] = search_or(m, search_terms_list)
 			
 			# return_dict["and_search"][m_str] = search_and(m, search_terms)
