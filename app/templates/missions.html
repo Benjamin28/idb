@@ -10,7 +10,7 @@
     <div class="col-sm-3">
       <ul class="list-unstyled">
         <li>
-          <h3 class="filter">Mission Type</h3>
+          <h3>Mission Type</h3>
           <form>
             <div>
               <label><input type="checkbox" id="ESbox" value="Earth Science">Earth Science</label>
@@ -51,12 +51,9 @@
             <div>
               <label><input type="checkbox" id="TFbox" value="Test Flight">Test Flight</label>
             </div>
-            <div>
-              <label><input type="checkbox" id="DRbox" value="Dedicated Rideshare">Dedicated Rideshare</label>
-            </div>
 
           </form>
-          <button href="javascript:void(0)" onclick="doFilter()" id="filter_button" class="btn btn-raised">Filter</button>
+          <button type="button" id="filter" onclick="doFilter()" class="btn btn-raised btn-default">Filter</button>
         </li>
     </div>
     <div class="col-sm-9">

@@ -5,6 +5,12 @@
 <script src="{{ url_for('static', filename='bower_components/react/react-dom.js') }}"></script>
 <script src="{{ url_for('static', filename='js/reactable.js') }}"></script>
 
+<style type="text/css">
+  .highlight {
+    color : #00BFA5;
+  }
+</style>
+
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
 {% endblock %}
 {% block content %}
@@ -284,7 +290,7 @@ function getParameterByName(name, url) {
         results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+    return decodeURIComponent(results[2].replace(/\+/g, "+"));
 }
 </script>
 
