@@ -36,10 +36,11 @@ var path = d3.geoPath()               // path generator that will convert GeoJSO
     
 // Define linear scale for output
 var color = d3.scaleLinear()
-		.domain([-1, 0, 1])
-         .range(["red", "white", "green"]);
+		 .domain([0, 1,  2,  3 , 4, 5])
+         .range(["gray", "pink", "lightblue", "lightgreen", "purple", "forestgreen"]);
 
-var legendText = ["Cities Lived", "States Lived", "States Visited", "Nada"];
+var legendText = [">= 5 breweries", "4 breweries", "3 breweries", "2 breweries", "1 brewery", "no breweries"];
+
 
 //Create SVG element and append map to the SVG
 var svg = d3.select("body")
@@ -62,7 +63,7 @@ var div = d3.select("body")
           var key = "&key=AIzaSyCJVhsaBADZP4pLfPiKOQlO7Tj9LfcCAzQ"
           var beerSon = JSON.parse(beerInfo.response);
           d3.json("../static/json/us-states-abbrev.json", function(json) {
-	        for(var i = 0; i < 40; i++) {
+	        for(var i = 0; i < 40; i++) {//beerSon.result.length; i++) {
 	            var result = beerSon.result[i].address;
 	            var replaced = result.split(' ').join('+');
 	            var specificAddress = httpAddress + replaced + key;
@@ -86,6 +87,7 @@ var div = d3.select("body")
 	         }
 
               setTimeout(function () {
+              		console.log("hello");
                   svg.selectAll("circle")
                   .data(array)
                   .enter()
@@ -138,27 +140,14 @@ var div = d3.select("body")
       .style("fill", function(d) {
       var value = 0;
       // Get data value
-      console.log(d.properties);
       if(d.properties != undefined)
       		value = parseInt(d.properties.breweries);
 
 		if (value >= 5)
-			return color(.7);
-
-		else if (value == 4)
-			return "rgb(215, 66, 244)";
-
-		else if(value == 3)
-			return "rgb(66, 244, 203)";
-
-		else if(value == 2)
-			return "rgb(61, 124, 219)";
-
-		else if(value == 1)
-			return color(-.6);
-
-		else
-			return "rgb(189, 195, 204)";
+			value = 5;
+      	if(!value)
+      		value = 0;
+		return color(value);
     });
 
     // Modified Legend Code from Mike Bostock: http://bl.ocks.org/mbostock/3888852
@@ -166,11 +155,11 @@ var div = d3.select("body")
                 .attr("class", "legend")
               .attr("width", 140)
               .attr("height", 200)
-              .selectAll("g")
-              .data(color.domain().slice().reverse())
-              .enter()
-              .append("g")
-              .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+	              .selectAll("g")
+	              .data(color.domain().slice().reverse())
+	              .enter()
+	              .append("g")
+	              .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
         legend.append("rect")
             .attr("width", 18)
@@ -183,6 +172,15 @@ var div = d3.select("body")
               .attr("y", 9)
               .attr("dy", ".35em")
               .text(function(d) { return d; });
+      });
+    });
+
+
+//});
+</script>
+
+</div>
+{% endblock %}; });
       });
     });
 
