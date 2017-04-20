@@ -5,11 +5,35 @@
 <script src="{{ url_for('static', filename='bower_components/react/react-dom.js') }}"></script>
 <script src="{{ url_for('static', filename='js/reactable.js') }}"></script>
 
+<style> 
+ input[type=text] {
+     width: 130px;
+     box-sizing: border-box;
+     border: 2px solid #ccc;
+     border-radius: 4px;
+     font-size: 16px;
+     background-color: white;
+     background-image: url('searchicon.png');
+     background-position: 10px 10px; 
+     background-repeat: no-repeat;
+     padding: 12px 20px 12px 40px;
+     -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+ }
+ 
+ input[type=text]:focus {
+     width: 100%;
+ }
+ </style>
+
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
 {% endblock %}
 {% block content %}
 
 <div id="root">
+ <form id="searchbar">
+   <input type="text" name="term" placeholder="Search..">
+ </form>
   <h1> Search Results </h1>
   <div id="table"></div>
 </div>
@@ -283,16 +307,7 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 </script>
-<script type="text/javascript">
-function onoff(){
-  currentvalue = document.getElementById('onoff').value;
-  if(currentvalue == "Off"){
-    document.getElementById("onoff").value="On";
-  }else{
-    document.getElementById("onoff").value="Off";
-  }
-}
-</script>
+
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
 <!-- In base.html, I've written where the content will be put in for the html files that extend base.html. Look at index.html for an example-->
 
