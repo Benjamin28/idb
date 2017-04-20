@@ -3,8 +3,9 @@
 {% block styles %}
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/model.css') }}">
 {% endblock %}
+
 {% block content %}
-<div>
+
 <script src="http://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript">
 
@@ -63,7 +64,7 @@ var div = d3.select("body")
           var key = "&key=AIzaSyCJVhsaBADZP4pLfPiKOQlO7Tj9LfcCAzQ"
           var beerSon = JSON.parse(beerInfo.response);
           d3.json("../static/json/us-states-abbrev.json", function(json) {
-	        for(var i = 0; i < 40; i++) {//beerSon.result.length; i++) {
+	        for(var i = 0; i < beerSon.result.length; i++) {
 	            var result = beerSon.result[i].address;
 	            var replaced = result.split(' ').join('+');
 	            var specificAddress = httpAddress + replaced + key;
@@ -176,17 +177,6 @@ var div = d3.select("body")
     });
 
 
-//});
 </script>
 
-</div>
-{% endblock %}; });
-      });
-    });
-
-
-//});
-</script>
-
-</div>
 {% endblock %}
