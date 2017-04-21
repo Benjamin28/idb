@@ -50,6 +50,11 @@ unittest:
 unittestReturn:
 	python3 ./tests.py &> testResults
 
+format:
+	autopep8 -i  tests.py
+	autopep8 -i  get.py
+	autopep8 -i  app/views.py
+
 unittestClean:
 	rm testResults
 
