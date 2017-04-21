@@ -127,7 +127,7 @@ var App = React.createClass({
     }
     var orderName = getParameterByName('orderBy');
     if(orderName == null){
-      orderName = 'name'; //default
+      orderName = 'Location'; //default
     }
 
     var statuses = getParameterByName('status');
@@ -137,7 +137,7 @@ var App = React.createClass({
 
     var order = getParameterByName('order');
     if(!order){
-      order = "asc";
+      order = "desc";
     }
 
     var request = "/api/launches?page=" + pageNum
