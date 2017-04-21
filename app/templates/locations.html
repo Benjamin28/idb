@@ -16,55 +16,56 @@
           <h3 class="filter">Country Code</h3>
           <form>
             <div class="checkbox">
-              <label><input type="checkbox" id="chnbox" value="CHN">CHN</label>
+              <label><input type="checkbox" id="CHN" value="CHN">CHN</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="dzabox" value="DZA">DZA</label>
+              <label><input type="checkbox" id="DZA" value="DZA">DZA</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="gufbox" value="GUF">GUF</label>
+              <label><input type="checkbox" id="GUF" value="GUF">GUF</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="indbox" value="IND">IND</label>
+              <label><input type="checkbox" id="IND" value="IND">IND</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="irnbox" value="IRN">IRN</label>
+              <label><input type="checkbox" id="IRN" value="IRN">IRN</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="isrbox" value="ISR">ISR</label>
+              <label><input type="checkbox" id="ISR" value="ISR">ISR</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="jpnbox" value="JPN">JPN</label>
+              <label><input type="checkbox" id="JPN" value="JPN">JPN</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="kazbox" value="KAZ">KAZ</label>
+              <label><input type="checkbox" id="KAZ" value="KAZ">KAZ</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="kenbox" value="KEN">KEN</label>
+              <label><input type="checkbox" id="KEN" value="KEN">KEN</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="korbox" value="KOR">KOR</label>
+              <label><input type="checkbox" id="KOR" value="KOR">KOR</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="nzlbox" value="NZL">NZL</label>
+              <label><input type="checkbox" id="NZL" value="NZL">NZL</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="prkbox" value="PRK">PRK</label>
+              <label><input type="checkbox" id="PRK" value="PRK">PRK</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="rusbox" value="RUS">RUS</label>
+              <label><input type="checkbox" id="RUS" value="RUS">RUS</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="unkbox" value="UNK">UNK</label>
+              <label><input type="checkbox" id="UNK" value="UNK">UNK</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="usabox" value="USA">USA</label>
+              <label><input type="checkbox" id="USA" value="USA">USA</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="rmibox" value="rmi">RMI</label>
+              <label><input type="checkbox" id="rmi" value="rmi">RMI</label>
             </div>
           </form>
           <button href="javascript:void(0)" onclick="doFilter()" id="filter_button" class="btn btn-raised">Filter</button>
+          <button href="javascript:void(0)" onclick="clearFilter()" id="clear_button" class="btn btn-raised">Reset</button>
         </li>
     </div>
     <div class="col-sm-9">
@@ -228,12 +229,23 @@ function drawTables(numTables){
     );
 
   }
+
+  checkbox();
 }
 drawTables(12);
 console.log("https://launchlibrary.net/1.2/location?offset=" + getParameterByName('page'))
 </script>
 
 <script>
+
+function checkbox(){
+  var options = getParameterByName('countryCode');
+  if(options){
+    options.split("+").forEach(function(item){
+      document.getElementById(item).checked = true;
+    })
+  }
+}
 
 function totalPageNum(num) {
   var total = 3;
@@ -286,6 +298,9 @@ function doFilter(){
   getNextPage(finalString, true);
 }
 
+function clearFilter(){
+  getNextPage("", true);
+}
 
 function getNextPage(ccString, filter) {
     var pageNum = getParameterByName('page');

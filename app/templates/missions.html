@@ -13,47 +13,48 @@
           <h3>Mission Type</h3>
           <form>
             <div class="checkbox">
-              <label><input type="checkbox" id="ESbox" value="Earth Science">Earth Science</label>
+              <label><input type="checkbox" id="Earth Science" value="Earth Science">Earth Science</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="PSbox" value="Planetary Science">Planetary Science</label>
+              <label><input type="checkbox" id="Planetary Science" value="Planetary Science">Planetary Science</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Abox" value="Astrophysics">Astrophysics</label>
+              <label><input type="checkbox" id="Astrophysics" value="Astrophysics">Astrophysics</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Hbox" value="Heliophysics">Heliophysics</label>
+              <label><input type="checkbox" id="Heliophysics" value="Heliophysics">Heliophysics</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="HEbox" value="Human Exploration">Human Exploration</label>
+              <label><input type="checkbox" id="Human Exploration" value="Human Exploration">Human Exploration</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="REbox" value="Robotic Exploration">Robotic Exploration</label>
+              <label><input type="checkbox" id="Robotic Exploration" value="Robotic Exploration">Robotic Exploration</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="GTSbox" value="Government/Top Secret">Government/Top Secret</label>
+              <label><input type="checkbox" id="Government/Top Secret" value="Government/Top Secret">Government/Top Secret</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Tbox" value="Tourism">Tourism</label>
+              <label><input type="checkbox" id="Tourism" value="Tourism">Tourism</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Ubox" value="Unknown">Unknown</label>
+              <label><input type="checkbox" id="Unknown" value="Unknown">Unknown</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Cbox" value="Communications">Communications</label>
+              <label><input type="checkbox" id="Communications" value="Communications">Communications</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Rbox" value="Resupply">Resupply</label>
+              <label><input type="checkbox" id="Resupply" value="Resupply">Resupply</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="Sbox" value="Suborbital">Suborbital</label>
+              <label><input type="checkbox" id="Suborbital" value="Suborbital">Suborbital</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="TFbox" value="Test Flight">Test Flight</label>
+              <label><input type="checkbox" id="Test Flight" value="Test Flight">Test Flight</label>
             </div>
 
           </form>
           <button href="javascript:void(0)" onclick="doFilter()" id="filter_button" class="btn btn-raised">Filter</button>
+          <button href="javascript:void(0)" onclick="clearFilter()" id="clear_button" class="btn btn-raised">Reset</button>
         </li>
     </div>
     <div class="col-sm-9">
@@ -213,6 +214,8 @@ function drawTables(numTables){
       document.getElementById('col'+(i+1))
     );
   }
+
+  checkbox();
 }
 drawTables(12);
 console.log("https://launchlibrary.net/1.2/mission?offset=" + getParameterByName('page'))
@@ -268,6 +271,19 @@ function doFilter(){
   });
   finalString = stringInputs.substring(0, stringInputs.length-1)
   getNextPage(finalString, true);
+}
+
+function clearFilter(){
+  getNextPage("", true);
+}
+
+function checkbox(){
+  var options = getParameterByName('typeName');
+  if(options){
+    options.split("+").forEach(function(item){
+      document.getElementById(item).checked = true;
+    })
+  }
 }
 
 function getNextPage(ccString, filter) {

@@ -16,19 +16,20 @@
           <h3 class="filter">Status</h3>
           <form>
             <div class="checkbox">
-              <label><input type="checkbox" id="sbox" value="SUCCESS">Success</label>
+              <label><input type="checkbox" id="SUCCESS" value="SUCCESS" autocomplete="off">Success</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="fbox" value="FAIL">Fail</label>
+              <label><input type="checkbox" id="FAIL" value="FAIL">Fail</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="gbox" value="GREEN">Green</label>
+              <label><input type="checkbox" id="GREEN" value="GREEN">Green</label>
             </div>
             <div class="checkbox">
-              <label><input type="checkbox" id="rbox" value="RED">Red</label>
+              <label><input type="checkbox" id="RED" value="RED">Red</label>
             </div>
           </form>
           <button href="javascript:void(0)" onclick="doFilter()" id="filter_button" class="btn btn-raised">Filter</button>
+          <button href="javascript:void(0)" onclick="clearFilter()" id="clear_button" class="btn btn-raised">Reset</button>
         </li>
       </ul>
     </div>
@@ -159,7 +160,9 @@ var App = React.createClass({
           _this.setState({launch_status: cc});
           _this.setState({ids: id})
 
-        })
+        });
+
+
 
   },
 
@@ -188,6 +191,8 @@ function drawTables(numTables){
       document.getElementById('col'+(i+1))
     );
   }
+
+  checkbox();
 }
 drawTables(12);
 
@@ -244,6 +249,10 @@ function doFilter(){
   });
   finalString = stringInputs.substring(0, stringInputs.length-1)
   getNextPage(finalString, true);
+}
+
+function clearFilter(){
+  getNextPage("", true);
 }
 
 
@@ -330,6 +339,15 @@ function sortPage(value, order){
   window.location.href = newLink;
 }
 
+function checkbox(){
+  var options = getParameterByName('status');
+  if(options){
+    options.split("+").forEach(function(item){
+      document.getElementById(item).checked = true;
+    })
+  }
+}
+
 var next = document.getElementById("nextButton");
 next.addEventListener("click", getNextPage);
 
@@ -353,6 +371,8 @@ sort3.addEventListener("click", function(){return sortPage("rocket", 'asc');});
 
 var sort3_2 = document.getElementById("rd");
 sort3_2.addEventListener("click", function(){return sortPage("rocket", "desc");});
+
+
 
 </script>
 
