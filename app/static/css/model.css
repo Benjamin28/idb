@@ -78,9 +78,15 @@ h1 {
 h3.filter {
   color: #00BFA5;
 }
-.item {
-	padding: 10px;
 
+.item {
+  padding: 10px;
+}
+.scrollable {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
 	-webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 1.5s; /* Firefox < 16 */
         -ms-animation: fadein 1.5s; /* Internet Explorer */
@@ -194,6 +200,7 @@ h1.header{
 .item .thumbnail .picflags {
 	height: 150px;
 }
+
 pre {
 	margin-bottom: 0;
 }

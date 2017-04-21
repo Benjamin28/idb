@@ -63,7 +63,7 @@ var App = React.createClass({
 			<div className="dropdown dropdown-text">
 		        <button className="btn btn-raised dropdown-toggle" type="button" data-toggle="dropdown">Choose One
 		          <span className="caret"></span></button>
-		        <ul className="dropdown-menu">
+		        <ul className="dropdown-menu scrollable">
 		          {launch_keys.map(function(key) {
 		              return <li><a href={"/launches?id=" + key}>{launch_dict[key]}</a></li>;
 		            })}
