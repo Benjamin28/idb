@@ -5,8 +5,12 @@
 {% endblock %}
 
 {% block content %}
-<h2> Breweries in States</h2>
-<div>Data courtesy of www.pursuitofhoppyness.me</div>
+
+<div class="container main">
+<h2 class="center">Breweries in States</h2>
+<h3 class="center"><span class="link">Data courtesy of www.pursuitofhoppyness.me</span></h3>
+</div>
+
 <script src="http://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript">
 
@@ -45,13 +49,14 @@ var legendText = [">= 5 breweries", "4 breweries", "3 breweries", "2 breweries",
 
 
 //Create SVG element and append map to the SVG
-var svg = d3.select("body")
+var svg = d3.select(".main")
       .append("svg")
+      .attr("class", "map")
       .attr("width", width)
       .attr("height", height);
         
 // Append Div for tooltip to SVG
-var div = d3.select("body")
+var div = d3.select(".main")
         .append("div")   
         .attr("class", "tooltip")               
         .style("opacity", 0);
@@ -153,8 +158,9 @@ var div = d3.select("body")
     });
 
     // Modified Legend Code from Mike Bostock: http://bl.ocks.org/mbostock/3888852
-    var legend = d3.select("body").append("svg")
+    var legend = d3.select(".main").append("svg")
                 .attr("class", "legend")
+                .attr("class", "map")
               .attr("width", 140)
               .attr("height", 200)
 	              .selectAll("g")

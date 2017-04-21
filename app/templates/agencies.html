@@ -12,22 +12,22 @@
         <li>
           <h3 class="filter">Agency Type</h3>
           <form>
-            <div>
+            <div class="checkbox">
               <label><input type="checkbox" id="Government" value="Government">Government</label>
             </div>
-            <div>
+            <div class="checkbox">
               <label><input type="checkbox" id="Multinational" value="Multinational">Multinational</label>
             </div>
-            <div>
+            <div class="checkbox">
               <label><input type="checkbox" id="Commercial" value="Commercial">Commercial</label>
             </div>
-            <div>
+            <div class="checkbox">
               <label><input type="checkbox" id="Educational" value="Educational">Educational</label>
             </div>
-            <div>
+            <div class="checkbox">
               <label><input type="checkbox" id="Private" value="Private">Private</label>
             </div>
-            <div>
+            <div class="checkbox">
               <label><input type="checkbox" id="Unknown" value="Unknown">Unknown</label>
             </div>
           </form>
@@ -337,6 +337,9 @@ sort2.addEventListener("click", function(){return sortPage("countryCode", 'asc')
 var sort2_2 = document.getElementById("ccd");
 sort2_2.addEventListener("click", function(){return sortPage("countryCode", "desc");});
 
+</script>
+<script>
+$.material.init();
 </script>
 
 <!-- Above lines of code says that this html file will take all the HTML from base.html. -->
