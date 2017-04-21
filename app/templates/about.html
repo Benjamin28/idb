@@ -5,9 +5,8 @@
 {% block content %}
 
     <div class="row">
-      <h1 class="featurette-heading text-center">ITSLAUNCHTI.ME</h1>
+      <h1 class="featurette-heading text-center"><span class="comment">ITS</span><span class="time">LAUNCHTI.ME</span></h1>
     </div>
-    <hr>  
  <div class="container marketing">
 
       <!-- Three columns of text below the carousel -->
@@ -123,9 +122,9 @@
                 <li>Data sources: <a href="https://launchlibrary.net/1.2/docs/api.html">Launch Library</a></li>
                 <li></li>
             </ul>
+      <hr>
       </div><!-- /.row -->
 
-      <hr>
       <div class="row featurette">
       <div class="Tools">
       <h2>Tools</h2>
@@ -138,10 +137,10 @@
                 <li>Postman: test api</li>
             </ul>
       </div>
+      <hr>
       </div><!-- /.row -->
 
 
-      <hr>
       <div class="row featurette">
         <div class="col-med-4">
         <div class="techreport">
@@ -168,6 +167,7 @@
               <li><a href="{{url_for('about', _anchor = 'partthree')}}">Connecting IP Address</a></li>
             </ul>
             <li><a href="{{url_for('about', _anchor = 'apiary')}}">Apiary</a></li>
+            <li><a href="{{url_for('about', _anchor = 'userstories')}}">User Stories</a></li>
           </ul>
           <hr>
           <h3 id="mission">Itslaunchti.me Mission Statement</h3>
@@ -224,6 +224,9 @@ The content loads dynamically based on the url of the page. If for example, I vi
 </p>
 <p>
 In the case of photographs, we use the Restcountries api to find the flag of a location or agency. We then embed it in the page. As for mission types, we use icons that describe the type of mission. The launches use a photo from the launch library api of the rocket itself.
+</p>
+<p>
+To display search results, we used Reactable to render the data tables. There are many other options for displaying tables, but this one has a convenient feature that allows you to pass in unescaped html code to directly style the contents of the table. This way, we could take in html code returned from our api that has been prepared already and put it directly into the table.
 </p>
 
 <hr>
@@ -285,6 +288,75 @@ Now, if you attempt to go to local/elastic dns server, it should show your websi
 <h3 id="apiary">Apiary</h3>
 <hr>
 <p>First, the owner of the github account on which the app resides must create an apiary account. The owner of the github account must create the apiary account because they are the only ones who have permission to link the apiary account to the github account. Now, fill in the Apiary example (polls) that they give you, but with information based on the API that you want to provide your users. You can mock test this API by using the console to the right, which allows you to fake a request to the API you specify with apiary. Apiary will return your mock data to you if the request had legitimate syntax; just be sure to change the "production" option under the request section to "mock server".</p>
+<h3 id="userstories">User Stories</h3>
+<hr>
+<p>
+We had trouble coming up with user stories. This part of the assignment only required that we add two new big features: The searching and the data visualization. We had to get very creative to come up with even 5 unique user stories. As a result, some of the user stories repeat different applications of the same new feature. We also documented the few features from the last phase that we had not completed to our satisfaction, and talked about how they could be improved. The team, however, got a lot out of making the cards. We tried to think about our website from the perspective of those who would use the service, which was an interesting thought exercise. My advice for future SWE classes (if they come to this website looking for advice on how to do this part of the assignment) is to cast votes separately, anonymously, then meet to discuss the different estimates. When you and your pair programming buddy are implementing the feature, have the person who isn’t driving first start a stopwatch and stop it when the feature is absolutely complete and pushed.
+</p>
+<ul>
+<hr>
+<p>
+<span class="time"> Estimated: 3 hrs | Actual: 4 hrs</span>
+<br>
+As someone implementing a visualization of Itslaunchti.me, I want to apply search terms in the api.
+</p>
+<p>
+<span class="time"> Estimated: 5 hrs | Actual: 5.5 hrs</span>
+<br>
+As someone who likes an Agency, I want to search for the agency and find them right away.<br>
+<span class="comment">This story required the prior implementation of the search API functionality. Making the front end to display search results proved to have a few challenges.
+</p>
+<p>
+<span class="time"> Estimated: 1 hr | Actual: 1 hr</span>
+<br>
+As a student in CS373, I want to find out how the user stories contributed to the creation of the project by reading the about page.<br>
+<span class="comment">This recursive user story represents something we wish we could do with the last semester’s user stories. It would make this phase much easier</span>
+</p>
+<p>
+<span class="time"> Estimated: 1hr | Actual: unfinished</span>
+<br>
+After filtering in a category, the user who forgot to check one box should be able to supplement their filter criteria without rechecking boxes they checked earlier.<br>
+<span class="comment">We decided that since this is not strictly required by the criteria of the assignment, we should focus our energy elsewhere.</span>
+</p>
+<p>
+<span class="time"> Estimated: 1 hr | Actual: 0.5 hrs</span>
+<br>
+As a millennial, I want the website to look as good on mobile as on PC.
+</p>
+<p>
+<span class="time"> Estimated: 5+3 (8) hrs | Actual: 10.5 hrs</span>
+<br>
+As a political consultant, I want to determine whether or not my customer can use agency statistics as a line of attack on his or her incumbent opponent. I need to find the launches per year via search and classify categorically by mission and location etc.<br>
+<span class="comment">Several of these are different use cases of the search function from earlier.</span>
+</p>
+<p>
+<span class="time"> Estimated: 2.5 hrs | Actual: unfinished</span>
+<br>
+As someone interested in rockets, I want to use the search bar to find launches with a particular rocket and look at images of the rocket.
+</p>
+<p>
+<span class="time"> Estimated: 4 hrs | Actual: 2 hrs</span>
+<br>
+As an aerospace engineer looking for a job, I want to look at all commercial and private agencies via filtering agencies and compare them on the types of missions that they perform.<br>
+<span class="comment">We were unable to finish filtering completely in the last phase. This story illustrates what we are most likely to use the site for.</span>
+</p>
+<p>
+<span class="time"> Estimated: 5+3 (8) hrs | Actual: 10.5 hrs</span>
+<br>
+As a space enthusiast, I want to find all missions to a certain destination via searching the missions.
+</p>
+<p>
+<span class="time"> Estimated: 5+3 (8) | hrs Actual: 10.5 hrs</span>
+<br>
+As a student, I want to be able to find a particular launch via search (E.g. Apolo 13).
+</p>
+<p>
+<span class="time"> Estimated: 3hrs | Actual: unfinished</span>
+<br>
+As a fan of a particular Agency, I want to see if they have any upcoming launches by sorting by time starting after today’s date.
+<br><span class="comment">Though this would be a very useful tool for most use cases, we decided against it.</span>
+</p>
+</ul>
 
           </div>
         </div>
